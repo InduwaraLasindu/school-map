@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Class Map & Prefect Directory</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --highlight: rgba(56, 189, 248, 0.4);
+            --highlight-border: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+
+        /* Glassmorphism Sidebar */
+        .sidebar {
+            width: 350px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent);
+        }
+
+        .class-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+
+        .class-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .class-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 3px;
+        }
+
+        .building-group {
+            margin-bottom: 15px;
+        }
+
+        .building-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        .class-item {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .class-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--glass-border);
+            transform: translateX(4px);
+        }
+
+        .class-item.active {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent);
+        }
+
+        .class-name { font-weight: 600; font-size: 0.95rem; }
+        .class-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* Main View Area */
+        .main-view {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .info-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none; /* Hidden until selection */
+            animation: fadeIn 0.4s ease;
+        }
+
+        .info-panel h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .info-badges { display: flex; gap: 10px; }
+        .badge {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .map-wrapper {
+            position: relative;
+            background: #fff; /* White bg for images */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden until selection */
+            align-self: flex-start; /* Keep image natural size */
+            max-width: 100%;
+        }
+
+        .map-wrapper img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* The dynamic highlight box */
+        #highlightBox {
+            position: absolute;
+            background-color: var(--highlight);
+            border: 3px solid var(--highlight-border);
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none;
+            z-index: 20;
+        }
+
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="header">
+            <h1>Campus Navigator</h1>
+            <p>Select a room to view floor mapping</p>
+        </div>
+        
+        <input type="text" id="searchInput" class="search-box" placeholder="Search for a class or room..." onkeyup="filterClasses()">
+
+        <div class="class-list" id="classListContainer">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <div class="main-view">
+        <div id="placeholder" class="placeholder">
+            <div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:15px; opacity: 0.5;">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <p>Select a class from the menu to locate it.</p>
+            </div>
+        </div>
+
+        <div id="infoPanel" class="info-panel">
+            <h2 id="roomTitle">Room Name</h2>
+            <div class="info-badges">
+                <div class="badge">🏢 <span id="roomBuilding">Building</span></div>
+                <div class="badge">📍 <span id="roomFloor">Level</span></div>
+                <div class="badge">🛡️ Prefect: <span id="roomPrefect">Name</span></div>
+            </div>
+        </div>
+
+        <div id="mapWrapper" class="map-wrapper">
+            <img id="floorImage" src="" alt="Floor Plan">
+            <div id="highlightBox"></div>
+        </div>
+    </div>
+
+    <script>
+        const roomData = [
+            // PRIMARY BUILDING - LEVEL 1
+            { id: "p1-1", name: "Sectional Head's Room", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:8, l:12, w:36, h:18} },
+            { id: "p1-2", name: "Dancing Room", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:26, l:12, w:36, h:18} },
+            { id: "p1-3", name: "Grade 1 F", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:44, l:12, w:36, h:18} },
+            { id: "p1-4", name: "Grade 1 G", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:62, l:12, w:36, h:14} },
+            { id: "p1-5", name: "Grade 1 A", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:76, l:12, w:36, h:14} },
+            { id: "p1-6", name: "Grade 1 E", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:26, l:50, w:36, h:18} },
+            { id: "p1-7", name: "Grade 1 D", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:44, l:50, w:36, h:18} },
+            { id: "p1-8", name: "Grade 1 C", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:62, l:50, w:36, h:14} },
+            { id: "p1-9", name: "Grade 1 B", bldg: "Primary Building", floor: "Level 1", pre: "Senudhi", img: "Primary section Floor Plan 2026-2027_1.jpg", rect: {t:76, l:50, w:36, h:14} },
+
+            // PRIMARY BUILDING - LEVEL 2
+            { id: "p2-1", name: "Religion Room / Library", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:8, l:12, w:36, h:18} },
+            { id: "p2-2", name: "Computer Lab", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:26, l:12, w:36, h:18} },
+            { id: "p2-3", name: "Grade 2 F", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:44, l:12, w:36, h:18} },
+            { id: "p2-4", name: "Grade 2 G", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:62, l:12, w:36, h:14} },
+            { id: "p2-5", name: "Grade 2 A", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:76, l:12, w:36, h:14} },
+            { id: "p2-6", name: "Grade 2 E", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:26, l:50, w:36, h:18} },
+            { id: "p2-7", name: "Grade 2 D", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:44, l:50, w:36, h:18} },
+            { id: "p2-8", name: "Grade 2 C", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:62, l:50, w:36, h:14} },
+            { id: "p2-9", name: "Grade 2 B", bldg: "Primary Building", floor: "Level 2", pre: "Hiruka", img: "Primary section Floor Plan 2026-2027_2.jpg", rect: {t:76, l:50, w:36, h:14} },
+
+            // PRIMARY BUILDING - LEVEL 3
+            { id: "p3-1", name: "Smart Classroom", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:8, l:12, w:36, h:18} },
+            { id: "p3-2", name: "Grade 3 E", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:26, l:12, w:36, h:18} },
+            { id: "p3-3", name: "Grade 3 F", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:44, l:12, w:36, h:18} },
+            { id: "p3-4", name: "Grade 3 G", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:62, l:12, w:36, h:14} },
+            { id: "p3-5", name: "Grade 3 H", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:76, l:12, w:36, h:14} },
+            { id: "p3-6", name: "Grade 3 D", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:26, l:50, w:36, h:18} },
+            { id: "p3-7", name: "Grade 3 C", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:44, l:50, w:36, h:18} },
+            { id: "p3-8", name: "Grade 3 B", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:62, l:50, w:36, h:14} },
+            { id: "p3-9", name: "Grade 3 A", bldg: "Primary Building", floor: "Level 3", pre: "Siheli", img: "Primary section Floor Plan 2026-2027_3.jpg", rect: {t:76, l:50, w:36, h:14} },
+
+            // PRIMARY BUILDING - LEVEL 4
+            { id: "p4-1", name: "Music Room", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:8, l:12, w:36, h:18} },
+            { id: "p4-2", name: "Grade 4 F", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:26, l:12, w:36, h:18} },
+            { id: "p4-3", name: "Grade 4 G", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:44, l:12, w:36, h:18} },
+            { id: "p4-4", name: "Grade 4 H", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:62, l:12, w:36, h:14} },
+            { id: "p4-5", name: "Grade 4 A", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:76, l:12, w:36, h:14} },
+            { id: "p4-6", name: "Grade 4 E", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:26, l:50, w:36, h:18} },
+            { id: "p4-7", name: "Grade 4 D", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:44, l:50, w:36, h:18} },
+            { id: "p4-8", name: "Grade 4 C", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:62, l:50, w:36, h:14} },
+            { id: "p4-9", name: "Grade 4 B", bldg: "Primary Building", floor: "Level 4", pre: "Kenul", img: "Primary section Floor Plan 2026-2027_4.jpg", rect: {t:76, l:50, w:36, h:14} },
+
+            // MAIN BUILDING - LEVEL -1
+            { id: "m-1-1", name: "Book Shop", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:10, l:45, w:42, h:10} },
+            { id: "m-1-2", name: "Dancing Room (Main)", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:20, l:45, w:42, h:15} },
+            { id: "m-1-3", name: "Western Music Room", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:35, l:45, w:42, h:10} },
+            { id: "m-1-4", name: "Lift Element", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:45, l:45, w:42, h:15} },
+            { id: "m-1-5", name: "Store Room", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:60, l:45, w:42, h:15} },
+            { id: "m-1-6", name: "Eastern Music Room", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:77, l:6, w:23, h:10} },
+            { id: "m-1-7", name: "Art Room", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:87, l:6, w:23, h:10} },
+            { id: "m-1-8", name: "Lower Nursery - B", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:77, l:30, w:24, h:10} },
+            { id: "m-1-9", name: "Dancing Room (Pre School)", bldg: "Main Building", floor: "Level -1", pre: "Vinura / Pinidu (Lobby)", img: "Floor Plan 2026-2027_1.jpg", rect: {t:87, l:30, w:24, h:10} },
+
+            // MAIN BUILDING - LEVEL -2
+            { id: "m-2-1", name: "Lower Nursery - A", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:11, l:8, w:26, h:13} },
+            { id: "m-2-2", name: "Nursery - A", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:24, l:8, w:26, h:13} },
+            { id: "m-2-3", name: "Nursery - B", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:37, l:8, w:26, h:13} },
+            { id: "m-2-4", name: "Nursery - C", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:50, l:8, w:26, h:13} },
+            { id: "m-2-5", name: "Nursery - E", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:11, l:37, w:26, h:13} },
+            { id: "m-2-6", name: "Nursery - D", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:24, l:37, w:26, h:13} },
+            { id: "m-2-7", name: "Wash Rooms", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:50, l:37, w:26, h:13} },
+            { id: "m-2-8", name: "Pre Grade - F", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:70, l:7, w:22, h:11} },
+            { id: "m-2-9", name: "Religious Activity Room", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:81, l:7, w:22, h:11} },
+            { id: "m-2-10", name: "Nursery - F", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:70, l:30, w:22, h:22} },
+            { id: "m-2-11", name: "5-C", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:70, l:53, w:12, h:11} },
+            { id: "m-2-12", name: "5-D", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:81, l:53, w:12, h:11} },
+            { id: "m-2-13", name: "5-B", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:70, l:66, w:10, h:22} },
+            { id: "m-2-14", name: "5-A", bldg: "Main Building", floor: "Level -2", pre: "Unassigned", img: "Floor Plan 2026-2027_2.jpg", rect: {t:70, l:77, w:10, h:22} },
+
+            // MAIN BUILDING - LEVEL -3
+            { id: "m-3-1", name: "Examination Unit", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:11, l:8, w:26, h:18} },
+            { id: "m-3-2", name: "Admissions Office", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:29, l:8, w:26, h:15} },
+            { id: "m-3-3", name: "Lobby", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:44, l:8, w:55, h:20} },
+            { id: "m-3-4", name: "Principal's Office", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:11, l:37, w:26, h:24} },
+            { id: "m-3-5", name: "Accounts Unit", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:70, l:7, w:22, h:7} },
+            { id: "m-3-6", name: "Store Room for Labs", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:77, l:7, w:22, h:7} },
+            { id: "m-3-7", name: "Headmistress Office", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:84, l:7, w:22, h:8} },
+            { id: "m-3-8", name: "Biology Lab", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:70, l:30, w:22, h:22} },
+            { id: "m-3-9", name: "8-A", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:70, l:53, w:12, h:11} },
+            { id: "m-3-10", name: "8-B", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:81, l:53, w:12, h:11} },
+            { id: "m-3-11", name: "7-B", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:70, l:66, w:10, h:22} },
+            { id: "m-3-12", name: "7-A", bldg: "Main Building", floor: "Level -3", pre: "Matheesha", img: "Floor Plan 2026-2027_3.jpg", rect: {t:70, l:77, w:10, h:22} },
+
+            // MAIN BUILDING - LEVEL -4
+            { id: "m-4-1", name: "Pre-Grade E", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:11, l:8, w:26, h:13} },
+            { id: "m-4-2", name: "Pre-Grade D", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:24, l:8, w:26, h:13} },
+            { id: "m-4-3", name: "Pre-Grade C", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:37, l:8, w:26, h:13} },
+            { id: "m-4-4", name: "Pre-Grade B", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:50, l:8, w:26, h:13} },
+            { id: "m-4-5", name: "Computer Lab - 1", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:11, l:37, w:26, h:19} },
+            { id: "m-4-6", name: "Staff Room", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:30, l:37, w:26, h:8} },
+            { id: "m-4-7", name: "Pre-Grade A", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:50, l:37, w:26, h:13} },
+            { id: "m-4-8", name: "Physics Lab", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:70, l:7, w:22, h:22} },
+            { id: "m-4-9", name: "Chemistry Lab", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:70, l:30, w:22, h:22} },
+            { id: "m-4-10", name: "Chess Room", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:70, l:53, w:12, h:11} },
+            { id: "m-4-11", name: "Wash Room", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:81, l:53, w:12, h:11} },
+            { id: "m-4-12", name: "5-E", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:70, l:66, w:10, h:22} },
+            { id: "m-4-13", name: "5-F", bldg: "Main Building", floor: "Level -4", pre: "Sithuka, Induwara", img: "Floor Plan 2026-2027_4.jpg", rect: {t:70, l:77, w:10, h:22} },
+
+            // MAIN BUILDING - LEVEL -5
+            { id: "m-5-1", name: "Form III-A", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:11, l:8, w:26, h:13} },
+            { id: "m-5-2", name: "Form III-B", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:24, l:8, w:26, h:13} },
+            { id: "m-5-3", name: "Form III-C", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:37, l:8, w:26, h:13} },
+            { id: "m-5-4", name: "Form III-D", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:50, l:8, w:26, h:13} },
+            { id: "m-5-5", name: "Form 6-A", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:11, l:37, w:26, h:13} },
+            { id: "m-5-6", name: "Form 6-B", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:24, l:37, w:26, h:13} },
+            { id: "m-5-7", name: "Book Stores", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:49, l:37, w:26, h:6} },
+            { id: "m-5-8", name: "Wash Room", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:55, l:37, w:26, h:7} },
+            { id: "m-5-9", name: "Form II-B", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:70, l:7, w:17, h:11} },
+            { id: "m-5-10", name: "Form II-A", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:81, l:7, w:17, h:11} },
+            { id: "m-5-11", name: "Form II-C", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:70, l:25, w:24, h:11} },
+            { id: "m-5-12", name: "Form II-D", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:81, l:25, w:24, h:11} },
+            { id: "m-5-13", name: "EDX - I", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:70, l:50, w:13, h:11} },
+            { id: "m-5-14", name: "Speech & Drama Room", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:81, l:50, w:13, h:11} },
+            { id: "m-5-15", name: "Form I-B", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:70, l:64, w:9, h:22} },
+            { id: "m-5-16", name: "Form I-A", bldg: "Main Building", floor: "Level -5", pre: "Nabeeha, Afiq", img: "Floor Plan 2026-2027_5.jpg", rect: {t:70, l:74, w:10, h:22} },
+
+            // MAIN BUILDING - LEVEL -6
+            { id: "m-6-1", name: "Library", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:11, l:8, w:26, h:26} },
+            { id: "m-6-2", name: "10 - A", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:38, l:8, w:26, h:13} },
+            { id: "m-6-3", name: "10 - B", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:51, l:8, w:26, h:12} },
+            { id: "m-6-4", name: "11 - B", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:11, l:37, w:26, h:13} },
+            { id: "m-6-5", name: "9", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:24, l:37, w:26, h:13} },
+            { id: "m-6-6", name: "11 - A", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:51, l:37, w:26, h:12} },
+            { id: "m-6-7", name: "Form V-B", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:70, l:7, w:17, h:11} },
+            { id: "m-6-8", name: "V-A", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:81, l:7, w:17, h:11} },
+            { id: "m-6-9", name: "Form V-C", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:70, l:25, w:24, h:11} },
+            { id: "m-6-10", name: "Computer Lab - 2", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:81, l:25, w:24, h:11} },
+            { id: "m-6-11", name: "Form IV-A", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:70, l:50, w:13, h:11} },
+            { id: "m-6-12", name: "Smart Classroom (Main)", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:81, l:50, w:13, h:11} },
+            { id: "m-6-13", name: "Form IV-B", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:70, l:64, w:9, h:22} },
+            { id: "m-6-14", name: "Form IV-C", bldg: "Main Building", floor: "Level -6", pre: "Siyumi, Thehansa", img: "Floor Plan 2026-2027_6.jpg", rect: {t:70, l:74, w:10, h:22} },
+
+            // MAIN BUILDING - LEVEL -7
+            { id: "m-7-1", name: "Auditorium", bldg: "Main Building", floor: "Level -7", pre: "Unassigned", img: "Floor Plan 2026-2027_7.jpg", rect: {t:11, l:6, w:31, h:52} },
+            { id: "m-7-2", name: "Grade 13", bldg: "Main Building", floor: "Level -7", pre: "Unassigned", img: "Floor Plan 2026-2027_7.jpg", rect: {t:46, l:38, w:13, h:17} },
+            { id: "m-7-3", name: "Grade 12", bldg: "Main Building", floor: "Level -7", pre: "Unassigned", img: "Floor Plan 2026-2027_7.jpg", rect: {t:46, l:51, w:13, h:17} },
+            { id: "m-7-4", name: "Cambridge AL-2", bldg: "Main Building", floor: "Level -7", pre: "Unassigned", img: "Floor Plan 2026-2027_7.jpg", rect: {t:70, l:7, w:23, h:11} },
+            { id: "m-7-5", name: "Cambridge AL-1", bldg: "Main Building", floor: "Level -7", pre: "Unassigned", img: "Floor Plan 2026-2027_7.jpg", rect: {t:70, l:30, w:26, h:11} }
+        ];
+
+        const container = document.getElementById('classListContainer');
+        
+        // Group data by Building -> Floor
+        const groupedData = roomData.reduce((acc, room) => {
+            if (!acc[room.bldg]) acc[room.bldg] = {};
+            if (!acc[room.bldg][room.floor]) acc[room.bldg][room.floor] = [];
+            acc[room.bldg][room.floor].push(room);
+            return acc;
+        }, {});
+
+        function renderList(searchQuery = "") {
+            container.innerHTML = "";
+            let foundAny = false;
+
+            for (const bldg in groupedData) {
+                let bldgHtml = `<div class="building-group"><div class="building-title">${bldg}</div>`;
+                let bldgHasItems = false;
+
+                for (const floor in groupedData[bldg]) {
+                    const filteredRooms = groupedData[bldg][floor].filter(r => 
+                        r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                        r.floor.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+
+                    if (filteredRooms.length > 0) {
+                        bldgHasItems = true;
+                        foundAny = true;
+                        filteredRooms.forEach(room => {
+                            bldgHtml += `
+                                <div class="class-item" id="item-${room.id}" onclick="selectRoom('${room.id}')">
+                                    <div class="class-name">${room.name}</div>
+                                    <div class="class-meta">${room.floor}</div>
+                                </div>
+                            `;
+                        });
+                    }
+                }
+                bldgHtml += `</div>`;
+                
+                if (bldgHasItems) {
+                    container.innerHTML += bldgHtml;
+                }
+            }
+
+            if (!foundAny) {
+                container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);">No rooms found.</div>`;
+            }
+        }
+
+        function filterClasses() {
+            renderList(document.getElementById('searchInput').value);
+        }
+
+        function selectRoom(roomId) {
+            // Remove active state
+            document.querySelectorAll('.class-item').forEach(el => el.classList.remove('active'));
+            // Add active state to clicked
+            const activeItem = document.getElementById(`item-${roomId}`);
+            if(activeItem) activeItem.classList.add('active');
+
+            const room = roomData.find(r => r.id === roomId);
+            if (!room) return;
+
+            // Hide placeholder, show panels
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('infoPanel').style.display = 'block';
+            document.getElementById('mapWrapper').style.display = 'inline-block';
+
+            // Populate Info
+            document.getElementById('roomTitle').innerText = room.name;
+            document.getElementById('roomBuilding').innerText = room.bldg;
+            document.getElementById('roomFloor').innerText = room.floor;
+            document.getElementById('roomPrefect').innerText = room.pre;
+
+            // Handle Map & Highlight
+            const mapImg = document.getElementById('floorImage');
+            const highlight = document.getElementById('highlightBox');
+            
+            // Hide highlight temporarily during image swap
+            highlight.style.display = 'none';
+
+            // If it's a new floor, change the image source
+            if (!mapImg.src.includes(room.img)) {
+                mapImg.src = room.img;
+                mapImg.onload = () => drawHighlight(room.rect);
+            } else {
+                drawHighlight(room.rect);
+            }
+        }
+
+        function drawHighlight(rect) {
+            const highlight = document.getElementById('highlightBox');
+            highlight.style.display = 'block';
+            // Use percentage coordinates to maintain aspect ratio perfectly
+            highlight.style.top = rect.t + '%';
+            highlight.style.left = rect.l + '%';
+            highlight.style.width = rect.w + '%';
+            highlight.style.height = rect.h + '%';
+        }
+
+        // Initialize App
+        renderList();
+    </script>
+</body>
+</html>
