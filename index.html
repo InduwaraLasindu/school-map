@@ -76,31 +76,71 @@
             padding-bottom: 40px;
         }
 
-        .bldg-header {
+        /* Accordion Styles */
+        .category-btn {
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+        
+        .category-btn:active { background: #2a3b52; }
+        
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .category-content {
+            display: none;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            border-left: 2px solid var(--border);
+            margin-left: 10px;
+        }
+
+        .sub-cat-header {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
-            margin: 20px 0 10px 5px;
-            font-weight: 600;
+            color: var(--accent);
+            margin: 15px 0 8px 15px;
+            font-weight: 700;
         }
 
         .class-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 14px 15px;
+            margin-bottom: 6px;
+            margin-left: 10px;
             border: 1px solid transparent;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
         .class-card:active {
-            background: #2a3b52;
+            background: rgba(56, 189, 248, 0.1);
             border-color: var(--accent);
         }
 
-        .class-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
-        .class-floor { font-size: 0.85rem; color: var(--text-muted); }
+        .class-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+        .class-floor { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Flat Search Results */
+        .flat-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+        .flat-card:active { border-color: var(--accent); }
 
         /* --- VIEW 2: MAP VIEW --- */
         #mapView {
@@ -180,7 +220,6 @@
 </head>
 <body>
 
-    <!-- SCREEN 1: LIST VIEW -->
     <div id="listView">
         <div class="header-sticky">
             <div class="header-title">Campus Navigator</div>
@@ -191,7 +230,6 @@
         </div>
     </div>
 
-    <!-- SCREEN 2: MAP VIEW -->
     <div id="mapView">
         <div class="nav-back" onclick="showListView()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -217,184 +255,256 @@
     </div>
 
     <script>
-        // Database linking directly to the specific pre-highlighted image files
         const roomData = [
             // PRIMARY BUILDING - LEVEL 1
-            { id: "p1-1", name: "1A", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1A_20260905_172432_0007.jpg" },
-            { id: "p1-2", name: "1B", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1B_20260905_172432_0008.jpg" },
-            { id: "p1-3", name: "1C", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1C_20260905_172432_0005.jpg" },
-            { id: "p1-4", name: "1D", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1D_20260905_172432_0004.jpg" },
-            { id: "p1-5", name: "1E", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1E_20260905_172432_0002.jpg" },
-            { id: "p1-6", name: "1F", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1F_20260905_172432_0003.jpg" },
-            { id: "p1-7", name: "1G", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1G_20260905_172432_0006.jpg" },
-            { id: "p1-8", name: "Dancing Room", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/Dancing Room_20260905_172432_0001.jpg" },
-            { id: "p1-9", name: "Sectional Head's Room", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/Sectional Head's Room_20260905_172432_0000.jpg" },
+            { id: "p1-1", cat: "Grade 1", name: "1A", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1A_20260905_172432_0007.jpg" },
+            { id: "p1-2", cat: "Grade 1", name: "1B", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1B_20260905_172432_0008.jpg" },
+            { id: "p1-3", cat: "Grade 1", name: "1C", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1C_20260905_172432_0005.jpg" },
+            { id: "p1-4", cat: "Grade 1", name: "1D", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1D_20260905_172432_0004.jpg" },
+            { id: "p1-5", cat: "Grade 1", name: "1E", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1E_20260905_172432_0002.jpg" },
+            { id: "p1-6", cat: "Grade 1", name: "1F", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1F_20260905_172432_0003.jpg" },
+            { id: "p1-7", cat: "Grade 1", name: "1G", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/1G_20260905_172432_0006.jpg" },
+            { id: "p1-8", cat: "Other", subCat: "Activities", name: "Dancing Room", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/Dancing Room_20260905_172432_0001.jpg" },
+            { id: "p1-9", cat: "Other", subCat: "Administration", name: "Sectional Head's Room", bldg: "Primary Building", floor: "Level 1", pre: "Prefect: Senudhi", img: "LFP 26-27/Primary Building/Level 1/Sectional Head's Room_20260905_172432_0000.jpg" },
 
             // PRIMARY BUILDING - LEVEL 2
-            { id: "p2-1", name: "2A", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2A_20260905_172432_0017.jpg" },
-            { id: "p2-2", name: "2B", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2B_20260905_172432_0016.jpg" },
-            { id: "p2-3", name: "2C", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2C_20260905_172432_0015.jpg" },
-            { id: "p2-4", name: "2D", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2D_20260905_172432_0012.jpg" },
-            { id: "p2-5", name: "2E", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2E_20260905_172432_0011.jpg" },
-            { id: "p2-6", name: "2F", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2F_20260905_172432_0013.jpg" },
-            { id: "p2-7", name: "2G", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2G_20260905_172432_0014.jpg" },
-            { id: "p2-8", name: "Computer Lab 1", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/Computer Lab 1_20260905_172432_0010.jpg" },
-            { id: "p2-9", name: "Religion Room / Library", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/Religion Room_Library_20260905_172432_0009.jpg" },
+            { id: "p2-1", cat: "Grade 2", name: "2A", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2A_20260905_172432_0017.jpg" },
+            { id: "p2-2", cat: "Grade 2", name: "2B", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2B_20260905_172432_0016.jpg" },
+            { id: "p2-3", cat: "Grade 2", name: "2C", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2C_20260905_172432_0015.jpg" },
+            { id: "p2-4", cat: "Grade 2", name: "2D", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2D_20260905_172432_0012.jpg" },
+            { id: "p2-5", cat: "Grade 2", name: "2E", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2E_20260905_172432_0011.jpg" },
+            { id: "p2-6", cat: "Grade 2", name: "2F", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2F_20260905_172432_0013.jpg" },
+            { id: "p2-7", cat: "Grade 2", name: "2G", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/2G_20260905_172432_0014.jpg" },
+            { id: "p2-8", cat: "Other", subCat: "Labs", name: "Computer Lab (Primary)", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/Computer Lab 1_20260905_172432_0010.jpg" },
+            { id: "p2-9", cat: "Other", subCat: "Activities", name: "Religion Room / Library", bldg: "Primary Building", floor: "Level 2", pre: "Prefect: Hiruka", img: "LFP 26-27/Primary Building/Level 2/Religion Room_Library_20260905_172432_0009.jpg" },
 
             // PRIMARY BUILDING - LEVEL 3
-            { id: "p3-1", name: "3A", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3A_20260905_172432_0025.jpg" },
-            { id: "p3-2", name: "3B", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3B_20260905_172432_0023.jpg" },
-            { id: "p3-3", name: "3C", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3C_20260905_172432_0021.jpg" },
-            { id: "p3-4", name: "3D", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3D_20260905_172432_0020.jpg" },
-            { id: "p3-5", name: "3E", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3E_20260905_172432_0019.jpg" },
-            { id: "p3-6", name: "3F", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3F_20260905_172432_0022.jpg" },
-            { id: "p3-7", name: "3G", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3G_20260905_172432_0024.jpg" },
-            { id: "p3-8", name: "3H", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3H_20260905_172432_0026.jpg" },
-            { id: "p3-9", name: "Smart Classroom", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/Smart Classroom_20260905_172432_0018.jpg" },
+            { id: "p3-1", cat: "Grade 3", name: "3A", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3A_20260905_172432_0025.jpg" },
+            { id: "p3-2", cat: "Grade 3", name: "3B", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3B_20260905_172432_0023.jpg" },
+            { id: "p3-3", cat: "Grade 3", name: "3C", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3C_20260905_172432_0021.jpg" },
+            { id: "p3-4", cat: "Grade 3", name: "3D", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3D_20260905_172432_0020.jpg" },
+            { id: "p3-5", cat: "Grade 3", name: "3E", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3E_20260905_172432_0019.jpg" },
+            { id: "p3-6", cat: "Grade 3", name: "3F", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3F_20260905_172432_0022.jpg" },
+            { id: "p3-7", cat: "Grade 3", name: "3G", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3G_20260905_172432_0024.jpg" },
+            { id: "p3-8", cat: "Grade 3", name: "3H", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/3H_20260905_172432_0026.jpg" },
+            { id: "p3-9", cat: "Other", subCat: "Activities", name: "Smart Classroom (Primary)", bldg: "Primary Building", floor: "Level 3", pre: "Prefect: Siheli", img: "LFP 26-27/Primary Building/Level 3/Smart Classroom_20260905_172432_0018.jpg" },
 
             // PRIMARY BUILDING - LEVEL 4
-            { id: "p4-1", name: "4A", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4A_20260905_172432_0035.jpg" },
-            { id: "p4-2", name: "4B", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4B_20260905_172432_0034.jpg" },
-            { id: "p4-3", name: "4C", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4C_20260905_172432_0033.jpg" },
-            { id: "p4-4", name: "4D", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4D_20260905_172432_0030.jpg" },
-            { id: "p4-5", name: "4E", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4E_20260905_172432_0029.jpg" },
-            { id: "p4-6", name: "4F", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4F_20260905_172432_0028.jpg" },
-            { id: "p4-7", name: "4G", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4G_20260905_172432_0031.jpg" },
-            { id: "p4-8", name: "4H", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4H_20260905_172432_0032.jpg" },
-            { id: "p4-9", name: "Music Room", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/Music Room_20260905_172432_0027.jpg" },
+            { id: "p4-1", cat: "Grade 4", name: "4A", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4A_20260905_172432_0035.jpg" },
+            { id: "p4-2", cat: "Grade 4", name: "4B", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4B_20260905_172432_0034.jpg" },
+            { id: "p4-3", cat: "Grade 4", name: "4C", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4C_20260905_172432_0033.jpg" },
+            { id: "p4-4", cat: "Grade 4", name: "4D", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4D_20260905_172432_0030.jpg" },
+            { id: "p4-5", cat: "Grade 4", name: "4E", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4E_20260905_172432_0029.jpg" },
+            { id: "p4-6", cat: "Grade 4", name: "4F", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4F_20260905_172432_0028.jpg" },
+            { id: "p4-7", cat: "Grade 4", name: "4G", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4G_20260905_172432_0031.jpg" },
+            { id: "p4-8", cat: "Grade 4", name: "4H", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/4H_20260905_172432_0032.jpg" },
+            { id: "p4-9", cat: "Other", subCat: "Activities", name: "Music Room (Primary)", bldg: "Primary Building", floor: "Level 4", pre: "Prefect: Kenul", img: "LFP 26-27/Primary Building/Level 4/Music Room_20260905_172432_0027.jpg" },
 
-            // MAIN BUILDING - LEVEL 1 (Base Level)
-            { id: "m1-1", name: "Art Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Art Room_20260905_173245_0003.jpg" },
-            { id: "m1-2", name: "Book Shop", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Book Shop_20260905_173245_0004.jpg" },
-            { id: "m1-3", name: "Dancing Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Dancing Room_20260905_173245_0005.jpg" },
-            { id: "m1-4", name: "Dancing Room (Pre School)", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Dancing Room_PreSchool_20260905_173245_0002.jpg" },
-            { id: "m1-5", name: "Eastern Music Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Eastern Music Room_20260905_173245_0000.jpg" },
-            { id: "m1-6", name: "Lower Nursery B", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Lower Nursery B_20260905_173245_0001.jpg" },
-            { id: "m1-7", name: "Store Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Store Room_20260905_173245_0007.jpg" },
-            { id: "m1-8", name: "Western Music Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Western Music Room_20260905_173245_0006.jpg" },
+            // MAIN BUILDING - LEVEL 1
+            { id: "m1-1", cat: "Other", subCat: "Activities", name: "Art Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Art Room_20260905_173245_0003.jpg" },
+            { id: "m1-2", cat: "Other", subCat: "Services", name: "Book Shop", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Book Shop_20260905_173245_0004.jpg" },
+            { id: "m1-3", cat: "Other", subCat: "Activities", name: "Dancing Room (Main)", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Dancing Room_20260905_173245_0005.jpg" },
+            { id: "m1-4", cat: "Other", subCat: "Activities", name: "Dancing Room (Pre School)", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Dancing Room_PreSchool_20260905_173245_0002.jpg" },
+            { id: "m1-5", cat: "Other", subCat: "Activities", name: "Eastern Music Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Eastern Music Room_20260905_173245_0000.jpg" },
+            { id: "m1-6", cat: "Lower Nursery", name: "Lower Nursery B", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Lower Nursery B_20260905_173245_0001.jpg" },
+            { id: "m1-7", cat: "Other", subCat: "Services", name: "Store Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Store Room_20260905_173245_0007.jpg" },
+            { id: "m1-8", cat: "Other", subCat: "Activities", name: "Western Music Room", bldg: "Main Building", floor: "Level 1", pre: "Lobby: Vinura / Pinidu", img: "LFP 26-27/Main Building/Level 1/Western Music Room_20260905_173245_0006.jpg" },
 
             // MAIN BUILDING - LEVEL 2
-            { id: "m2-1", name: "5A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5A_20260905_173515_0013.jpg" },
-            { id: "m2-2", name: "5B", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5B_20260905_173515_0012.jpg" },
-            { id: "m2-3", name: "5C", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5C_20260905_173515_0010.jpg" },
-            { id: "m2-4", name: "5D", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5D_20260905_173515_0011.jpg" },
-            { id: "m2-5", name: "Lower Nursery A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Lower Nursery A_20260905_173514_0000.jpg" },
-            { id: "m2-6", name: "Nursery A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery A_20260905_173515_0001.jpg" },
-            { id: "m2-7", name: "Nursery B", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/nursery B_20260905_173515_0004.jpg" },
-            { id: "m2-8", name: "Nursery C", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery C_20260905_173515_0005.jpg" },
-            { id: "m2-9", name: "Nursery D", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery D_20260905_173515_0003.jpg" },
-            { id: "m2-10", name: "Nursery E", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery E_20260905_173515_0002.jpg" },
-            { id: "m2-11", name: "Nursery F", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery F_20260905_173515_0009.jpg" },
-            { id: "m2-12", name: "Pre Grade F", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Pre Grade F_20260905_173515_0007.jpg" },
-            { id: "m2-13", name: "Religious Activity Room", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Religious Activity room_20260905_173515_0008.jpg" },
-            { id: "m2-14", name: "Wash Room", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Wash Room_20260905_173515_0006.jpg" },
+            { id: "m2-1", cat: "Grade 5", name: "5A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5A_20260905_173515_0013.jpg" },
+            { id: "m2-2", cat: "Grade 5", name: "5B", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5B_20260905_173515_0012.jpg" },
+            { id: "m2-3", cat: "Grade 5", name: "5C", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5C_20260905_173515_0010.jpg" },
+            { id: "m2-4", cat: "Grade 5", name: "5D", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/5D_20260905_173515_0011.jpg" },
+            { id: "m2-5", cat: "Lower Nursery", name: "Lower Nursery A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Lower Nursery A_20260905_173514_0000.jpg" },
+            { id: "m2-6", cat: "Nursery", name: "Nursery A", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery A_20260905_173515_0001.jpg" },
+            { id: "m2-7", cat: "Nursery", name: "Nursery B", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/nursery B_20260905_173515_0004.jpg" },
+            { id: "m2-8", cat: "Nursery", name: "Nursery C", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery C_20260905_173515_0005.jpg" },
+            { id: "m2-9", cat: "Nursery", name: "Nursery D", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery D_20260905_173515_0003.jpg" },
+            { id: "m2-10", cat: "Nursery", name: "Nursery E", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery E_20260905_173515_0002.jpg" },
+            { id: "m2-11", cat: "Nursery", name: "Nursery F", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Nursery F_20260905_173515_0009.jpg" },
+            { id: "m2-12", cat: "Pre-Grade", name: "Pre Grade F", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Pre Grade F_20260905_173515_0007.jpg" },
+            { id: "m2-13", cat: "Other", subCat: "Activities", name: "Religious Activity Room", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Religious Activity room_20260905_173515_0008.jpg" },
+            { id: "m2-14", cat: "Other", subCat: "Services", name: "Wash Room", bldg: "Main Building", floor: "Level 2", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 2/Wash Room_20260905_173515_0006.jpg" },
 
             // MAIN BUILDING - LEVEL 3
-            { id: "m3-1", name: "7A", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/7A_20260905_173702_0024.jpg" },
-            { id: "m3-2", name: "7B", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/7B_20260905_173702_0023.jpg" },
-            { id: "m3-3", name: "8A", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/8A_20260905_173702_0021.jpg" },
-            { id: "m3-4", name: "8B", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/8B_20260905_173702_0022.jpg" },
-            { id: "m3-5", name: "Accounts Unit", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Accounts Unit_20260905_173702_0018.jpg" },
-            { id: "m3-6", name: "Admissions Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Admissions Office_20260905_173702_0015.jpg" },
-            { id: "m3-7", name: "Biology Lab", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Biology Lab_20260905_173702_0017.jpg" },
-            { id: "m3-8", name: "Exam Unit", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Exam Unit_20260905_173702_0013.jpg" },
-            { id: "m3-9", name: "Headmistress Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Headmistress Office_20260905_173702_0020.jpg" },
-            { id: "m3-10", name: "Lobby", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Lobby_20260905_173702_0016.jpg" },
-            { id: "m3-11", name: "Principal's Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Principal's Office_20260905_173702_0014.jpg" },
-            { id: "m3-12", name: "Store Room for Labs", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Store Room for Labs_20260905_173702_0019.jpg" },
+            { id: "m3-1", cat: "Grade 7", name: "7A", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/7A_20260905_173702_0024.jpg" },
+            { id: "m3-2", cat: "Grade 7", name: "7B", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/7B_20260905_173702_0023.jpg" },
+            { id: "m3-3", cat: "Grade 8", name: "8A", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/8A_20260905_173702_0021.jpg" },
+            { id: "m3-4", cat: "Grade 8", name: "8B", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/8B_20260905_173702_0022.jpg" },
+            { id: "m3-5", cat: "Other", subCat: "Administration", name: "Accounts Unit", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Accounts Unit_20260905_173702_0018.jpg" },
+            { id: "m3-6", cat: "Other", subCat: "Administration", name: "Admissions Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Admissions Office_20260905_173702_0015.jpg" },
+            { id: "m3-7", cat: "Other", subCat: "Labs", name: "Biology Lab", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Biology Lab_20260905_173702_0017.jpg" },
+            { id: "m3-8", cat: "Other", subCat: "Administration", name: "Exam Unit", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Exam Unit_20260905_173702_0013.jpg" },
+            { id: "m3-9", cat: "Other", subCat: "Administration", name: "Headmistress Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Headmistress Office_20260905_173702_0020.jpg" },
+            { id: "m3-10", cat: "Other", subCat: "Services", name: "Lobby", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Lobby_20260905_173702_0016.jpg" },
+            { id: "m3-11", cat: "Other", subCat: "Administration", name: "Principal's Office", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Principal's Office_20260905_173702_0014.jpg" },
+            { id: "m3-12", cat: "Other", subCat: "Services", name: "Store Room for Labs", bldg: "Main Building", floor: "Level 3", pre: "Prefect: Matheesha", img: "LFP 26-27/Main Building/Level 3/Store Room for Labs_20260905_173702_0019.jpg" },
 
             // MAIN BUILDING - LEVEL 4
-            { id: "m4-1", name: "5E", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/5E_20260905_173903_0011.jpg" },
-            { id: "m4-2", name: "5F", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/5F_20260905_173903_0012.jpg" },
-            { id: "m4-3", name: "Chemistry Lab", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Chemistry Lab_20260905_173903_0008.jpg" },
-            { id: "m4-4", name: "Chess Room", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Chess Room_20260905_173903_0009.jpg" },
-            { id: "m4-5", name: "Computer Lab 1", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Computer Lab 1_20260905_173903_0004.jpg" },
-            { id: "m4-6", name: "Physics Lab", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Physics Lab_20260905_173903_0007.jpg" },
-            { id: "m4-7", name: "Pre Grade A", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade A_20260905_173903_0006.jpg" },
-            { id: "m4-8", name: "Pre Grade B", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade B_20260905_173903_0003.jpg" },
-            { id: "m4-9", name: "Pre Grade C", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade C_20260905_173903_0002.jpg" },
-            { id: "m4-10", name: "Pre Grade D", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade D_20260905_173903_0001.jpg" },
-            { id: "m4-11", name: "Pre Grade E", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade E_20260905_173903_0000.jpg" },
-            { id: "m4-12", name: "Staff Room", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Staff Room_20260905_173903_0005.jpg" },
-            { id: "m4-13", name: "Washroom", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Washroom_20260905_173903_0010.jpg" },
+            { id: "m4-1", cat: "Grade 5", name: "5E", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/5E_20260905_173903_0011.jpg" },
+            { id: "m4-2", cat: "Grade 5", name: "5F", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/5F_20260905_173903_0012.jpg" },
+            { id: "m4-3", cat: "Other", subCat: "Labs", name: "Chemistry Lab", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Chemistry Lab_20260905_173903_0008.jpg" },
+            { id: "m4-4", cat: "Other", subCat: "Activities", name: "Chess Room", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Chess Room_20260905_173903_0009.jpg" },
+            { id: "m4-5", cat: "Other", subCat: "Labs", name: "Computer Lab 1", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Computer Lab 1_20260905_173903_0004.jpg" },
+            { id: "m4-6", cat: "Other", subCat: "Labs", name: "Physics Lab", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Physics Lab_20260905_173903_0007.jpg" },
+            { id: "m4-7", cat: "Pre-Grade", name: "Pre Grade A", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade A_20260905_173903_0006.jpg" },
+            { id: "m4-8", cat: "Pre-Grade", name: "Pre Grade B", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade B_20260905_173903_0003.jpg" },
+            { id: "m4-9", cat: "Pre-Grade", name: "Pre Grade C", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade C_20260905_173903_0002.jpg" },
+            { id: "m4-10", cat: "Pre-Grade", name: "Pre Grade D", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade D_20260905_173903_0001.jpg" },
+            { id: "m4-11", cat: "Pre-Grade", name: "Pre Grade E", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Pre Grade E_20260905_173903_0000.jpg" },
+            { id: "m4-12", cat: "Other", subCat: "Administration", name: "Staff Room", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Staff Room_20260905_173903_0005.jpg" },
+            { id: "m4-13", cat: "Other", subCat: "Services", name: "Washroom", bldg: "Main Building", floor: "Level 4", pre: "Prefect: Sithuka, Induwara", img: "LFP 26-27/Main Building/Level 4/Washroom_20260905_173903_0010.jpg" },
 
             // MAIN BUILDING - LEVEL 5
-            { id: "m5-1", name: "Book Stores", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Book Stores_20260905_174001_0006.jpg" },
-            { id: "m5-2", name: "EDX 1", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/EDX 1_20260905_174001_0012.jpg" },
-            { id: "m5-3", name: "Form 1A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 1A_20260905_174001_0015.jpg" },
-            { id: "m5-4", name: "Form 1B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 1B_20260905_174001_0014.jpg" },
-            { id: "m5-5", name: "Form 2A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2A_20260905_174001_0009.jpg" },
-            { id: "m5-6", name: "Form 2B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2B_20260905_174001_0008.jpg" },
-            { id: "m5-7", name: "Form 2C", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2C_20260905_174001_0010.jpg" },
-            { id: "m5-8", name: "Form 2D", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2D_20260905_174001_0011.jpg" },
-            { id: "m5-9", name: "Form 3A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3A_20260905_174001_0000.jpg" },
-            { id: "m5-10", name: "Form 3B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3B_20260905_174001_0001.jpg" },
-            { id: "m5-11", name: "Form 3C", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3C_20260905_174001_0002.jpg" },
-            { id: "m5-12", name: "Form 3D", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3D_20260905_174001_0003.jpg" },
-            { id: "m5-13", name: "Form 6A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 6A_20260905_174001_0004.jpg" },
-            { id: "m5-14", name: "Form 6B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 6B_20260905_174001_0005.jpg" },
-            { id: "m5-15", name: "Speech and Drama Room", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Speech and Drama Room_20260905_174001_0013.jpg" },
-            { id: "m5-16", name: "Wash Room 2", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg" },
+            { id: "m5-1", cat: "Other", subCat: "Services", name: "Book Stores", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Book Stores_20260905_174001_0006.jpg" },
+            { id: "m5-2", cat: "Advanced Level", name: "EDX 1", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/EDX 1_20260905_174001_0012.jpg" },
+            { id: "m5-3", cat: "Forms (Secondary)", name: "Form I-A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 1A_20260905_174001_0015.jpg" },
+            { id: "m5-4", cat: "Forms (Secondary)", name: "Form I-B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 1B_20260905_174001_0014.jpg" },
+            { id: "m5-5", cat: "Forms (Secondary)", name: "Form II-A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2A_20260905_174001_0009.jpg" },
+            { id: "m5-6", cat: "Forms (Secondary)", name: "Form II-B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2B_20260905_174001_0008.jpg" },
+            { id: "m5-7", cat: "Forms (Secondary)", name: "Form II-C", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2C_20260905_174001_0010.jpg" },
+            { id: "m5-8", cat: "Forms (Secondary)", name: "Form II-D", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 2D_20260905_174001_0011.jpg" },
+            { id: "m5-9", cat: "Forms (Secondary)", name: "Form III-A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3A_20260905_174001_0000.jpg" },
+            { id: "m5-10", cat: "Forms (Secondary)", name: "Form III-B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3B_20260905_174001_0001.jpg" },
+            { id: "m5-11", cat: "Forms (Secondary)", name: "Form III-C", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3C_20260905_174001_0002.jpg" },
+            { id: "m5-12", cat: "Forms (Secondary)", name: "Form III-D", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 3D_20260905_174001_0003.jpg" },
+            { id: "m5-13", cat: "Grade 6", name: "6A", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 6A_20260905_174001_0004.jpg" },
+            { id: "m5-14", cat: "Grade 6", name: "6B", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Form 6B_20260905_174001_0005.jpg" },
+            { id: "m5-15", cat: "Other", subCat: "Activities", name: "Speech and Drama Room", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Speech and Drama Room_20260905_174001_0013.jpg" },
+            { id: "m5-16", cat: "Other", subCat: "Services", name: "Wash Room 2", bldg: "Main Building", floor: "Level 5", pre: "Prefect: Nabeeha, Afiq", img: "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg" },
 
             // MAIN BUILDING - LEVEL 6
-            { id: "m6-1", name: "10A", bldg: "Main Building", floor: "Level 6", pre: "Prefect: Siyumi, Thehansa", img: "LFP 26-27/Main Building/Level 6/10A_20260905_174109_0001.jpg" },
-            // Note: Add any other Level 6 rooms here using the exact same format if they exist in your folder.
+            { id: "m6-1", cat: "Grade 10", name: "10A", bldg: "Main Building", floor: "Level 6", pre: "Prefect: Siyumi, Thehansa", img: "LFP 26-27/Main Building/Level 6/10A_20260905_174109_0001.jpg" },
 
             // MAIN BUILDING - LEVEL 7
-            { id: "m7-1", name: "12", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/12_20260905_174219_0002.jpg" },
-            { id: "m7-2", name: "13", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/13_20260905_174219_0001.jpg" },
-            { id: "m7-3", name: "Auditorium", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Auditorium_20260905_174219_0000.jpg" },
-            { id: "m7-4", name: "Cambridge AL 1", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Cambridge AL 1_20260905_174219_0003.jpg" },
-            { id: "m7-5", name: "Cambridge AL 2", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Cambridge AL 2_20260905_174219_0004.jpg" }
+            { id: "m7-1", cat: "Advanced Level", name: "12", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/12_20260905_174219_0002.jpg" },
+            { id: "m7-2", cat: "Advanced Level", name: "13", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/13_20260905_174219_0001.jpg" },
+            { id: "m7-3", cat: "Other", subCat: "Activities", name: "Auditorium", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Auditorium_20260905_174219_0000.jpg" },
+            { id: "m7-4", cat: "Advanced Level", name: "Cambridge AL 1", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Cambridge AL 1_20260905_174219_0003.jpg" },
+            { id: "m7-5", cat: "Advanced Level", name: "Cambridge AL 2", bldg: "Main Building", floor: "Level 7", pre: "Unassigned", img: "LFP 26-27/Main Building/Level 7/Cambridge AL 2_20260905_174219_0004.jpg" }
         ];
+
+        // Specific category order
+        const catOrder = [
+            "Lower Nursery", "Nursery", "Pre-Grade",
+            "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
+            "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11",
+            "Forms (Secondary)", "Advanced Level", "Other"
+        ];
+
+        const subCatOrder = ["Administration", "Labs", "Activities", "Services"];
 
         const container = document.getElementById('classListContainer');
         const listView = document.getElementById('listView');
         const mapView = document.getElementById('mapView');
         const mapImg = document.getElementById('floorImage');
         const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // Group the data by category -> subcat
+        const groupedData = {};
+        catOrder.forEach(c => groupedData[c] = { items: [], subcats: {} });
         
-        // Group data by Building -> Floor
-        const groupedData = roomData.reduce((acc, room) => {
-            if (!acc[room.bldg]) acc[room.bldg] = {};
-            if (!acc[room.bldg][room.floor]) acc[room.bldg][room.floor] = [];
-            acc[room.bldg][room.floor].push(room);
-            return acc;
-        }, {});
+        roomData.forEach(room => {
+            if (!groupedData[room.cat]) groupedData[room.cat] = { items: [], subcats: {} };
+            if (room.cat === "Other" && room.subCat) {
+                if (!groupedData[room.cat].subcats[room.subCat]) {
+                    groupedData[room.cat].subcats[room.subCat] = [];
+                }
+                groupedData[room.cat].subcats[room.subCat].push(room);
+            } else {
+                groupedData[room.cat].items.push(room);
+            }
+        });
 
-        function renderList(searchQuery = "") {
+        function renderAccordion() {
             container.innerHTML = "";
-            let foundAny = false;
+            
+            catOrder.forEach(cat => {
+                const group = groupedData[cat];
+                const hasItems = group.items.length > 0 || Object.keys(group.subcats).length > 0;
+                
+                if (hasItems) {
+                    let html = `
+                        <div class="category-btn" onclick="toggleCat('cat-${cat.replace(/\s+/g, '-')}')">
+                            <span>${cat}</span>
+                            <svg id="icon-cat-${cat.replace(/\s+/g, '-')}" class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="category-content" id="cat-${cat.replace(/\s+/g, '-')}">
+                    `;
 
-            for (const bldg in groupedData) {
-                let bldgHtml = `<div class="bldg-header">${bldg}</div>`;
-                let bldgHasItems = false;
+                    // Render direct items
+                    group.items.forEach(room => {
+                        html += `
+                            <div class="class-card" onclick="selectRoom('${room.id}')">
+                                <div class="class-name">${room.name}</div>
+                                <div class="class-floor">${room.bldg} • ${room.floor}</div>
+                            </div>
+                        `;
+                    });
 
-                for (const floor in groupedData[bldg]) {
-                    const filteredRooms = groupedData[bldg][floor].filter(r => 
-                        r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                        r.floor.toLowerCase().includes(searchQuery.toLowerCase())
-                    );
-
-                    if (filteredRooms.length > 0) {
-                        bldgHasItems = true;
-                        foundAny = true;
-                        filteredRooms.forEach(room => {
-                            bldgHtml += `
-                                <div class="class-card" onclick="selectRoom('${room.id}')">
-                                    <div class="class-name">${room.name}</div>
-                                    <div class="class-floor">${room.floor}</div>
-                                </div>
-                            `;
+                    // Render Subcategories (for "Other")
+                    if (cat === "Other") {
+                        subCatOrder.forEach(sub => {
+                            if (group.subcats[sub] && group.subcats[sub].length > 0) {
+                                html += `<div class="sub-cat-header">${sub}</div>`;
+                                group.subcats[sub].forEach(room => {
+                                    html += `
+                                        <div class="class-card" onclick="selectRoom('${room.id}')">
+                                            <div class="class-name">${room.name}</div>
+                                            <div class="class-floor">${room.bldg} • ${room.floor}</div>
+                                        </div>
+                                    `;
+                                });
+                            }
                         });
                     }
+
+                    html += `</div>`;
+                    container.innerHTML += html;
                 }
-                if (bldgHasItems) container.innerHTML += bldgHtml;
-            }
-            if (!foundAny) container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted);">No rooms found.</div>`;
+            });
         }
 
-        function filterClasses() { renderList(document.getElementById('searchInput').value); }
+        function toggleCat(catId) {
+            const content = document.getElementById(catId);
+            const icon = document.getElementById('icon-' + catId);
+            if(content.style.display === 'block') {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function filterClasses() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (query.trim() === "") {
+                renderAccordion();
+                return;
+            }
+
+            // Flat search UI for quick filtering
+            container.innerHTML = "";
+            let found = false;
+
+            roomData.forEach(room => {
+                if (room.name.toLowerCase().includes(query) || room.cat.toLowerCase().includes(query) || (room.subCat && room.subCat.toLowerCase().includes(query))) {
+                    found = true;
+                    container.innerHTML += `
+                        <div class="flat-card" onclick="selectRoom('${room.id}')">
+                            <div class="class-name">${room.name}</div>
+                            <div class="class-floor">${room.cat} • ${room.bldg} • ${room.floor}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            if (!found) container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted);">No rooms found.</div>`;
+        }
 
         function showListView() {
             mapView.style.display = 'none';
@@ -405,23 +515,18 @@
             const room = roomData.find(r => r.id === roomId);
             if (!room) return;
 
-            // Switch UI Views
             listView.style.display = 'none';
             mapView.style.display = 'flex';
 
-            // Populate Info Card
             document.getElementById('roomTitle').innerText = room.name;
             document.getElementById('roomBuilding').innerText = room.bldg;
             document.getElementById('roomFloor').innerText = room.floor;
             document.getElementById('roomPrefect').innerText = room.pre;
 
-            // Show loading state while image fetches
             mapImg.style.display = 'none';
             loadingIndicator.style.display = 'block';
             
-            // Set image source to the pre-highlighted image
             mapImg.src = room.img;
-            
             window.scrollTo(0, 0); 
         }
 
@@ -431,10 +536,7 @@
         }
 
         // Initialize App
-        renderList();
+        renderAccordion();
     </script>
 </body>
 </html>
-```eof
-
-Just replace the contents of your current `index.html` with this code, commit it to GitHub, and the live site will automatically start loading the new, pre-highlighted room images! *(If there were any other Level 6 images in your folder that got cut off in the chat message, you can easily add them to the `roomData` list following the exact same format).*
