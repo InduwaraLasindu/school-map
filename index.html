@@ -12,7 +12,7 @@
         :root {
             --bg-base: #0f172a;
             --glass-bg: rgba(30, 41, 59, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #38bdf8;
@@ -40,7 +40,7 @@
 
         /* --- UI Animations --- */
         @keyframes popIn {
-            0% { opacity: 0; transform: translateY(15px) scale(0.98); }
+            0% { opacity: 0; transform: translateY(12px) scale(0.98); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -294,7 +294,7 @@
             position: relative;
             min-height: 250px;
             margin-bottom: 25px;
-            flex-shrink: 0; /* Prevents flexbox from cropping the image */
+            flex-shrink: 0;
         }
 
         .image-wrapper img {
@@ -370,7 +370,10 @@
             <div id="catListContainer"></div>
             
             <button class="btn-home" onclick="navigate('homeView')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
                 Back to Home
             </button>
         </div>
@@ -405,7 +408,10 @@
             </div>
 
             <button class="btn-home" onclick="navigate('homeView')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
                 Back to Home
             </button>
         </div>
@@ -530,18 +536,18 @@
             { id: "m5-15", cat: "Other", subCat: "Activities", name: "Speech and Drama Room", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Speech and Drama Room_20260905_174001_0013.jpg" },
             { id: "m5-16", cat: "Other", subCat: "Services", name: "Wash Room 2", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg" },
 
-            // MAIN BUILDING - LEVEL 6 (Updated exact file names)
+            // MAIN BUILDING - LEVEL 6
             { id: "m6-1", cat: "Grade 9", name: "9", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/9_20260905_174109_0004.jpg" },
             { id: "m6-2", cat: "Grade 10", name: "10A", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/10A_20260905_174109_0001.jpg" },
             { id: "m6-3", cat: "Grade 10", name: "10B", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/10B_20260905_174109_0002.jpg" },
             { id: "m6-4", cat: "Grade 11", name: "11A", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/11A_20260905_174109_0005.jpg" },
             { id: "m6-5", cat: "Grade 11", name: "11B", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/11B_20260905_174109_0003.jpg" },
-            { id: "m6-6", cat: "Forms (Secondary)", name: "Form V-A", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5A_20260905_174109_0007.jpg" },
-            { id: "m6-7", cat: "Forms (Secondary)", name: "Form V-B", roomNum: "Class Room - 3", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5B_20260905_174109_0006.jpg" },
-            { id: "m6-8", cat: "Forms (Secondary)", name: "Form V-C", roomNum: "Class Room - 2", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5C_20260905_174109_0008.jpg" },
-            { id: "m6-9", cat: "Forms (Secondary)", name: "Form IV-A", roomNum: "Class Room - 2", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4A_20260905_174109_0010.jpg" },
-            { id: "m6-10", cat: "Forms (Secondary)", name: "Form IV-B", roomNum: "Class Room - 3", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4B_20260905_174109_0012.jpg" },
-            { id: "m6-11", cat: "Forms (Secondary)", name: "Form IV-C", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4C_20260905_174109_0013.jpg" },
+            { id: "m6-6", cat: "Forms (Secondary)", name: "Form 5A", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5A_20260905_174109_0007.jpg" },
+            { id: "m6-7", cat: "Forms (Secondary)", name: "Form 5B", roomNum: "Class Room - 3", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5B_20260905_174109_0006.jpg" },
+            { id: "m6-8", cat: "Forms (Secondary)", name: "Form 5C", roomNum: "Class Room - 2", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 5C_20260905_174109_0008.jpg" },
+            { id: "m6-9", cat: "Forms (Secondary)", name: "Form 4A", roomNum: "Class Room - 2", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4A_20260905_174109_0010.jpg" },
+            { id: "m6-10", cat: "Forms (Secondary)", name: "Form 4B", roomNum: "Class Room - 3", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4B_20260905_174109_0012.jpg" },
+            { id: "m6-11", cat: "Forms (Secondary)", name: "Form 4C", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Form 4C_20260905_174109_0013.jpg" },
             { id: "m6-12", cat: "Other", subCat: "Labs", name: "Computer Lab 2", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Computer Lab 2_20260905_174109_0009.jpg" },
             { id: "m6-13", cat: "Other", subCat: "Activities", name: "Library", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Library_20260905_174109_0000.jpg" },
             { id: "m6-14", cat: "Other", subCat: "Activities", name: "Smart Classroom (Main)", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Smart Classroom_20260905_174109_0011.jpg" },
