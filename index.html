@@ -40,7 +40,7 @@
 
         /* --- UI Animations --- */
         @keyframes popIn {
-            0% { opacity: 0; transform: translateY(15px) scale(0.98); }
+            0% { opacity: 0; transform: translateY(12px) scale(0.98); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -498,7 +498,7 @@
     <!-- MAP VIEW -->
     <div id="mapView" class="view-section">
         <div class="header-sticky">
-            <div class="nav-back" onclick="goBack()">
+            <div class="nav-back" id="mapBackButton" onclick="goBack()">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
@@ -590,7 +590,6 @@
     </div>
 
     <script>
-        // Database updated with smart search tags and precise Washroom Names
         const roomData = [
             // PRIMARY BUILDING - LEVEL 1
             { id: "p1-1", cat: "Grade 1", name: "1A", roomNum: "Class Room - 1", tags: "g1a grade1a one", bldg: "Primary Building", floor: "Level 1", img: "LFP 26-27/Primary Building/Level 1/1A_20260905_172432_0007.jpg" },
@@ -764,11 +763,25 @@
         // Building / Floor Hierarchy for the "Levels" feature
         const levelsData = {
             "Primary Building": ["Level 1", "Level 2", "Level 3", "Level 4"],
-            "Main Building": ["Level 1", "Level -1", "Level -2", "Level -3", "Level -4", "Level -5", "Level -6", "Level -7"]
+            "Main Building": ["Level -1", "Level -2", "Level -3", "Level -4", "Level -5", "Level -6", "Level -7"]
         };
 
         // Background Preloader for ultra-fast UX
         function preloadImages() {
+            const uneditedImages = [
+                "LFP 26-27/Main Building/Unedited/Level 1.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 2.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 3.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 4.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 5.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 6.jpg",
+                "LFP 26-27/Main Building/Unedited/Level 7.jpg",
+                "LFP 26-27/Primary Building/Unedited/Level 1.jpg",
+                "LFP 26-27/Primary Building/Unedited/Level 2.jpg",
+                "LFP 26-27/Primary Building/Unedited/Level 3.jpg",
+                "LFP 26-27/Primary Building/Unedited/Level 4.jpg"
+            ];
+            
             let i = 0;
             function loadNext() {
                 if (i < roomData.length) {
@@ -776,6 +789,18 @@
                     img.src = roomData[i].img;
                     i++;
                     setTimeout(loadNext, 40);
+                } else {
+                    // Preload unedited maps after rooms are done
+                    let j = 0;
+                    function loadUnedited() {
+                        if (j < uneditedImages.length) {
+                            const uimg = new Image();
+                            uimg.src = uneditedImages[j];
+                            j++;
+                            setTimeout(loadUnedited, 40);
+                        }
+                    }
+                    loadUnedited();
                 }
             }
             setTimeout(loadNext, 1000);
@@ -890,21 +915,28 @@
             // Find all rooms on this floor
             const floorRooms = roomData.filter(r => r.bldg === bldg && r.floor === floor);
             
-            if(floorRooms.length > 0) {
-                // Set the blueprint map to the first room's image
-                const summaryMap = document.getElementById('summaryMapImage');
-                summaryMap.src = floorRooms[0].img;
-                
-                // Retrigger CSS animations
-                summaryMap.classList.remove('animate');
-                document.getElementById('scanLine').classList.remove('animate');
-                
-                // Short timeout to restart animation
-                setTimeout(() => {
-                    summaryMap.classList.add('animate');
-                    document.getElementById('scanLine').classList.add('animate');
-                }, 50);
+            // Set the blueprint map to the unedited level image
+            const summaryMap = document.getElementById('summaryMapImage');
+            
+            const levelNum = floor.replace(/[^0-9]/g, ''); 
+            
+            if (bldg === "Primary Building") {
+                summaryMap.src = `LFP 26-27/Primary Building/Unedited/Level ${levelNum}.jpg`;
+            } else if (bldg === "Main Building") {
+                summaryMap.src = `LFP 26-27/Main Building/Unedited/Level ${levelNum}.jpg`;
+            }
+            
+            // Retrigger CSS animations
+            summaryMap.classList.remove('animate');
+            document.getElementById('scanLine').classList.remove('animate');
+            
+            // Short timeout to restart animation
+            setTimeout(() => {
+                summaryMap.classList.add('animate');
+                document.getElementById('scanLine').classList.add('animate');
+            }, 50);
 
+            if(floorRooms.length > 0) {
                 floorRooms.forEach(room => {
                     container.innerHTML += `
                         <div class="list-card" onclick="selectRoom('${room.id}')">
@@ -916,6 +948,8 @@
                         </div>
                     `;
                 });
+            } else {
+                container.innerHTML = `<div class="empty-state">No rooms mapped for this floor yet.</div>`;
             }
 
             navigate('levelSummaryView');
