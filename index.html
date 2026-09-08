@@ -91,9 +91,17 @@
             letter-spacing: -0.3px;
         }
 
+        /* --- Search Bar with Inner Buttons --- */
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
         .search-box {
             width: 100%;
-            padding: 14px 16px;
+            padding: 14px 105px 14px 16px; /* Extra right padding for buttons */
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
@@ -110,6 +118,46 @@
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
+        .search-actions {
+            position: absolute;
+            right: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .clear-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: none; /* Hidden until typing */
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .clear-btn:active { background: rgba(255, 255, 255, 0.3); }
+
+        .levels-btn {
+            background: var(--accent-glow);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .levels-btn:active {
+            background: var(--accent);
+            color: #fff;
+        }
+
         /* --- Navigation --- */
         .nav-back {
             display: flex;
@@ -122,13 +170,12 @@
             padding-bottom: 10px;
             transition: opacity 0.2s;
         }
-        
         .nav-back:active { opacity: 0.6; }
 
         .btn-home {
             width: 100%;
             padding: 16px;
-            margin-top: auto;
+            margin-top: 25px;
             border-radius: 14px;
             background: var(--accent-glow);
             border: 1px solid var(--accent);
@@ -160,7 +207,6 @@
             display: flex;
             flex-direction: column;
         }
-        
         .scroll-container::-webkit-scrollbar { width: 0; }
 
         /* --- CATEGORY GRID --- */
@@ -293,7 +339,7 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.4);
             position: relative;
             min-height: 250px;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             flex-shrink: 0;
         }
 
@@ -334,6 +380,73 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
+
+        /* --- SICK BLUEPRINT ANIMATION FOR LEVELS --- */
+        .blueprint-container {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
+            flex-shrink: 0;
+            perspective: 1000px;
+            background: #001122; /* Dark blueprint base */
+        }
+
+        .blueprint-map {
+            width: 100%;
+            height: auto;
+            display: block;
+            opacity: 0;
+        }
+
+        .blueprint-map.animate {
+            animation: blueprintReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes blueprintReveal {
+            0% { 
+                transform: rotateX(40deg) scale(0.8) translateY(30px); 
+                opacity: 0; 
+                filter: invert(1) sepia(1) saturate(3) hue-rotate(180deg) brightness(0.8); 
+            }
+            40% { 
+                opacity: 1; 
+                filter: invert(1) sepia(1) saturate(3) hue-rotate(180deg) brightness(1.2); 
+            }
+            100% { 
+                transform: rotateX(0deg) scale(1) translateY(0); 
+                opacity: 1; 
+                filter: invert(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1); 
+            }
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #38bdf8;
+            box-shadow: 0 0 20px 5px rgba(56, 189, 248, 0.8);
+            z-index: 10;
+            display: none;
+        }
+
+        .scan-line.animate {
+            display: block;
+            animation: scan 1.8s ease-in-out forwards;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
@@ -345,7 +458,14 @@
                 <img src="logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
                 <div class="header-title">School Navigator Companion</div>
             </div>
-            <input type="text" id="searchInput" class="search-box" placeholder="Search for a class or room..." oninput="handleSearch()">
+            
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search for a class or room..." oninput="handleSearch()">
+                <div class="search-actions">
+                    <button id="clearSearchBtn" class="clear-btn" onclick="clearSearch()">✕</button>
+                    <button class="levels-btn" onclick="openBuildingSelect()">Levels</button>
+                </div>
+            </div>
         </div>
         
         <div class="scroll-container">
@@ -368,8 +488,7 @@
         </div>
         <div class="scroll-container">
             <div id="catListContainer"></div>
-            
-            <button class="btn-home" onclick="navigate('homeView')">
+            <button class="btn-home" onclick="goHome()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Back to Home
             </button>
@@ -379,7 +498,7 @@
     <!-- MAP VIEW -->
     <div id="mapView" class="view-section">
         <div class="header-sticky">
-            <div class="nav-back" id="mapBackButton" onclick="goBack()">
+            <div class="nav-back" onclick="goBack()">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
@@ -404,7 +523,66 @@
                 <img id="floorImage" src="" alt="Floor Plan" onload="imageLoaded()">
             </div>
 
-            <button class="btn-home" onclick="navigate('homeView')">
+            <button class="btn-home" onclick="goHome()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <!-- LEVELS: BUILDING SELECT -->
+    <div id="buildingSelectView" class="view-section">
+        <div class="header-sticky">
+            <div class="nav-back" onclick="goBack()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back
+            </div>
+            <div class="header-title" style="margin-top: 10px; font-size: 1.6rem;">Select Building</div>
+        </div>
+        <div class="scroll-container">
+            <div class="list-card" onclick="openFloorSelect('Primary Building')">
+                <div class="list-name" style="margin-bottom:0;">Primary Building</div>
+                <div style="color: var(--accent);">➔</div>
+            </div>
+            <div class="list-card" onclick="openFloorSelect('Main Building')">
+                <div class="list-name" style="margin-bottom:0;">Main Building</div>
+                <div style="color: var(--accent);">➔</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVELS: FLOOR SELECT -->
+    <div id="floorSelectView" class="view-section">
+        <div class="header-sticky">
+            <div class="nav-back" onclick="goBack()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back
+            </div>
+            <div class="header-title" id="floorSelectTitle" style="margin-top: 10px; font-size: 1.6rem;">Select Floor</div>
+        </div>
+        <div class="scroll-container" id="floorListContainer"></div>
+    </div>
+
+    <!-- LEVELS: LEVEL SUMMARY VIEW -->
+    <div id="levelSummaryView" class="view-section">
+        <div class="header-sticky">
+            <div class="nav-back" onclick="goBack()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back
+            </div>
+            <div class="header-title" id="levelSummaryTitle" style="margin-top: 10px; font-size: 1.6rem;">Level Summary</div>
+        </div>
+        <div class="scroll-container">
+            
+            <div class="blueprint-container">
+                <div id="scanLine" class="scan-line"></div>
+                <img id="summaryMapImage" class="blueprint-map" src="">
+            </div>
+
+            <div class="sub-cat-header">Rooms on this Floor</div>
+            <div id="summaryRoomList"></div>
+
+            <button class="btn-home" onclick="goHome()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Back to Home
             </button>
@@ -412,7 +590,7 @@
     </div>
 
     <script>
-        // Database updated with smart search tags
+        // Database updated with smart search tags and precise Washroom Names
         const roomData = [
             // PRIMARY BUILDING - LEVEL 1
             { id: "p1-1", cat: "Grade 1", name: "1A", roomNum: "Class Room - 1", tags: "g1a grade1a one", bldg: "Primary Building", floor: "Level 1", img: "LFP 26-27/Primary Building/Level 1/1A_20260905_172432_0007.jpg" },
@@ -458,7 +636,7 @@
             { id: "p4-8", cat: "Grade 4", name: "4H", roomNum: "Class Room - 2", tags: "g4h grade4h four", bldg: "Primary Building", floor: "Level 4", img: "LFP 26-27/Primary Building/Level 4/4H_20260905_172432_0032.jpg" },
             { id: "p4-9", cat: "Other", subCat: "Activities", name: "Music Room (Primary)", roomNum: "Class Room - 9", bldg: "Primary Building", floor: "Level 4", img: "LFP 26-27/Primary Building/Level 4/Music Room_20260905_172432_0027.jpg" },
 
-            // MAIN BUILDING - LEVEL 1
+            // MAIN BUILDING - LEVEL -1
             { id: "m1-1", cat: "Other", subCat: "Activities", name: "Art Room", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -1", img: "LFP 26-27/Main Building/Level 1/Art Room_20260905_173245_0003.jpg" },
             { id: "m1-2", cat: "Other", subCat: "Services", name: "Book Shop", bldg: "Main Building", floor: "Level -1", img: "LFP 26-27/Main Building/Level 1/Book Shop_20260905_173245_0004.jpg" },
             { id: "m1-3", cat: "Other", subCat: "Activities", name: "Dancing Room (Main)", bldg: "Main Building", floor: "Level -1", img: "LFP 26-27/Main Building/Level 1/Dancing Room_20260905_173245_0005.jpg" },
@@ -468,7 +646,7 @@
             { id: "m1-7", cat: "Other", subCat: "Services", name: "Store Room", bldg: "Main Building", floor: "Level -1", img: "LFP 26-27/Main Building/Level 1/Store Room_20260905_173245_0007.jpg" },
             { id: "m1-8", cat: "Other", subCat: "Activities", name: "Western Music Room", bldg: "Main Building", floor: "Level -1", img: "LFP 26-27/Main Building/Level 1/Western Music Room_20260905_173245_0006.jpg" },
 
-            // MAIN BUILDING - LEVEL 2
+            // MAIN BUILDING - LEVEL -2
             { id: "m2-1", cat: "Grade 5", name: "5A", roomNum: "Class Room - 4", tags: "g5a grade5a five", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/5A_20260905_173515_0013.jpg" },
             { id: "m2-2", cat: "Grade 5", name: "5B", roomNum: "Class Room - 3", tags: "g5b grade5b five", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/5B_20260905_173515_0012.jpg" },
             { id: "m2-3", cat: "Grade 5", name: "5C", roomNum: "Class Room - 2", tags: "g5c grade5c five", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/5C_20260905_173515_0010.jpg" },
@@ -482,9 +660,9 @@
             { id: "m2-11", cat: "Nursery", name: "Nursery F", roomNum: "Class Room - 2", tags: "nf n f nursery f", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/Nursery F_20260905_173515_0009.jpg" },
             { id: "m2-12", cat: "Pre-Grade", name: "Pre Grade F", roomNum: "Class Room - 3", tags: "pgf pg f pre grade f", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/Pre Grade F_20260905_173515_0007.jpg" },
             { id: "m2-13", cat: "Other", subCat: "Activities", name: "Religious Activity Room", roomNum: "Class Room - 4", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/Religious Activity room_20260905_173515_0008.jpg" },
-            { id: "m2-14", cat: "Other", subCat: "Services", name: "Wash Room Level -2", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/Wash Room_20260905_173515_0006.jpg" },
+            { id: "m2-14", cat: "Other", subCat: "Services", name: "Washroom (Level 2)", bldg: "Main Building", floor: "Level -2", img: "LFP 26-27/Main Building/Level 2/Wash Room_20260905_173515_0006.jpg" },
 
-            // MAIN BUILDING - LEVEL 3
+            // MAIN BUILDING - LEVEL -3
             { id: "m3-1", cat: "Grade 7", name: "7A", roomNum: "Class Room - 4", tags: "g7a grade7a seven", bldg: "Main Building", floor: "Level -3", img: "LFP 26-27/Main Building/Level 3/7A_20260905_173702_0024.jpg" },
             { id: "m3-2", cat: "Grade 7", name: "7B", roomNum: "Class Room - 3", tags: "g7b grade7b seven", bldg: "Main Building", floor: "Level -3", img: "LFP 26-27/Main Building/Level 3/7B_20260905_173702_0023.jpg" },
             { id: "m3-3", cat: "Grade 8", name: "8A", roomNum: "Class Room - 2", tags: "g8a grade8a eight", bldg: "Main Building", floor: "Level -3", img: "LFP 26-27/Main Building/Level 3/8A_20260905_173702_0021.jpg" },
@@ -498,7 +676,7 @@
             { id: "m3-11", cat: "Other", subCat: "Administration", name: "Principal's Office", bldg: "Main Building", floor: "Level -3", img: "LFP 26-27/Main Building/Level 3/Principal's Office_20260905_173702_0014.jpg" },
             { id: "m3-12", cat: "Other", subCat: "Services", name: "Store Room for Labs", bldg: "Main Building", floor: "Level -3", img: "LFP 26-27/Main Building/Level 3/Store Room for Labs_20260905_173702_0019.jpg" },
 
-            // MAIN BUILDING - LEVEL 4
+            // MAIN BUILDING - LEVEL -4
             { id: "m4-1", cat: "Grade 5", name: "5E", roomNum: "Class Room - 3", tags: "g5e grade5e five", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/5E_20260905_173903_0011.jpg" },
             { id: "m4-2", cat: "Grade 5", name: "5F", roomNum: "Class Room - 4", tags: "g5f grade5f five", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/5F_20260905_173903_0012.jpg" },
             { id: "m4-3", cat: "Other", subCat: "Labs", name: "Chemistry Lab", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Chemistry Lab_20260905_173903_0008.jpg" },
@@ -511,9 +689,9 @@
             { id: "m4-10", cat: "Pre-Grade", name: "Pre Grade D", roomNum: "Class Room - 5", tags: "pgd pg d pre grade d", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Pre Grade D_20260905_173903_0001.jpg" },
             { id: "m4-11", cat: "Pre-Grade", name: "Pre Grade E", roomNum: "Class Room - 6", tags: "pge pg e pre grade e", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Pre Grade E_20260905_173903_0000.jpg" },
             { id: "m4-12", cat: "Other", subCat: "Administration", name: "Staff Room", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Staff Room_20260905_173903_0005.jpg" },
-            { id: "m4-13", cat: "Other", subCat: "Services", name: "Wash Room Girls", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Washroom_20260905_173903_0010.jpg" },
+            { id: "m4-13", cat: "Other", subCat: "Services", name: "Washroom (Girls)", bldg: "Main Building", floor: "Level -4", img: "LFP 26-27/Main Building/Level 4/Washroom_20260905_173903_0010.jpg" },
 
-            // MAIN BUILDING - LEVEL 5
+            // MAIN BUILDING - LEVEL -5
             { id: "m5-1", cat: "Other", subCat: "Services", name: "Book Stores", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Book Stores_20260905_174001_0006.jpg" },
             { id: "m5-2", cat: "Edexcel", name: "EDX 1", roomNum: "Class Room - 2", tags: "edx edx1 edexcel", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/EDX 1_20260905_174001_0012.jpg" },
             { id: "m5-3", cat: "Forms (Secondary)", name: "Form I-A", roomNum: "Class Room - 4", tags: "f1a form1a fia formia one", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Form 1A_20260905_174001_0015.jpg" },
@@ -529,9 +707,9 @@
             { id: "m5-13", cat: "Grade 6", name: "6A", tags: "g6a grade6a six", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Form 6A_20260905_174001_0004.jpg" },
             { id: "m5-14", cat: "Grade 6", name: "6B", tags: "g6b grade6b six", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Form 6B_20260905_174001_0005.jpg" },
             { id: "m5-15", cat: "Other", subCat: "Activities", name: "Speech and Drama Room", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Speech and Drama Room_20260905_174001_0013.jpg" },
-            { id: "m5-16", cat: "Other", subCat: "Services", name: "Wash Room Boys", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg" },
+            { id: "m5-16", cat: "Other", subCat: "Services", name: "Washroom (Boys)", bldg: "Main Building", floor: "Level -5", img: "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg" },
 
-            // MAIN BUILDING - LEVEL 6
+            // MAIN BUILDING - LEVEL -6
             { id: "m6-1", cat: "Grade 9", name: "9", tags: "g9 grade9 nine", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/9_20260905_174109_0004.jpg" },
             { id: "m6-2", cat: "Grade 10", name: "10A", tags: "g10a grade10a ten", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/10A_20260905_174109_0001.jpg" },
             { id: "m6-3", cat: "Grade 10", name: "10B", tags: "g10b grade10b ten", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/10B_20260905_174109_0002.jpg" },
@@ -547,7 +725,7 @@
             { id: "m6-13", cat: "Other", subCat: "Activities", name: "Library", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Library_20260905_174109_0000.jpg" },
             { id: "m6-14", cat: "Other", subCat: "Activities", name: "Smart Classroom (Main)", roomNum: "Class Room - 1", bldg: "Main Building", floor: "Level -6", img: "LFP 26-27/Main Building/Level 6/Smart Classroom_20260905_174109_0011.jpg" },
 
-            // MAIN BUILDING - LEVEL 7
+            // MAIN BUILDING - LEVEL -7
             { id: "m7-1", cat: "Advanced Level", name: "Grade 12", tags: "g12 12 twelve", bldg: "Main Building", floor: "Level -7", img: "LFP 26-27/Main Building/Level 7/12_20260905_174219_0002.jpg" },
             { id: "m7-2", cat: "Advanced Level", name: "Grade 13", tags: "g13 13 thirteen", bldg: "Main Building", floor: "Level -7", img: "LFP 26-27/Main Building/Level 7/13_20260905_174219_0001.jpg" },
             { id: "m7-3", cat: "Other", subCat: "Activities", name: "Auditorium", bldg: "Main Building", floor: "Level -7", img: "LFP 26-27/Main Building/Level 7/Auditorium_20260905_174219_0000.jpg" },
@@ -570,6 +748,7 @@
         const groupedData = {};
         catOrder.forEach(c => groupedData[c] = { items: [], subcats: {} });
         
+        // Populate groupedData
         roomData.forEach(room => {
             if (!groupedData[room.cat]) return;
             if (room.cat === "Other" && room.subCat) {
@@ -582,7 +761,13 @@
             }
         });
 
-        // Background Preloader for ultra-fast UX (Staggered to prevent UI block)
+        // Building / Floor Hierarchy for the "Levels" feature
+        const levelsData = {
+            "Primary Building": ["Level 1", "Level 2", "Level 3", "Level 4"],
+            "Main Building": ["Level 1", "Level -1", "Level -2", "Level -3", "Level -4", "Level -5", "Level -6", "Level -7"]
+        };
+
+        // Background Preloader for ultra-fast UX
         function preloadImages() {
             let i = 0;
             function loadNext() {
@@ -590,10 +775,10 @@
                     const img = new Image();
                     img.src = roomData[i].img;
                     i++;
-                    setTimeout(loadNext, 40); // 40ms stagger
+                    setTimeout(loadNext, 40);
                 }
             }
-            setTimeout(loadNext, 1000); // Wait 1 sec before starting background load
+            setTimeout(loadNext, 1000);
         }
 
         // Render the Home Grid
@@ -620,18 +805,22 @@
 
         // Smart Search Functionality
         function handleSearch() {
-            const rawQuery = document.getElementById('searchInput').value.toLowerCase();
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const rawQuery = searchInput.value.toLowerCase();
             const query = rawQuery.replace(/[^a-z0-9]/g, ''); // strip all spaces and symbols
             
             const grid = document.getElementById('categoryGrid');
             const results = document.getElementById('searchResults');
             
             if (query === "") {
+                clearBtn.style.display = "none";
                 grid.style.display = "grid";
                 results.style.display = "none";
                 return;
             }
 
+            clearBtn.style.display = "flex";
             grid.style.display = "none";
             results.style.display = "block";
             results.innerHTML = "";
@@ -643,7 +832,7 @@
                     searchTarget = room.subCat;
                 }
 
-                // Combine everything into one giant flat string for flawless matching
+                // Combine everything into one flat string for flawless matching
                 let searchableString = (room.name + room.cat + (room.subCat || "") + (room.tags || "")).toLowerCase();
                 let flatTarget = searchableString.replace(/[^a-z0-9]/g, '');
 
@@ -662,6 +851,74 @@
             });
 
             if (!found) results.innerHTML = `<div class="empty-state">No matching rooms found.</div>`;
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = "";
+            handleSearch();
+            searchInput.focus();
+        }
+
+        // Levels Flow
+        function openBuildingSelect() {
+            navigate('buildingSelectView');
+        }
+
+        function openFloorSelect(bldg) {
+            const container = document.getElementById('floorListContainer');
+            document.getElementById('floorSelectTitle').innerText = bldg;
+            container.innerHTML = "";
+
+            levelsData[bldg].forEach(floor => {
+                container.innerHTML += `
+                    <div class="list-card" onclick="openLevelSummary('${bldg}', '${floor}')">
+                        <div class="list-name" style="margin-bottom:0;">${floor}</div>
+                        <div style="color: var(--accent);">➔</div>
+                    </div>
+                `;
+            });
+
+            navigate('floorSelectView');
+        }
+
+        function openLevelSummary(bldg, floor) {
+            document.getElementById('levelSummaryTitle').innerText = `${bldg} - ${floor}`;
+            const container = document.getElementById('summaryRoomList');
+            container.innerHTML = "";
+
+            // Find all rooms on this floor
+            const floorRooms = roomData.filter(r => r.bldg === bldg && r.floor === floor);
+            
+            if(floorRooms.length > 0) {
+                // Set the blueprint map to the first room's image
+                const summaryMap = document.getElementById('summaryMapImage');
+                summaryMap.src = floorRooms[0].img;
+                
+                // Retrigger CSS animations
+                summaryMap.classList.remove('animate');
+                document.getElementById('scanLine').classList.remove('animate');
+                
+                // Short timeout to restart animation
+                setTimeout(() => {
+                    summaryMap.classList.add('animate');
+                    document.getElementById('scanLine').classList.add('animate');
+                }, 50);
+
+                floorRooms.forEach(room => {
+                    container.innerHTML += `
+                        <div class="list-card" onclick="selectRoom('${room.id}')">
+                            <div>
+                                <div class="list-name">${room.name}</div>
+                                <div class="list-meta">${room.cat} ${room.subCat ? '> ' + room.subCat : ''}</div>
+                            </div>
+                            <div style="color: var(--accent);">➔</div>
+                        </div>
+                    `;
+                });
+            }
+
+            navigate('levelSummaryView');
         }
 
         // Open specific category list
@@ -746,8 +1003,7 @@
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // Clear search when going home
-            if(viewId === 'homeView') {
+            if (viewId === 'homeView') {
                 document.getElementById('searchInput').value = "";
                 handleSearch();
             }
@@ -768,9 +1024,18 @@
             if (previousView === 'homeView') {
                 document.getElementById('searchInput').value = "";
                 handleSearch();
-                historyStack = ['homeView']; // Reset stack entirely if back to home
+                historyStack = ['homeView']; // Reset stack
             }
             
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            historyStack = ['homeView'];
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById('homeView').classList.add('active');
+            document.getElementById('searchInput').value = "";
+            handleSearch();
             window.scrollTo(0, 0);
         }
 
