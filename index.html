@@ -2,59 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#eaf1f5">
-  <meta name="description" content="Explore Louvre College. Find classrooms and facilities on an interactive, editable campus map, on any screen.">
-  <title>Louvre College · Campus Navigator</title>
+  <meta name="description" content="Explore Louvre College. Find classrooms and facilities on an interactive, editable school map, on any screen.">
+  <title>Louvre College · School Navigator</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=3.0.0">
-  <script type="module" src="app.js?v=3.0.0"></script>
+  <link rel="stylesheet" href="styles.css?v=3.1.0">
+  <script type="module" src="app.js?v=3.1.0"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to floor map</a>
+  <a id="skipLink" class="skip-link" href="#homeView">Skip to categories</a>
   <header class="app-header glass">
-    <a class="brand" href="./" aria-label="Louvre College home"><img src="logo.png" alt="" width="40" height="40"><span><strong>Louvre College</strong><small>Campus navigator</small></span></a>
+    <a id="goHome" class="brand" href="./" aria-label="Louvre College home"><img src="logo.png" alt="" width="40" height="40"><span><strong>Louvre College</strong><small>School navigator</small></span></a>
     <label class="global-search"><span data-icon="search"></span><input id="search" type="search" autocomplete="off" placeholder="Find a classroom, lab, or facility" aria-label="Search all rooms"><kbd>/</kbd><button id="clearSearch" type="button" class="icon-button" title="Clear search" aria-label="Clear search" hidden><span data-icon="close"></span></button></label>
-    <div class="header-actions"><span id="connectionStatus" class="connection"><i></i><span>Online</span></span><button id="openStudio" aria-label="Layout studio" title="Layout studio" type="button" class="button studio-button"><span data-icon="edit"></span><span>Layout studio</span></button><button id="openSettings" type="button" class="icon-button" aria-label="Display settings" title="Display settings"><span data-icon="settings"></span></button></div>
+    <div class="header-actions"><span id="connectionStatus" class="connection"><i></i><span>Online</span></span><button id="categoriesHome" type="button" class="icon-button" aria-label="All categories" title="All categories"><span data-icon="list"></span></button><button id="openGuide" type="button" class="icon-button" aria-label="How to use the navigator" title="How to use"><span data-icon="info"></span></button><button id="openSettings" type="button" class="icon-button" aria-label="Display settings" title="Display settings"><span data-icon="settings"></span></button></div>
   </header>
   <div id="notice" class="notice" role="status" hidden></div>
   <div id="updateNotice" class="notice update-notice" hidden><span>An app update is ready.</span><button id="applyUpdate" type="button" class="button small">Reload update</button></div>
-  <div id="workspace" class="workspace">
+  <section id="homeView" tabindex="-1" class="home-view" aria-label="School categories"><p class="empty-state">Loading your school…</p></section>
+  <div id="workspace" class="workspace" hidden>
     <aside id="browseSidebar" class="sidebar glass" aria-label="Find a room">
-      <div class="sidebar-heading"><span class="eyebrow">MAKE YOURSELF AT HOME</span><h1>Find your place<span>.</span></h1><p id="campusStats">Loading your campus…</p></div>
+      <div class="sidebar-heading"><span class="eyebrow">MAKE YOURSELF AT HOME</span><h1>Find your place<span>.</span></h1><p id="campusStats">Loading your school…</p></div>
       <label class="field year-field"><span>School year</span><select id="yearSelect" aria-label="School year"></select></label>
       <div class="segmented" role="group" aria-label="Room collection"><button type="button" id="allRoomsTab" class="active">All rooms</button><button type="button" id="savedRoomsTab"><span data-icon="star"></span>Saved <span id="savedCount">0</span></button></div>
       <div id="buildingFilters" class="building-filters" role="group" aria-label="Filter by building"></div>
       <label class="field category-field"><span>Category</span><select id="categoryFilter"><option value="all">All categories</option></select></label>
-      <div class="results-heading"><h2 id="resultsTitle">Campus directory</h2><span id="resultsCount" aria-live="polite"></span></div>
+      <div class="results-heading"><h2 id="resultsTitle">School directory</h2><span id="resultsCount" aria-live="polite"></span></div>
       <div id="roomList" class="room-list"><p class="empty-state">Preparing the map…</p></div>
-      <div class="sidebar-footer"><span data-icon="info"></span><span>Select a room to see its location.<br><small>Campus Navigator 3.0</small></span></div>
+      <div class="sidebar-footer"><span data-icon="info"></span><span>Select a room to see its location.<br><small>School Navigator 3.1</small></span></div>
     </aside>
-    <aside id="studioSidebar" class="sidebar glass studio-sidebar" aria-label="Layout editor" hidden></aside>
+    <aside id="studioSidebar" tabindex="-1" class="sidebar glass studio-sidebar" aria-label="Layout editor" hidden></aside>
     <main id="main" class="map-panel glass" tabindex="-1">
       <div id="studioBar" class="studio-bar" hidden>
         <div><span class="status-dot"></span><strong>Layout studio</strong><span id="draftStatus">On this device</span></div>
-        <div class="studio-actions"><button type="button" id="undo" class="icon-button" aria-label="Undo edit" title="Undo (Ctrl/Cmd Z)"><span data-icon="undo"></span></button><button type="button" id="redo" class="icon-button" aria-label="Redo edit" title="Redo (Ctrl/Cmd Shift Z)"><span data-icon="redo"></span></button><button type="button" id="exportLayout" class="button small"><span data-icon="download"></span>Export</button><button type="button" id="exitStudio" class="button small">Done</button></div>
+        <div class="studio-actions"><button type="button" id="undo" class="icon-button" aria-label="Undo edit" title="Undo (Ctrl/Cmd Z)"><span data-icon="undo"></span></button><button type="button" id="redo" class="icon-button" aria-label="Redo edit" title="Redo (Ctrl/Cmd Shift Z)"><span data-icon="redo"></span></button><button type="button" id="exportLayout" class="button small"><span data-icon="download"></span>Export</button><button type="button" id="exitStudio" class="button small">Lock editor</button></div>
       </div>
-      <div class="map-heading"><div><span class="eyebrow" id="mapEyebrow">EXPLORE YOUR CAMPUS</span><div class="map-title-row"><span class="map-title-icon" data-icon="building"></span><label class="sr-only" for="mapBuilding">Building shown on the map</label><select id="mapBuilding" class="building-select"></select></div><p id="floorSubtitle">Interactive floor plans</p></div><div class="map-heading-actions"><button type="button" id="referenceToggle" aria-label="Original plan" class="button small" aria-pressed="false" title="Compare with the original floor plan"><span data-icon="layers"></span><span>Original plan</span></button><button type="button" id="fullscreen" class="icon-button" aria-label="Fullscreen map" title="Fullscreen map"><span data-icon="expand"></span></button></div></div>
+      <div class="map-heading"><div><span class="eyebrow" id="mapEyebrow">EXPLORE YOUR SCHOOL</span><div class="map-title-row"><span class="map-title-icon" data-icon="building"></span><label class="sr-only" for="mapBuilding">Building shown on the map</label><select id="mapBuilding" class="building-select"></select></div><p id="floorSubtitle">Interactive floor plans</p></div><div class="map-heading-actions"><button type="button" id="referenceToggle" aria-label="Original plan" class="button small" aria-pressed="false" title="Compare with the original floor plan"><span data-icon="layers"></span><span>Original plan</span></button><button type="button" id="fullscreen" class="icon-button" aria-label="Fullscreen map" title="Fullscreen map"><span data-icon="expand"></span></button></div></div>
       <nav id="floorTabs" class="floor-tabs" aria-label="Choose a floor"></nav>
       <div class="map-stage" id="mapStage">
         <div class="map-caption"><span id="mapCaption">Live, editable floor plan</span><span class="map-status"><i></i>Interactive</span></div>
-        <svg id="floorMap" class="floor-map" role="group" tabindex="0" xmlns="http://www.w3.org/2000/svg" aria-label="Campus floor plan"></svg>
-        <div id="mapEmpty" class="map-empty" hidden><span data-icon="map"></span><h2>A fresh floor.</h2><p>Open Layout studio to draw the first room.</p></div>
-        <div class="map-controls glass" role="group" aria-label="Map controls"><button type="button" id="zoomOut" class="icon-button" aria-label="Zoom out"><span data-icon="minus"></span></button><span id="zoomValue" aria-hidden="true">100%</span><button type="button" id="zoomIn" class="icon-button" aria-label="Zoom in"><span data-icon="plus"></span></button><span class="control-divider"></span><button type="button" id="fitMap" class="icon-button" aria-label="Fit whole floor" title="Fit whole floor (Home)"><span data-icon="fit"></span></button></div>
+        <svg id="floorMap" class="floor-map" role="group" tabindex="0" xmlns="http://www.w3.org/2000/svg" aria-label="School floor plan"></svg>
+        <div id="mapEmpty" class="map-empty" hidden><span data-icon="map"></span><h2>A fresh floor.</h2><p>This floor has no rooms assigned yet.</p></div>
+        <div class="map-controls glass" role="group" aria-label="Map controls"><button type="button" id="zoomOut" class="icon-button" aria-label="Zoom out"><span data-icon="minus"></span></button><span id="zoomValue" aria-hidden="true">100%</span><button type="button" id="zoomIn" class="icon-button" aria-label="Zoom in"><span data-icon="plus"></span></button><span class="control-divider"></span><button type="button" id="resetMap" class="button reset-map" aria-label="Reset to selected room" title="Reset to selected room (Home)"><span data-icon="pin"></span><span>Reset</span></button><button type="button" id="fitMap" class="icon-button" aria-label="Fit whole floor" title="Fit whole floor"><span data-icon="fit"></span></button></div>
       </div>
       <footer class="map-footer"><div class="map-legend"><span><i class="legend-class"></i>Classrooms</span><span><i class="legend-facility"></i>Facilities</span><span><i class="legend-empty"></i>Unassigned</span></div><span class="map-note">Schematic · not to scale</span></footer>
     </main>
     <aside id="roomDetails" class="details-panel glass" aria-label="Selected room" hidden></aside>
   </div>
-  <nav class="mobile-nav glass" aria-label="Mobile navigation"><button type="button" id="mobileMap" class="active"><span data-icon="map"></span>Map</button><button type="button" id="mobileRooms"><span data-icon="list"></span>Rooms</button><button type="button" id="mobileSaved"><span data-icon="star"></span>Saved</button></nav>
+  <nav class="mobile-nav glass" aria-label="Mobile navigation"><button type="button" id="mobileHome"><span data-icon="building"></span>Categories</button><button type="button" id="mobileMap" class="active"><span data-icon="map"></span>Map</button><button type="button" id="mobileRooms"><span data-icon="list"></span>Rooms</button><button type="button" id="mobileSaved"><span data-icon="star"></span>Saved</button></nav>
+  <footer class="site-footer"><span>Created by <a href="https://github.com/InduwaraLasindu" target="_blank" rel="noopener noreferrer">Induwara Lasindu · GitHub</a></span><button id="adminAccess" type="button" class="admin-access" aria-label="Administrator access" title="Administrator access"><span data-icon="lock"></span></button></footer>
+  <dialog id="adminDialog" class="app-dialog glass" aria-labelledby="adminTitle"><form id="adminForm"><div class="dialog-heading"><div><span class="eyebrow">ADMINISTRATOR</span><h2 id="adminTitle">Unlock the editor</h2></div><button id="cancelAdmin" type="button" class="icon-button" aria-label="Cancel administrator sign-in"><span data-icon="close"></span></button></div><p class="fine-print">Enter the administrator password to manage rooms and school-year layouts.</p><label class="field"><span>Administrator password</span><input id="adminPassword" type="password" required autocomplete="current-password" maxlength="200" aria-describedby="adminError"></label><p id="adminError" class="form-error" role="alert"></p><button id="unlockEditor" class="button primary wide" type="submit">Unlock editor</button><p class="fine-print">Editing opens a private draft on this device. Publishing requires the school map’s GitHub repository access.</p></form></dialog>
+  <dialog id="guideDialog" class="app-dialog guide-dialog glass" aria-labelledby="guideTitle"><button id="guideSkip" type="button" class="guide-skip">Skip guide</button><div id="guideContent"></div><div class="guide-buttons"><button id="guideBack" type="button" class="button">Back</button><button id="guideNext" type="button" class="button primary">Next</button></div></dialog>
   <div id="toast" class="toast glass" role="status" aria-live="polite"></div>
   <dialog id="settingsDialog" class="app-dialog glass" aria-labelledby="settingsTitle"><div class="dialog-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="settingsTitle">Display settings</h2></div><button type="button" id="closeSettings" class="icon-button" aria-label="Close settings"><span data-icon="close"></span></button></div><p>Comfortable on a phone. Clear across a room.</p><label class="field"><span>Appearance</span><select id="themeSetting"><option value="system">Match device</option><option value="light">Light glass</option><option value="dark">Dark glass</option></select></label><label class="field"><span>Interface size</span><select id="scaleSetting"><option value="auto">Adaptive</option><option value="compact">Compact</option><option value="comfortable">Comfortable</option><option value="tv">TV / viewing from a distance</option></select></label><label class="field"><span>Glass effects</span><select id="effectsSetting"><option value="auto">Automatic · optimized for this device</option><option value="full">Full glass</option><option value="reduced">Reduced · save power</option></select></label><p class="fine-print">Motion and transparency preferences are respected. TV mode supports arrow-key navigation.</p><button id="installApp" class="button primary" type="button" hidden>Install navigator</button></dialog>
   <dialog id="shareDialog" class="app-dialog glass" aria-labelledby="shareTitle"><div class="dialog-heading"><h2 id="shareTitle">Room link</h2><button id="closeShare" class="icon-button" type="button" aria-label="Close room link"><span data-icon="close"></span></button></div><p id="shareExplanation"></p><label class="field"><span>Select and copy this link</span><input id="shareLink" readonly></label></dialog>
-  <input id="importFile" type="file" accept="application/json,.json" hidden>
-  <noscript><div class="noscript">Enable JavaScript to use the campus map. Original floor plans remain available in the <a href="https://github.com/InduwaraLasindu/school-map/tree/main/LFP%2026-27">repository</a>.</div></noscript>
+  <input id="importFile" disabled type="file" accept="application/json,.json" hidden>
+  <noscript><div class="noscript">Enable JavaScript to use the school map. Original floor plans remain available in the <a href="https://github.com/InduwaraLasindu/school-map/tree/main/LFP%2026-27">repository</a>.</div></noscript>
 </body>
 </html>
 

@@ -1,17 +1,23 @@
 import {clone,validateCampus,parseCampus,locationOf,roomsOnFloor,searchRooms,roomAt,bounds} from './lib/model.js';
 import {FloorMap} from './lib/map.js';
-import {LayoutStudio} from './lib/studio.js';
+import {renderHome} from './lib/home.js';
+import {categoryGroups} from './lib/navigation.js';
+import {setupGuide} from './lib/guide.js';
+import {MapFullscreen} from './lib/fullscreen.js';
+import {unlockAdmin} from './lib/admin.js';
 import {$,escapeHTML as esc,icon,fillIcons,readStorage,writeStorage,downloadJSON,askConfirm} from './lib/ui.js';
 
-const STORE='schoolNavigator.v3.', DRAFT=STORE+'draft';
+const STORE='schoolNavigator.v3.', DRAFT='schoolNavigator.v4.encryptedDraft', LEGACY_DRAFT=STORE+'draft';
 const safeArray=v=>Array.isArray(v)?[...new Set(v.filter(x=>typeof x==='string'))]:[];
 let favorites=safeArray(readStorage(STORE+'favorites',readStorage('schoolNavigator.v2.favorites',[])));
 let recent=safeArray(readStorage(STORE+'recent',readStorage('schoolNavigator.v2.recent',[]))).slice(0,6);
 let settings=readStorage(STORE+'settings',{});
 if(!settings||typeof settings!=='object'||Array.isArray(settings))settings={};
-const state={year:null,floor:null,room:null,query:'',building:'all',category:'all',saved:false,view:'map',studio:false,reference:false};
+const state={year:null,floor:null,room:null,query:'',building:'all',category:'all',saved:false,view:'map',page:'home',browseCategory:null,subcategory:null,studio:false,reference:false};
 let campus,published,baseSignature='',draftExists=false,draftConflict=false,studio,toastTimer,installPrompt,waitingWorker;
-let undoStack=[],redoStack=[];
+let undoStack=[],redoStack=[],admin=null,draftWrite=Promise.resolve(),saveSequence=0,authAttempt=0,locking=false;
+const guide=setupGuide();
+const fullscreen=new MapFullscreen(()=>{requestAnimationFrame(()=>{if(!map.box)return;if(state.room)map.reset();else map.fit();});});
 const layout=()=>campus.layouts.find(l=>l.id===state.year)??campus.layouts[0];
 const floor=()=>layout()?.floors.find(f=>f.id===state.floor)??layout()?.floors[0];
 const map=new FloorMap($('floorMap'),spaceId=>{
@@ -23,8 +29,8 @@ const map=new FloorMap($('floorMap'),spaceId=>{
 function notify(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),4000);}
 function signature(value){let n=2166136261;for(const c of JSON.stringify(value)){n^=c.charCodeAt(0);n=Math.imul(n,16777619);}return (n>>>0).toString(16);}
 function showNotice(){
-  const notice=$('notice');notice.replaceChildren();notice.hidden=!draftExists;
-  if(!draftExists)return;
+  const notice=$('notice');notice.replaceChildren();notice.hidden=!draftExists||!state.studio;
+  if(!draftExists||!state.studio)return;
   notice.classList.toggle('warning',draftConflict);
   const text=document.createElement('span');text.textContent=draftConflict?'The published map changed. Your saved draft is preserved on this device.':'You are viewing a local draft. Export it to publish changes for everyone.';
   const exportButton=document.createElement('button');exportButton.type='button';exportButton.className='button small';exportButton.textContent='Export draft';exportButton.onclick=exportCampus;
@@ -32,25 +38,36 @@ function showNotice(){
   notice.append(text,exportButton,resetButton);
 }
 function saveDraft(){
+  if(!admin?.unlocked||!state.studio)return draftWrite;
   draftExists=true;
-  const ok=writeStorage(DRAFT,{baseSignature,campus});
-  $('draftStatus').textContent=ok?'Draft saved on this device':'Export to keep changes';
-  if(!ok)notify('Device storage is unavailable or full. Export your layout to keep these changes.');
-  showNotice();
+  const sequence=++saveSequence,snapshot={baseSignature,campus:clone(campus)},session=admin;
+  $('draftStatus').textContent='Saving private draft…';
+  draftWrite=session.sealDraft(snapshot).then(envelope=>{
+    if(sequence!==saveSequence)return;
+    const ok=writeStorage(DRAFT,envelope);
+    $('draftStatus').textContent=ok?'Private draft saved':'Export to keep changes';
+    if(ok){try{localStorage.removeItem(LEGACY_DRAFT);}catch{}}
+    else notify('Device storage is unavailable or full. Export your layout to keep these changes.');
+  }).catch(()=>{notify('Could not save the private draft. Export your layout to keep changes.');});
+  showNotice();return draftWrite;
 }
 function commit(change){
+  if(!admin?.unlocked||!state.studio||locking)return false;
   const before=clone(campus),previousYear=state.year;
   try{change(campus,layout());validateCampus(campus);}
   catch(error){campus=before;state.year=previousYear;refresh({preserve:true});notify(error.message);return false;}
   undoStack.push(before);if(undoStack.length>35)undoStack.shift();redoStack=[];
   saveDraft();refresh({preserve:true});return true;
 }
-function undo(){if(!undoStack.length)return;redoStack.push(clone(campus));campus=undoStack.pop();saveDraft();refresh();notify('Edit undone.');}
-function redo(){if(!redoStack.length)return;undoStack.push(clone(campus));campus=redoStack.pop();saveDraft();refresh();notify('Edit restored.');}
-function exportCampus(){try{validateCampus(campus);downloadJSON(campus);notify('Exported campus.json. Replace data/campus.json in GitHub to publish.');}catch(error){notify(error.message);}}
+function undo(){if(!admin?.unlocked||!state.studio||locking||!undoStack.length)return;redoStack.push(clone(campus));campus=undoStack.pop();saveDraft();refresh();notify('Edit undone.');}
+function redo(){if(!admin?.unlocked||!state.studio||locking||!redoStack.length)return;undoStack.push(clone(campus));campus=redoStack.pop();saveDraft();refresh();notify('Edit restored.');}
+function exportCampus(){if(!admin?.unlocked||!state.studio)return;try{validateCampus(campus);downloadJSON(campus);notify('Exported campus.json. Replace data/campus.json in GitHub to publish.');}catch(error){notify(error.message);}}
 async function resetDraft(){
-  if(!await askConfirm('Use the published campus map? This removes the saved draft from this device. Export first if you want to keep it.'))return;
-  try{localStorage.removeItem(DRAFT);}catch{notify('Could not clear device storage.');return;}
+  if(!admin?.unlocked||!state.studio)return;
+  if(!await askConfirm('Use the published school map? This removes the saved draft from this device. Export first if you want to keep it.'))return;
+  await draftWrite;
+  if(!admin?.unlocked||!state.studio)return;
+  try{localStorage.removeItem(DRAFT);localStorage.removeItem(LEGACY_DRAFT);}catch{notify('Could not clear device storage.');return;}
   campus=clone(published);draftExists=false;draftConflict=false;undoStack=[];redoStack=[];
   state.year=campus.activeLayoutId;state.room=null;state.floor=null;state.reference=false;
   showNotice();refresh();notify('Published map restored.');
@@ -60,20 +77,27 @@ function ensureState(){
   if(!layout().floors.some(f=>f.id===state.floor))state.floor=layout().floors[0].id;
   if(state.room&&!layout().rooms.some(r=>r.id===state.room))state.room=null;
   if(!layout().buildings.some(b=>b.id===state.building))state.building='all';
+  if(state.browseCategory&&!categoryGroups(layout().rooms).some(g=>g.name===state.browseCategory)){state.browseCategory=null;state.subcategory=null;}
   if(state.category!=='all'&&!layout().rooms.some(r=>r.category===state.category))state.category='all';
 }
 function refresh({preserve=false}={}){
   ensureState();
   const l=layout(),f=floor(),b=l.buildings.find(b=>b.id===f.buildingId);
-  document.title=`${state.room?l.rooms.find(r=>r.id===state.room)?.name+' · ':''}Louvre College · Campus Navigator`;
+  document.title=`${state.room?l.rooms.find(r=>r.id===state.room)?.name+' · ':''}Louvre College · School Navigator`;
+  $('homeView').hidden=state.page!=='home'||state.studio;
+  $('workspace').hidden=state.page==='home'&&!state.studio;
+  document.body.dataset.page=state.page;
+  $('skipLink').href=state.page==='home'?'#homeView':'#main';$('skipLink').textContent=state.page==='home'?'Skip to categories':'Skip to floor map';
+  $('main').classList.toggle('has-details',!!state.room&&!state.studio);
   $('workspace').classList.toggle('studio',state.studio);$('workspace').classList.toggle('has-selection',!!state.room&&!state.studio);
   $('workspace').dataset.view=state.view;
+  $('categoriesHome').disabled=state.studio;$('mobileHome').disabled=state.studio;$('search').disabled=state.studio;
   $('browseSidebar').hidden=state.studio;$('studioSidebar').hidden=!state.studio;$('studioBar').hidden=!state.studio;
-  $('openStudio').setAttribute('aria-pressed',String(state.studio));
+  if(state.page==='home'&&!state.studio){renderHome($('homeView'),campus,l,state,favorites);$('clearSearch').hidden=!state.query;showNotice();return;}
   $('yearSelect').innerHTML=campus.layouts.map(y=>`<option value="${esc(y.id)}" ${y.id===state.year?'selected':''}>${esc(y.name)}</option>`).join('');
   $('campusStats').textContent=`${l.rooms.length} rooms · ${l.floors.length} floors · ${l.buildings.length} buildings`;
   $('mapBuilding').innerHTML=l.buildings.map(x=>`<option value="${esc(x.id)}" ${x.id===b.id?'selected':''}>${esc(x.name)}</option>`).join('');
-  $('mapEyebrow').textContent=state.studio?'DESIGN THE NEXT SCHOOL YEAR':`${l.name} · EXPLORE YOUR CAMPUS`;
+  $('mapEyebrow').textContent=state.studio?'DESIGN THE NEXT SCHOOL YEAR':`${l.name} · EXPLORE YOUR SCHOOL`;
   $('floorSubtitle').textContent=`${f.name} · ${roomsOnFloor(l,f.id).length} rooms`;
   $('floorTabs').innerHTML=l.floors.filter(x=>x.buildingId===b.id).sort((a,b)=>a.order-b.order).map(x=>`<button type="button" data-floor="${esc(x.id)}" class="${x.id===f.id?'active':''}" aria-current="${x.id===f.id?'page':'false'}">${esc(x.name)}</button>`).join('');
   $('referenceToggle').disabled=!f.sourceImage;$('referenceToggle').setAttribute('aria-pressed',String(state.reference));
@@ -81,6 +105,7 @@ function refresh({preserve=false}={}){
   $('mapEmpty').hidden=!!f.spaces.length;
   map.render(l,f,{selected:state.studio?studio.selected:locationOf(l,state.room).space?.id,edit:state.studio,reference:state.reference&&!!f.sourceImage,preserve,grid:state.studio&&studio.grid});
   if(state.studio){studio.render();$('roomDetails').hidden=true;}else{renderDirectory();renderDetails();}
+  showNotice();
   $('undo').disabled=!undoStack.length;$('redo').disabled=!redoStack.length;
   updateMobile();
 }
@@ -98,7 +123,7 @@ function renderDirectory(){
     const {floor:f,building:b}=locationOf(l,room);
     return `<button type="button" class="room-card ${room.id===state.room?'active':''}" data-room="${esc(room.id)}" aria-label="Open ${esc(room.name)}, ${esc(b?.name??'location not set')}, ${esc(f?.name??'')}" aria-pressed="${room.id===state.room}"><span class="room-icon">${icon(/lab/i.test(room.category)?'layers':/Grade|Form|Nursery|Edexcel/i.test(room.category)?'building':'pin')}</span><span class="room-card-content"><strong>${esc(room.name)}</strong><small>${esc(b?.name.replace(' Building','')??'Unplaced')} · ${esc(f?.name??'Location not set')}</small></span>${favorites.includes(room.id)?'<span class="saved-star" aria-label="Saved">★</span>':'<span class="card-arrow" aria-hidden="true">↗</span>'}</button>`;
   };
-  $('resultsTitle').textContent=state.query?'Search results':state.saved?'Saved places':'Campus directory';
+  $('resultsTitle').textContent=state.query?'Search results':state.saved?'Saved places':'School directory';
   $('resultsCount').textContent=`${rooms.length} ${rooms.length===1?'room':'rooms'}`;
   $('roomList').innerHTML=rooms.length?(recents.length?'<p class="list-section-label">Recently explored</p>'+recents.map(card).join('')+'<p class="list-section-label">All rooms</p>':'')+rooms.map(card).join(''):`<p class="empty-state"><strong>${state.saved?'Your places, a tap away.':'No rooms found.'}</strong>${state.saved?'Open a room and choose Save room to keep it here.':'Try another name or clear the building and category filters.'}</p>`;
   $('roomList').scrollTop=oldScroll;
@@ -118,13 +143,13 @@ function renderDetails(){
 }
 function setFloor(id,{url=true}={}){
   if(!layout().floors.some(f=>f.id===id))return;
-  state.floor=id;state.room=null;state.reference=false;
+  state.page='map';state.floor=id;state.room=null;state.reference=false;
   if(studio)studio.selected=null;
   refresh();if(url)updateURL();
 }
 function setRoom(id,{focus=true,url=true}={}){
   const room=layout().rooms.find(r=>r.id===id);if(!room){notify('That room is not in this school-year layout.');return;}
-  const loc=locationOf(layout(),room);state.room=id;state.reference=false;if(loc.floor)state.floor=loc.floor.id;
+  const loc=locationOf(layout(),room);state.page='map';state.room=id;state.reference=false;if(loc.floor)state.floor=loc.floor.id;
   recent=[id,...recent.filter(x=>x!==id)].slice(0,6);writeStorage(STORE+'recent',recent);
   const focusSelection=focus||matchMedia('(max-width: 760px)').matches;
   state.view='map';refresh({preserve:!focusSelection});
@@ -132,28 +157,38 @@ function setRoom(id,{focus=true,url=true}={}){
   if(url)updateURL();
 }
 function closeDetails(){state.room=null;refresh({preserve:true});updateURL();$('floorMap').focus({preventScroll:true});}
-function toggleFavorite(id){const saved=favorites.includes(id);favorites=saved?favorites.filter(x=>x!==id):[...favorites,id];writeStorage(STORE+'favorites',favorites);renderDirectory();renderDetails();notify(saved?'Room removed from saved places.':'Room saved on this device.');}
-function setView(view){state.view=view;$('workspace').dataset.view=view;updateMobile();}
+function toggleFavorite(id){const saved=favorites.includes(id);favorites=saved?favorites.filter(x=>x!==id):[...favorites,id];writeStorage(STORE+'favorites',favorites);if(state.page==='home')refresh();else{renderDirectory();renderDetails();}notify(saved?'Room removed from saved places.':'Room saved on this device.');}
+function setView(view){state.page='map';state.view=view;$('workspace').hidden=false;$('homeView').hidden=true;document.body.dataset.page='map';$('workspace').dataset.view=view;updateMobile();}
 function updateMobile(){
   $('mobileMap').classList.toggle('active',state.view==='map');$('mobileRooms').classList.toggle('active',state.view==='rooms'&&!state.saved);$('mobileSaved').classList.toggle('active',state.view==='rooms'&&state.saved);
   for(const [id,active]of [['mobileMap',state.view==='map'],['mobileRooms',state.view==='rooms'&&!state.saved],['mobileSaved',state.view==='rooms'&&state.saved]])$(id).setAttribute('aria-current',active?'page':'false');
 }
+function showHome({category=null,subcategory=null,saved=false,url=true}={}){
+  if(state.studio)return;
+  state.page='home';state.browseCategory=category;state.subcategory=subcategory;state.saved=saved;state.room=null;state.query='';$('search').value='';
+  refresh();$('homeView').scrollTop=0;$('homeTitle')?.focus({preventScroll:true});if(url)updateURL();
+}
 function updateURL(){
   const url=new URL(location.href);url.search='';url.hash='';
   if(state.year!==published.activeLayoutId)url.searchParams.set('year',state.year);
-  if(state.room)url.searchParams.set('room',state.room);else if(state.floor)url.searchParams.set('floor',state.floor);
+  if(state.room)url.searchParams.set('room',state.room);
+  else if(state.page==='home'){
+    if(state.browseCategory)url.searchParams.set('category',state.browseCategory);
+    if(state.subcategory)url.searchParams.set('section',state.subcategory);
+    if(state.saved)url.searchParams.set('saved','1');
+  }else if(state.floor)url.searchParams.set('floor',state.floor);
   if(url.href!==location.href)history.pushState(null,'',url);
 }
 function readURL(){
   const params=new URL(location.href).searchParams,year=params.get('year');
-  if(year&&campus.layouts.some(l=>l.id===year))state.year=year;
-  else state.year=campus.activeLayoutId;
+  state.year=year&&campus.layouts.some(l=>l.id===year)?year:campus.activeLayoutId;
+  state.query='';$('search').value='';state.saved=params.get('saved')==='1';
+  state.browseCategory=params.get('category');state.subcategory=params.get('section');
   ensureState();
   const room=params.get('room'),floorId=params.get('floor');
   if(room&&layout().rooms.some(r=>r.id===room)){setRoom(room,{url:false});return;}
-  state.room=null;
-  if(floorId&&layout().floors.some(f=>f.id===floorId))state.floor=floorId;
-  else state.floor=layout().floors[0].id;
+  state.room=null;state.page=floorId?'map':'home';
+  state.floor=layout().floors.some(f=>f.id===floorId)?floorId:layout().floors[0].id;
   refresh();if(room)notify('This room link is not available in the selected layout.');
 }
 async function shareRoom(){
@@ -172,10 +207,47 @@ async function shareRoom(){
     $('shareExplanation').textContent='Share this link to open the same room and school-year layout.';$('shareLink').value=url.href;$('shareDialog').showModal();$('shareLink').select();
   }
 }
-function setStudio(enabled){
-  state.studio=enabled;state.reference=false;state.room=null;
-  if(enabled){state.view='map';studio.selected=null;notify('Edits stay on this device. Export campus.json when ready to publish.');}
-  refresh();if(!enabled)updateURL();
+function makeStudio(LayoutStudio){
+  if(studio)return;
+  studio=new LayoutStudio({getCampus:()=>campus,getLayout:layout,getFloor:floor,map,commit,notify,refresh,selectFloor:id=>setFloor(id,{url:false}),selectYear:id=>{state.year=id;state.floor=null;state.room=null;refresh();},getYear:()=>state.year,exportCampus,resetDraft,importCampus:()=>{if(admin?.unlocked&&state.studio)$('importFile').click();}});
+}
+function openAdmin(){
+  if(!campus||state.studio)return;
+  $('adminError').textContent='';$('adminPassword').value='';$('adminDialog').showModal();$('adminPassword').focus();
+}
+async function authenticate(event){
+  event.preventDefault();if($('unlockEditor').disabled)return;
+  const attempt=++authAttempt,password=$('adminPassword').value;
+  $('adminPassword').value='';$('unlockEditor').disabled=true;$('unlockEditor').textContent='Unlocking…';$('adminError').textContent='';
+  let session;
+  try{
+    const response=await fetch('./data/admin-lock.json',{cache:'no-cache'});if(!response.ok)throw Error('Administrator access could not load. Please reconnect and try again.');
+    session=await unlockAdmin(password,await response.json());
+    const {LayoutStudio}=await import('./lib/studio.js');
+    if(attempt!==authAttempt||!$('adminDialog').open){session.lock();return;}
+    let recovered=null,recoveryMessage='';
+    const encrypted=readStorage(DRAFT,null),legacy=readStorage(LEGACY_DRAFT,null);
+    if(encrypted){try{recovered=await session.openDraft(encrypted);validateCampus(recovered.campus);}catch{recovered=null;recoveryMessage='The saved draft could not be unlocked. It is preserved; the editor has opened the published map.';}}
+    else if(legacy?.campus){try{validateCampus(legacy.campus);recovered=legacy;}catch{notify('The previous draft is unreadable. It remains on this device.');}}
+    if(attempt!==authAttempt||!$('adminDialog').open){session.lock();return;}
+    admin=session;campus=clone(recovered?.campus??published);draftExists=!!recovered;draftConflict=!!recovered&&recovered.baseSignature!==baseSignature;
+    state.year=campus.activeLayoutId;state.floor=null;state.room=null;state.studio=true;state.page='map';state.view='map';state.reference=false;
+    makeStudio(LayoutStudio);studio.selected=null;studio.drawing=false;$('importFile').disabled=false;
+    $('adminDialog').close();refresh();if(recovered&&legacy)saveDraft();notify(recoveryMessage||'Administrator editor unlocked. Lock the editor when you finish.');
+    $('studioSidebar').focus({preventScroll:true});
+  }catch(error){session?.lock();if(attempt===authAttempt&&$('adminDialog').open){$('adminError').textContent=error.message;$('adminPassword').focus();}}
+  finally{if(attempt===authAttempt){$('unlockEditor').disabled=false;$('unlockEditor').textContent='Unlock editor';}}
+}
+async function lockStudio({url=true,refreshView=true}={}){
+  if(!state.studio||locking)return;
+  locking=true;if(studio)studio.cancel();
+  $('exitStudio').disabled=true;await draftWrite;
+  admin?.lock();admin=null;state.studio=false;state.reference=false;state.room=null;
+  campus=clone(published);draftExists=false;draftConflict=false;undoStack=[];redoStack=[];
+  state.year=published.activeLayoutId;state.floor=null;$('importFile').disabled=true;$('studioSidebar').replaceChildren();
+  if(studio){studio.selected=null;studio.drawing=false;}
+  locking=false;$('exitStudio').disabled=false;showNotice();
+  if(refreshView){refresh();if(url)updateURL();notify('Editor locked. Showing the published school map.');}
 }
 function applySettings(){
   const theme=['light','dark','system'].includes(settings.theme)?settings.theme:'system';
@@ -190,8 +262,25 @@ function applySettings(){
 function updateConnection(){$('connectionStatus').classList.toggle('offline',!navigator.onLine);$('connectionStatus').lastElementChild.textContent=navigator.onLine?'Online':'Offline';$('connectionStatus').title=navigator.onLine?'Connected':'Offline · the saved map is available';}
 
 function bindEvents(){
-  $('search').addEventListener('input',()=>{state.query=$('search').value;if(state.query)setView('rooms');renderDirectory();});
-  $('clearSearch').onclick=()=>{state.query='';$('search').value='';renderDirectory();$('search').focus();};
+  $('goHome').onclick=e=>{e.preventDefault();if(state.studio)return;showHome();};
+  $('categoriesHome').onclick=()=>showHome();$('mobileHome').onclick=()=>showHome();
+  $('homeView').onclick=e=>{
+    const category=e.target.closest('[data-home-category]'),sub=e.target.closest('[data-home-subcategory]'),room=e.target.closest('[data-room]');
+    if(category){showHome({category:category.dataset.homeCategory});return;}
+    if(sub){showHome({category:'Other',subcategory:sub.dataset.homeSubcategory});return;}
+    if(room){state.category=state.subcategory??(state.browseCategory==='Other'?'all':state.browseCategory??'all');state.saved=false;state.building='all';setRoom(room.dataset.room);return;}
+    if(e.target.closest('#homeBack')){showHome({category:state.subcategory&&!state.query?'Other':null});return;}
+    if(e.target.closest('#homeSaved')){showHome({saved:true});return;}
+    if(e.target.closest('#exploreMap')){state.page='map';state.view='map';state.saved=false;refresh();updateURL();}
+  };
+  $('homeView').onchange=e=>{if(e.target.id==='homeYear'){state.year=e.target.value;state.floor=null;state.room=null;refresh();updateURL();}};
+  $('openGuide').onclick=()=>guide.open();
+  $('adminAccess').onclick=openAdmin;$('adminForm').onsubmit=authenticate;
+  const cancelAuth=()=>{authAttempt++;$('adminPassword').value='';$('unlockEditor').disabled=false;$('unlockEditor').textContent='Unlock editor';};
+  $('cancelAdmin').onclick=()=>{cancelAuth();$('adminDialog').close();};$('adminDialog').addEventListener('cancel',cancelAuth);
+  addEventListener('hashchange',()=>{if(location.hash==='#admin')openAdmin();});
+  $('search').addEventListener('input',()=>{state.query=$('search').value;if(state.page==='home')refresh();else{if(state.query)setView('rooms');renderDirectory();}});
+  $('clearSearch').onclick=()=>{state.query='';$('search').value='';if(state.page==='home')refresh();else renderDirectory();$('search').focus();};
   $('buildingFilters').onclick=e=>{const b=e.target.closest('[data-building]');if(!b)return;state.building=b.dataset.building;renderDirectory();};
   $('roomList').onclick=e=>{const b=e.target.closest('[data-room]');if(b)setRoom(b.dataset.room);};
   $('roomDetails').addEventListener('click',e=>{const b=e.target.closest('[data-room]');if(b)setRoom(b.dataset.room);});
@@ -203,16 +292,17 @@ function bindEvents(){
   $('savedRoomsTab').onclick=()=>{state.saved=true;renderDirectory();updateMobile();};
   $('mobileMap').onclick=()=>{if(state.studio){setView('map');$('main').scrollIntoView({block:'start'});}else setView('map');};
   $('mobileRooms').onclick=()=>{if(state.studio){$('studioSidebar').scrollIntoView({block:'start'});return;}state.saved=false;setView('rooms');renderDirectory();};
-  $('mobileSaved').onclick=()=>{if(state.studio)setStudio(false);state.saved=true;setView('rooms');renderDirectory();};
+  $('mobileSaved').onclick=()=>{if(state.studio)return;state.saved=true;setView('rooms');refresh({preserve:true});};
   $('zoomIn').onclick=()=>map.zoom(1.35);$('zoomOut').onclick=()=>map.zoom(1/1.35);$('fitMap').onclick=()=>map.fit();
   $('referenceToggle').onclick=()=>{state.reference=!state.reference;refresh({preserve:true});};
-  if(!document.documentElement.requestFullscreen)$('fullscreen').hidden=true;
-  $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('main').requestFullscreen();}catch{notify('Fullscreen is unavailable in this browser.');}};
-  $('openStudio').onclick=()=>setStudio(!state.studio);$('exitStudio').onclick=()=>setStudio(false);
+  $('resetMap').onclick=()=>map.reset();
+  $('fullscreen').onclick=()=>fullscreen.toggle();
+  $('exitStudio').onclick=()=>lockStudio();
   $('exportLayout').onclick=exportCampus;$('undo').onclick=undo;$('redo').onclick=redo;
   $('openSettings').onclick=()=>$('settingsDialog').showModal();$('closeSettings').onclick=()=>$('settingsDialog').close();$('closeShare').onclick=()=>$('shareDialog').close();
   for(const [id,key] of [['themeSetting','theme'],['scaleSetting','scale'],['effectsSetting','effects']])$(id).onchange=e=>{settings[key]=e.target.value;writeStorage(STORE+'settings',settings);applySettings();};
   $('importFile').onchange=async e=>{
+    if(!admin?.unlocked||!state.studio)return;
     const file=e.target.files[0];e.target.value='';if(!file)return;
     try{
       if(file.size>2_000_000)throw Error('Maximum layout file size is 2 MB.');
@@ -221,15 +311,17 @@ function bindEvents(){
       if(commit(()=>{campus=imported;state.year=campus.activeLayoutId;state.floor=null;state.room=null;studio.selected=null;}))notify('Layout imported and validated. Saved as a draft on this device.');
     }catch(error){notify('Import stopped. '+error.message);}
   };
-  addEventListener('popstate',()=>{if(campus){if(state.studio)state.studio=false;readURL();}});
+  addEventListener('popstate',async()=>{if(campus){if(state.studio)await lockStudio({url:false,refreshView:false});if(fullscreen.active)await fullscreen.exit();readURL();}});
   addEventListener('online',updateConnection);addEventListener('offline',updateConnection);
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applySettings);
   matchMedia('(prefers-reduced-transparency: reduce)').addEventListener('change',applySettings);
   document.addEventListener('keydown',e=>{
     const editing=/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)||e.target.isContentEditable;
+    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='e'){e.preventDefault();openAdmin();return;}
+    if(e.key==='Escape'&&fullscreen.active&&fullscreen.fallback&&!document.querySelector('dialog[open]')){e.preventDefault();fullscreen.exit();return;}
     if(!editing&&((e.key==='/'&&!e.ctrlKey&&!e.metaKey)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'))){e.preventDefault();$('search').focus();return;}
     if(state.studio&&!editing&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();if(e.shiftKey)redo();else undo();return;}
-    if(e.key==='Escape'&&!document.querySelector('dialog[open]')){if(state.studio&&studio.drawing){studio.drawing=false;studio.render();}else if(state.room)closeDetails();else if(state.query){state.query='';$('search').value='';renderDirectory();}return;}
+    if(e.key==='Escape'&&!document.querySelector('dialog[open]')){if(state.studio&&studio.drawing){studio.drawing=false;studio.render();}else if(state.room)closeDetails();else if(state.query){state.query='';$('search').value='';if(state.page==='home')refresh();else renderDirectory();}return;}
     if(!editing&&document.documentElement.dataset.scale==='tv'&&e.key.startsWith('Arrow')&&!e.target.closest('#floorMap'))spatialFocus(e);
   });
   addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installApp').hidden=false;});
@@ -238,8 +330,8 @@ function bindEvents(){
 function spatialFocus(e){
   const active=document.activeElement,rect=active.getBoundingClientRect(),cx=rect.x+rect.width/2,cy=rect.y+rect.height/2;
   const dx=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0,dy=e.key==='ArrowDown'?1:e.key==='ArrowUp'?-1:0;
-  const modal=document.querySelector('dialog[open]'),root=modal??document;
-  const next=[...root.querySelectorAll('button:not(:disabled),a[href],input,select,[tabindex="0"]')].filter(el=>el!==active&&el.getClientRects().length&&!el.closest('[hidden]')).map(el=>{const r=el.getBoundingClientRect(),x=r.x+r.width/2-cx,y=r.y+r.height/2-cy;return {el,forward:x*dx+y*dy,score:Math.hypot(x,y)+Math.abs(x*dy-y*dx)*2};}).filter(v=>v.forward>5).sort((a,b)=>a.score-b.score)[0];
+  const modal=document.querySelector('dialog[open]'),root=modal??(fullscreen.active?$('main'):document);
+  const next=[...root.querySelectorAll('button:not(:disabled),a[href],input,select,[tabindex="0"]')].filter(el=>el!==active&&el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden'&&!el.closest('[hidden]')).map(el=>{const r=el.getBoundingClientRect(),x=r.x+r.width/2-cx,y=r.y+r.height/2-cy;return {el,forward:x*dx+y*dy,score:Math.hypot(x,y)+Math.abs(x*dy-y*dx)*2};}).filter(v=>v.forward>5).sort((a,b)=>a.score-b.score)[0];
   if(next){e.preventDefault();next.el.focus();}
 }
 async function registerWorker(){
@@ -249,7 +341,7 @@ async function registerWorker(){
     function ready(worker){waitingWorker=worker;$('updateNotice').hidden=false;}
     if(registration.waiting)ready(registration.waiting);
     registration.addEventListener('updatefound',()=>{const installing=registration.installing;installing?.addEventListener('statechange',()=>{if(installing.state==='installed'&&navigator.serviceWorker.controller)ready(installing);});});
-    $('applyUpdate').onclick=()=>{if(draftExists)saveDraft();waitingWorker?.postMessage({type:'SKIP_WAITING'});};
+    $('applyUpdate').onclick=async()=>{if(state.studio&&draftExists)await saveDraft();waitingWorker?.postMessage({type:'SKIP_WAITING'});};
     navigator.serviceWorker.addEventListener('controllerchange',()=>{if(waitingWorker)location.reload();});
     await registration.update();
   }catch{ /* A school network or private browser may disable offline storage. */ }
@@ -257,16 +349,15 @@ async function registerWorker(){
 
 fillIcons();applySettings();updateConnection();
 try{
-  const response=await fetch('./data/campus.json',{cache:'no-cache'});if(!response.ok)throw Error(`Campus file returned ${response.status}`);
+  const response=await fetch('./data/campus.json',{cache:'no-cache'});if(!response.ok)throw Error(`School map data returned ${response.status}`);
   published=parseCampus(await response.text());baseSignature=signature(published);campus=clone(published);
-  const draft=readStorage(DRAFT,null);
-  if(draft?.campus){try{validateCampus(draft.campus);campus=clone(draft.campus);draftExists=true;draftConflict=draft.baseSignature!==baseSignature;}catch{notify('The saved draft is unreadable. The published map has been loaded; the old draft remains in storage.');}}
   state.year=campus.activeLayoutId;
-  studio=new LayoutStudio({getCampus:()=>campus,getLayout:layout,getFloor:floor,map,commit,notify,refresh,selectFloor:id=>setFloor(id,{url:false}),selectYear:id=>{state.year=id;state.floor=null;state.room=null;refresh();},getYear:()=>state.year,exportCampus,resetDraft,importCampus:()=>$('importFile').click()});
   bindEvents();readURL();showNotice();
+  if(location.hash==='#admin')openAdmin();else guide.firstVisit();
   if(document.readyState==='complete')registerWorker();else addEventListener('load',registerWorker,{once:true});
 }catch(error){
-  $('roomList').innerHTML='<p class="empty-state"><strong>The campus map could not load.</strong>Check your connection and reload the page.</p>';
+  const unavailable='<p class="empty-state"><strong>The school map could not load.</strong>Check your connection and reload the page.</p>';
+  $('roomList').innerHTML=unavailable;$('homeView').innerHTML=unavailable;
   $('campusStats').textContent='Map unavailable';$('notice').hidden=false;$('notice').textContent=error.message;
   const retry=document.createElement('button');retry.type='button';retry.className='button small';retry.textContent='Reload';retry.onclick=()=>location.reload();$('notice').append(retry);
 }

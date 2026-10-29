@@ -1,7 +1,7 @@
 /* Versioned offline shell. Data and navigation revalidate; reference images are lazy. */
-const VERSION='school-navigator-3.0.0';
+const VERSION='school-navigator-3.1.0';
 const SHELL=VERSION+'-shell', IMAGES=VERSION+'-images', MAX_IMAGES=24;
-const FILES=['./','./index.html','./styles.css?v=3.0.0','./app.js?v=3.0.0','./lib/model.js','./lib/map.js','./lib/ui.js','./lib/studio.js','./data/campus.json','./manifest.webmanifest','./icon.svg','./logo.png'];
+const FILES=['./','./index.html','./styles.css?v=3.1.0','./app.js?v=3.1.0','./lib/model.js','./lib/map.js','./lib/ui.js','./lib/navigation.js','./lib/home.js','./lib/guide.js','./lib/fullscreen.js','./lib/gestures.js','./lib/admin.js','./data/admin-lock.json','./data/campus.json','./manifest.webmanifest','./icon.svg','./logo.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(FILES)));
   // Existing tabs offer a Reload update action, so work is never interrupted.
@@ -32,7 +32,7 @@ self.addEventListener('fetch',event=>{
   const navigation=request.mode==='navigate';
   const root=new URL(self.registration.scope).pathname;
   if(navigation&&url.pathname!==root&&url.pathname!==root+'index.html')return;
-  const data=url.pathname.endsWith('/data/campus.json');
+  const data=url.pathname.endsWith('/data/campus.json')||url.pathname.endsWith('/data/admin-lock.json');
   const shell=/\.(js|css|webmanifest)$/.test(url.pathname)||url.pathname.endsWith('/index.html');
   if(navigation||data||shell){event.respondWith(networkFirst(request,event,navigation));return;}
   if(/\.(jpe?g|png|webp|svg)$/i.test(url.pathname))event.respondWith((async()=>{

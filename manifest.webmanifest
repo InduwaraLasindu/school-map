@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Louvre College Campus Navigator",
-  "short_name": "Campus",
-  "description": "Find your classroom. An interactive and editable school map.",
+  "name": "Louvre College School Navigator",
+  "short_name": "School Map",
+  "description": "Find your classroom. An interactive school map.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

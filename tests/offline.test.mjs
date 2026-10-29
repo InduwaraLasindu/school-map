@@ -63,3 +63,14 @@ test('non-GET, other origins, and sibling GitHub Pages projects are untouched',a
   assert.equal(await h.request('https://other.test/a.js'),undefined);assert.equal(await h.request('/another-project/app.js'),undefined);
   assert.equal(await h.request('tests/screen-lab.html',{mode:'navigate'}),undefined);
 });
+test('administrator lock revalidates and remains available offline without a password',async()=>{
+  const h=harness();await h.event('install');
+  const config=fs.readFileSync(new URL('../data/admin-lock.json',import.meta.url),'utf8');
+  h.setNetwork(async()=>new Response(config));assert.equal(await(await h.request('data/admin-lock.json')).text(),config);
+  h.setNetwork(async()=>{throw Error('offline');});assert.equal(await(await h.request('data/admin-lock.json')).text(),config);
+});
+test('visitor shell does not preload the administrator editor',async()=>{
+  const h=harness();await h.event('install');const store=[...h.stores.values()][0];
+  assert.equal([...store.keys()].some(url=>url.endsWith('/lib/studio.js')),false);
+  assert.ok([...store.keys()].some(url=>url.endsWith('/lib/admin.js')));
+});
