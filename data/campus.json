@@ -1,0 +1,4253 @@
+{
+  "schemaVersion": 1,
+  "activeLayoutId": "2026-2027",
+  "layouts": [
+    {
+      "id": "2026-2027",
+      "name": "2026–2027",
+      "buildings": [
+        {
+          "id": "p",
+          "name": "Primary Building"
+        },
+        {
+          "id": "m",
+          "name": "Main Building"
+        }
+      ],
+      "floors": [
+        {
+          "id": "p1",
+          "buildingId": "p",
+          "name": "Level 1",
+          "order": 1,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Primary Building/Unedited/Level 1.jpg",
+          "spaces": [
+            {
+              "id": "space-p1-1",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  1000
+                ],
+                [
+                  497,
+                  1000
+                ],
+                [
+                  497,
+                  1237
+                ],
+                [
+                  122,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-2",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  1000
+                ],
+                [
+                  873,
+                  1000
+                ],
+                [
+                  873,
+                  1237
+                ],
+                [
+                  498,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-3",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  762
+                ],
+                [
+                  873,
+                  762
+                ],
+                [
+                  873,
+                  999
+                ],
+                [
+                  498,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-4",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  532
+                ],
+                [
+                  873,
+                  532
+                ],
+                [
+                  873,
+                  761
+                ],
+                [
+                  498,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-5",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  301
+                ],
+                [
+                  873,
+                  301
+                ],
+                [
+                  873,
+                  531
+                ],
+                [
+                  498,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-6",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  532
+                ],
+                [
+                  497,
+                  532
+                ],
+                [
+                  497,
+                  761
+                ],
+                [
+                  122,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-7",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  762
+                ],
+                [
+                  497,
+                  762
+                ],
+                [
+                  497,
+                  999
+                ],
+                [
+                  122,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-8",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  301
+                ],
+                [
+                  497,
+                  301
+                ],
+                [
+                  497,
+                  531
+                ],
+                [
+                  122,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p1-9",
+              "label": "Class Room - 9",
+              "kind": "room",
+              "points": [
+                [
+                  120,
+                  77
+                ],
+                [
+                  498,
+                  77
+                ],
+                [
+                  498,
+                  299
+                ],
+                [
+                  120,
+                  299
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "p1-entrance",
+              "label": "Entrance",
+              "point": [
+                495,
+                1300
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p2",
+          "buildingId": "p",
+          "name": "Level 2",
+          "order": 2,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Primary Building/Unedited/Level 2.jpg",
+          "spaces": [
+            {
+              "id": "space-p2-1",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  1000
+                ],
+                [
+                  497,
+                  1000
+                ],
+                [
+                  497,
+                  1237
+                ],
+                [
+                  122,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-2",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  1000
+                ],
+                [
+                  873,
+                  1000
+                ],
+                [
+                  873,
+                  1237
+                ],
+                [
+                  498,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-3",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  762
+                ],
+                [
+                  873,
+                  762
+                ],
+                [
+                  873,
+                  999
+                ],
+                [
+                  498,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-4",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  532
+                ],
+                [
+                  873,
+                  532
+                ],
+                [
+                  873,
+                  761
+                ],
+                [
+                  498,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-5",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  301
+                ],
+                [
+                  873,
+                  301
+                ],
+                [
+                  873,
+                  531
+                ],
+                [
+                  498,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-6",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  532
+                ],
+                [
+                  497,
+                  532
+                ],
+                [
+                  497,
+                  761
+                ],
+                [
+                  122,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-7",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  762
+                ],
+                [
+                  497,
+                  762
+                ],
+                [
+                  497,
+                  999
+                ],
+                [
+                  122,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-8",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  301
+                ],
+                [
+                  497,
+                  301
+                ],
+                [
+                  497,
+                  531
+                ],
+                [
+                  122,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p2-9",
+              "label": "Class Room - 9",
+              "kind": "room",
+              "points": [
+                [
+                  120,
+                  77
+                ],
+                [
+                  498,
+                  77
+                ],
+                [
+                  498,
+                  299
+                ],
+                [
+                  120,
+                  299
+                ]
+              ]
+            }
+          ],
+          "markers": []
+        },
+        {
+          "id": "p3",
+          "buildingId": "p",
+          "name": "Level 3",
+          "order": 3,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Primary Building/Unedited/Level 3.jpg",
+          "spaces": [
+            {
+              "id": "space-p3-1",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  1043
+                ],
+                [
+                  873,
+                  1043
+                ],
+                [
+                  873,
+                  1280
+                ],
+                [
+                  498,
+                  1280
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-2",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  806
+                ],
+                [
+                  873,
+                  806
+                ],
+                [
+                  873,
+                  1042
+                ],
+                [
+                  498,
+                  1042
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-3",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  575
+                ],
+                [
+                  873,
+                  575
+                ],
+                [
+                  873,
+                  804
+                ],
+                [
+                  498,
+                  804
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-4",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  345
+                ],
+                [
+                  873,
+                  345
+                ],
+                [
+                  873,
+                  574
+                ],
+                [
+                  498,
+                  574
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-5",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  345
+                ],
+                [
+                  497,
+                  345
+                ],
+                [
+                  497,
+                  574
+                ],
+                [
+                  122,
+                  574
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-6",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  575
+                ],
+                [
+                  497,
+                  575
+                ],
+                [
+                  497,
+                  804
+                ],
+                [
+                  122,
+                  804
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-7",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  806
+                ],
+                [
+                  497,
+                  806
+                ],
+                [
+                  497,
+                  1042
+                ],
+                [
+                  122,
+                  1042
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-8",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  1043
+                ],
+                [
+                  497,
+                  1043
+                ],
+                [
+                  497,
+                  1280
+                ],
+                [
+                  122,
+                  1280
+                ]
+              ]
+            },
+            {
+              "id": "space-p3-9",
+              "label": "Class Room - 9",
+              "kind": "room",
+              "points": [
+                [
+                  120,
+                  119
+                ],
+                [
+                  498,
+                  119
+                ],
+                [
+                  498,
+                  342
+                ],
+                [
+                  120,
+                  342
+                ]
+              ]
+            }
+          ],
+          "markers": []
+        },
+        {
+          "id": "p4",
+          "buildingId": "p",
+          "name": "Level 4",
+          "order": 4,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Primary Building/Unedited/Level 4.jpg",
+          "spaces": [
+            {
+              "id": "space-p4-1",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  1000
+                ],
+                [
+                  497,
+                  1000
+                ],
+                [
+                  497,
+                  1237
+                ],
+                [
+                  122,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-2",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  1000
+                ],
+                [
+                  873,
+                  1000
+                ],
+                [
+                  873,
+                  1237
+                ],
+                [
+                  498,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-3",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  762
+                ],
+                [
+                  873,
+                  762
+                ],
+                [
+                  873,
+                  999
+                ],
+                [
+                  498,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-4",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  532
+                ],
+                [
+                  873,
+                  532
+                ],
+                [
+                  873,
+                  761
+                ],
+                [
+                  498,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-5",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  498,
+                  301
+                ],
+                [
+                  873,
+                  301
+                ],
+                [
+                  873,
+                  531
+                ],
+                [
+                  498,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-6",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  301
+                ],
+                [
+                  497,
+                  301
+                ],
+                [
+                  497,
+                  531
+                ],
+                [
+                  122,
+                  531
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-7",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  532
+                ],
+                [
+                  497,
+                  532
+                ],
+                [
+                  497,
+                  761
+                ],
+                [
+                  122,
+                  761
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-8",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  122,
+                  762
+                ],
+                [
+                  497,
+                  762
+                ],
+                [
+                  497,
+                  999
+                ],
+                [
+                  122,
+                  999
+                ]
+              ]
+            },
+            {
+              "id": "space-p4-9",
+              "label": "Class Room - 9",
+              "kind": "room",
+              "points": [
+                [
+                  120,
+                  77
+                ],
+                [
+                  498,
+                  77
+                ],
+                [
+                  498,
+                  299
+                ],
+                [
+                  120,
+                  299
+                ]
+              ]
+            }
+          ],
+          "markers": []
+        },
+        {
+          "id": "m1",
+          "buildingId": "m",
+          "name": "Level 1",
+          "order": 1,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 1.jpg",
+          "spaces": [
+            {
+              "id": "space-m1-1",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  60,
+                  1127
+                ],
+                [
+                  323,
+                  1127
+                ],
+                [
+                  323,
+                  1274
+                ],
+                [
+                  60,
+                  1274
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-2",
+              "label": "Book Shop",
+              "kind": "room",
+              "points": [
+                [
+                  380,
+                  101
+                ],
+                [
+                  692,
+                  101
+                ],
+                [
+                  692,
+                  260
+                ],
+                [
+                  380,
+                  260
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-3",
+              "label": "Dancing Room (Main)",
+              "kind": "room",
+              "points": [
+                [
+                  380,
+                  262
+                ],
+                [
+                  692,
+                  262
+                ],
+                [
+                  692,
+                  421
+                ],
+                [
+                  380,
+                  421
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-4",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  325,
+                  1127
+                ],
+                [
+                  589,
+                  1127
+                ],
+                [
+                  589,
+                  1274
+                ],
+                [
+                  325,
+                  1274
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-5",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  60,
+                  978
+                ],
+                [
+                  323,
+                  978
+                ],
+                [
+                  323,
+                  1125
+                ],
+                [
+                  60,
+                  1125
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-6",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  325,
+                  978
+                ],
+                [
+                  589,
+                  978
+                ],
+                [
+                  589,
+                  1125
+                ],
+                [
+                  325,
+                  1125
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-7",
+              "label": "Store Room",
+              "kind": "room",
+              "points": [
+                [
+                  380,
+                  724
+                ],
+                [
+                  692,
+                  724
+                ],
+                [
+                  692,
+                  918
+                ],
+                [
+                  380,
+                  918
+                ]
+              ]
+            },
+            {
+              "id": "space-m1-8",
+              "label": "Western Music Room",
+              "kind": "room",
+              "points": [
+                [
+                  380,
+                  423
+                ],
+                [
+                  692,
+                  423
+                ],
+                [
+                  692,
+                  580
+                ],
+                [
+                  380,
+                  580
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-33",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  380,
+                  581
+                ],
+                [
+                  692,
+                  581
+                ],
+                [
+                  692,
+                  723
+                ],
+                [
+                  380,
+                  723
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-46",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  528,
+                  941
+                ],
+                [
+                  651,
+                  941
+                ],
+                [
+                  651,
+                  952
+                ],
+                [
+                  528,
+                  952
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-49",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  755,
+                  979
+                ],
+                [
+                  868,
+                  979
+                ],
+                [
+                  868,
+                  1189
+                ],
+                [
+                  755,
+                  1189
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-50",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  870,
+                  979
+                ],
+                [
+                  976,
+                  979
+                ],
+                [
+                  976,
+                  1189
+                ],
+                [
+                  870,
+                  1189
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-51",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  609,
+                  979
+                ],
+                [
+                  753,
+                  979
+                ],
+                [
+                  753,
+                  1103
+                ],
+                [
+                  609,
+                  1103
+                ]
+              ]
+            },
+            {
+              "id": "m1-structure-87",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  609,
+                  1105
+                ],
+                [
+                  753,
+                  1105
+                ],
+                [
+                  753,
+                  1237
+                ],
+                [
+                  609,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "m1-hatched",
+              "label": "Unmapped area",
+              "kind": "void",
+              "points": [
+                [
+                  85,
+                  103
+                ],
+                [
+                  378,
+                  103
+                ],
+                [
+                  378,
+                  918
+                ],
+                [
+                  85,
+                  918
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m1-entrance",
+              "label": "Entrance",
+              "point": [
+                480,
+                75
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2",
+          "buildingId": "m",
+          "name": "Level 2",
+          "order": 2,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 2.jpg",
+          "spaces": [
+            {
+              "id": "space-m2-1",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  873,
+                  952
+                ],
+                [
+                  980,
+                  952
+                ],
+                [
+                  980,
+                  1162
+                ],
+                [
+                  873,
+                  1162
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-2",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  759,
+                  952
+                ],
+                [
+                  872,
+                  952
+                ],
+                [
+                  872,
+                  1162
+                ],
+                [
+                  759,
+                  1162
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-3",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  612,
+                  953
+                ],
+                [
+                  757,
+                  953
+                ],
+                [
+                  757,
+                  1077
+                ],
+                [
+                  612,
+                  1077
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-4",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  612,
+                  1079
+                ],
+                [
+                  757,
+                  1079
+                ],
+                [
+                  757,
+                  1211
+                ],
+                [
+                  612,
+                  1211
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-5",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  48,
+                  128
+                ],
+                [
+                  331,
+                  128
+                ],
+                [
+                  331,
+                  314
+                ],
+                [
+                  48,
+                  314
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-6",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  48,
+                  315
+                ],
+                [
+                  331,
+                  315
+                ],
+                [
+                  331,
+                  501
+                ],
+                [
+                  48,
+                  501
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-7",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  48,
+                  504
+                ],
+                [
+                  331,
+                  504
+                ],
+                [
+                  331,
+                  690
+                ],
+                [
+                  48,
+                  690
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-8",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  48,
+                  691
+                ],
+                [
+                  331,
+                  691
+                ],
+                [
+                  331,
+                  877
+                ],
+                [
+                  48,
+                  877
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-9",
+              "label": "Class Room - 10",
+              "kind": "room",
+              "points": [
+                [
+                  373,
+                  315
+                ],
+                [
+                  654,
+                  315
+                ],
+                [
+                  654,
+                  501
+                ],
+                [
+                  373,
+                  501
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-10",
+              "label": "Class Room - 9",
+              "kind": "room",
+              "points": [
+                [
+                  373,
+                  128
+                ],
+                [
+                  654,
+                  128
+                ],
+                [
+                  654,
+                  314
+                ],
+                [
+                  373,
+                  314
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-11",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  325,
+                  952
+                ],
+                [
+                  599,
+                  952
+                ],
+                [
+                  599,
+                  1099
+                ],
+                [
+                  325,
+                  1099
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-12",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  50,
+                  952
+                ],
+                [
+                  324,
+                  952
+                ],
+                [
+                  324,
+                  1099
+                ],
+                [
+                  50,
+                  1099
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-13",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  50,
+                  1101
+                ],
+                [
+                  324,
+                  1101
+                ],
+                [
+                  324,
+                  1248
+                ],
+                [
+                  50,
+                  1248
+                ]
+              ]
+            },
+            {
+              "id": "space-m2-14",
+              "label": "Washroom (Level 2)",
+              "kind": "room",
+              "points": [
+                [
+                  373,
+                  691
+                ],
+                [
+                  654,
+                  691
+                ],
+                [
+                  654,
+                  877
+                ],
+                [
+                  373,
+                  877
+                ]
+              ]
+            },
+            {
+              "id": "m2-structure-45",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  373,
+                  504
+                ],
+                [
+                  654,
+                  504
+                ],
+                [
+                  654,
+                  690
+                ],
+                [
+                  373,
+                  690
+                ]
+              ]
+            },
+            {
+              "id": "m2-structure-121",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  325,
+                  1100
+                ],
+                [
+                  599,
+                  1100
+                ],
+                [
+                  599,
+                  1246
+                ],
+                [
+                  325,
+                  1246
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m2-entrance",
+              "label": "Entrance",
+              "point": [
+                355,
+                93
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m3",
+          "buildingId": "m",
+          "name": "Level 3",
+          "order": 3,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 3.jpg",
+          "spaces": [
+            {
+              "id": "space-m3-1",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  880,
+                  979
+                ],
+                [
+                  987,
+                  979
+                ],
+                [
+                  987,
+                  1189
+                ],
+                [
+                  880,
+                  1189
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-2",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  766,
+                  979
+                ],
+                [
+                  878,
+                  979
+                ],
+                [
+                  878,
+                  1189
+                ],
+                [
+                  766,
+                  1189
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-3",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  620,
+                  979
+                ],
+                [
+                  764,
+                  979
+                ],
+                [
+                  764,
+                  1103
+                ],
+                [
+                  620,
+                  1103
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-4",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  620,
+                  1105
+                ],
+                [
+                  764,
+                  1105
+                ],
+                [
+                  764,
+                  1237
+                ],
+                [
+                  620,
+                  1237
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-5",
+              "label": "Accounts Unit",
+              "kind": "room",
+              "points": [
+                [
+                  84,
+                  976
+                ],
+                [
+                  347,
+                  976
+                ],
+                [
+                  347,
+                  1067
+                ],
+                [
+                  84,
+                  1067
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-6",
+              "label": "Admissions Office",
+              "kind": "room",
+              "points": [
+                [
+                  80,
+                  477
+                ],
+                [
+                  323,
+                  477
+                ],
+                [
+                  323,
+                  677
+                ],
+                [
+                  80,
+                  677
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-7",
+              "label": "Biology Lab",
+              "kind": "room",
+              "points": [
+                [
+                  348,
+                  976
+                ],
+                [
+                  605,
+                  976
+                ],
+                [
+                  605,
+                  1268
+                ],
+                [
+                  348,
+                  1268
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-8",
+              "label": "Exam Unit",
+              "kind": "room",
+              "points": [
+                [
+                  80,
+                  134
+                ],
+                [
+                  323,
+                  134
+                ],
+                [
+                  323,
+                  476
+                ],
+                [
+                  80,
+                  476
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-9",
+              "label": "Headmistress Office",
+              "kind": "room",
+              "points": [
+                [
+                  84,
+                  1177
+                ],
+                [
+                  347,
+                  1177
+                ],
+                [
+                  347,
+                  1268
+                ],
+                [
+                  84,
+                  1268
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-10",
+              "label": "Lobby",
+              "kind": "room",
+              "points": [
+                [
+                  324,
+                  134
+                ],
+                [
+                  403,
+                  134
+                ],
+                [
+                  403,
+                  731
+                ],
+                [
+                  678,
+                  731
+                ],
+                [
+                  678,
+                  931
+                ],
+                [
+                  80,
+                  931
+                ],
+                [
+                  80,
+                  678
+                ],
+                [
+                  324,
+                  678
+                ]
+              ],
+              "labelPoint": [
+                350,
+                824
+              ]
+            },
+            {
+              "id": "space-m3-11",
+              "label": "Principal's Office",
+              "kind": "room",
+              "points": [
+                [
+                  404,
+                  134
+                ],
+                [
+                  678,
+                  134
+                ],
+                [
+                  678,
+                  594
+                ],
+                [
+                  404,
+                  594
+                ]
+              ]
+            },
+            {
+              "id": "space-m3-12",
+              "label": "Store Room for Labs",
+              "kind": "room",
+              "points": [
+                [
+                  84,
+                  1068
+                ],
+                [
+                  347,
+                  1068
+                ],
+                [
+                  347,
+                  1176
+                ],
+                [
+                  84,
+                  1176
+                ]
+              ]
+            },
+            {
+              "id": "m3-structure-24",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  404,
+                  595
+                ],
+                [
+                  678,
+                  595
+                ],
+                [
+                  678,
+                  729
+                ],
+                [
+                  404,
+                  729
+                ]
+              ]
+            },
+            {
+              "id": "m3-structure-30",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  543,
+                  946
+                ],
+                [
+                  666,
+                  946
+                ],
+                [
+                  666,
+                  957
+                ],
+                [
+                  543,
+                  957
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m3-entrance",
+              "label": "Entrance",
+              "point": [
+                355,
+                93
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4",
+          "buildingId": "m",
+          "name": "Level 4",
+          "order": 4,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 4.jpg",
+          "spaces": [
+            {
+              "id": "space-m4-1",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  748,
+                  983
+                ],
+                [
+                  862,
+                  983
+                ],
+                [
+                  862,
+                  1193
+                ],
+                [
+                  748,
+                  1193
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-2",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  863,
+                  983
+                ],
+                [
+                  970,
+                  983
+                ],
+                [
+                  970,
+                  1193
+                ],
+                [
+                  863,
+                  1193
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-3",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  318,
+                  983
+                ],
+                [
+                  583,
+                  983
+                ],
+                [
+                  583,
+                  1169
+                ],
+                [
+                  318,
+                  1169
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-4",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  602,
+                  983
+                ],
+                [
+                  747,
+                  983
+                ],
+                [
+                  747,
+                  1133
+                ],
+                [
+                  602,
+                  1133
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-5",
+              "label": "Class Room - 7",
+              "kind": "room",
+              "points": [
+                [
+                  364,
+                  131
+                ],
+                [
+                  645,
+                  131
+                ],
+                [
+                  645,
+                  429
+                ],
+                [
+                  364,
+                  429
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-6",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  54,
+                  983
+                ],
+                [
+                  315,
+                  983
+                ],
+                [
+                  315,
+                  1169
+                ],
+                [
+                  54,
+                  1169
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-7",
+              "label": "Class Room - 8",
+              "kind": "room",
+              "points": [
+                [
+                  364,
+                  694
+                ],
+                [
+                  645,
+                  694
+                ],
+                [
+                  645,
+                  881
+                ],
+                [
+                  364,
+                  881
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-8",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  45,
+                  694
+                ],
+                [
+                  327,
+                  694
+                ],
+                [
+                  327,
+                  881
+                ],
+                [
+                  45,
+                  881
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-9",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  45,
+                  506
+                ],
+                [
+                  327,
+                  506
+                ],
+                [
+                  327,
+                  692
+                ],
+                [
+                  45,
+                  692
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-10",
+              "label": "Class Room - 5",
+              "kind": "room",
+              "points": [
+                [
+                  45,
+                  318
+                ],
+                [
+                  327,
+                  318
+                ],
+                [
+                  327,
+                  505
+                ],
+                [
+                  45,
+                  505
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-11",
+              "label": "Class Room - 6",
+              "kind": "room",
+              "points": [
+                [
+                  45,
+                  131
+                ],
+                [
+                  327,
+                  131
+                ],
+                [
+                  327,
+                  317
+                ],
+                [
+                  45,
+                  317
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-12",
+              "label": "Staff Room",
+              "kind": "room",
+              "points": [
+                [
+                  364,
+                  431
+                ],
+                [
+                  645,
+                  431
+                ],
+                [
+                  645,
+                  505
+                ],
+                [
+                  364,
+                  505
+                ]
+              ]
+            },
+            {
+              "id": "space-m4-13",
+              "label": "Washroom (Girls)",
+              "kind": "room",
+              "points": [
+                [
+                  602,
+                  1135
+                ],
+                [
+                  747,
+                  1135
+                ],
+                [
+                  747,
+                  1241
+                ],
+                [
+                  602,
+                  1241
+                ]
+              ]
+            },
+            {
+              "id": "m4-structure-46",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  364,
+                  506
+                ],
+                [
+                  645,
+                  506
+                ],
+                [
+                  645,
+                  692
+                ],
+                [
+                  364,
+                  692
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m4-entrance",
+              "label": "Entrance",
+              "point": [
+                355,
+                93
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m5",
+          "buildingId": "m",
+          "name": "Level 5",
+          "order": 5,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 5.jpg",
+          "spaces": [
+            {
+              "id": "space-m5-1",
+              "label": "Book Stores",
+              "kind": "room",
+              "points": [
+                [
+                  383,
+                  709
+                ],
+                [
+                  666,
+                  709
+                ],
+                [
+                  666,
+                  804
+                ],
+                [
+                  383,
+                  804
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-2",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  611,
+                  956
+                ],
+                [
+                  756,
+                  956
+                ],
+                [
+                  756,
+                  1081
+                ],
+                [
+                  611,
+                  1081
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-3",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  872,
+                  956
+                ],
+                [
+                  978,
+                  956
+                ],
+                [
+                  978,
+                  1166
+                ],
+                [
+                  872,
+                  1166
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-4",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  757,
+                  956
+                ],
+                [
+                  871,
+                  956
+                ],
+                [
+                  871,
+                  1166
+                ],
+                [
+                  757,
+                  1166
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-5",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  73,
+                  1099
+                ],
+                [
+                  327,
+                  1099
+                ],
+                [
+                  327,
+                  1246
+                ],
+                [
+                  73,
+                  1246
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-6",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  73,
+                  949
+                ],
+                [
+                  327,
+                  949
+                ],
+                [
+                  327,
+                  1097
+                ],
+                [
+                  73,
+                  1097
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-7",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  329,
+                  949
+                ],
+                [
+                  583,
+                  949
+                ],
+                [
+                  583,
+                  1097
+                ],
+                [
+                  329,
+                  1097
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-8",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  329,
+                  1098
+                ],
+                [
+                  583,
+                  1098
+                ],
+                [
+                  583,
+                  1246
+                ],
+                [
+                  329,
+                  1246
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-9",
+              "label": "Form III-A",
+              "kind": "room",
+              "points": [
+                [
+                  59,
+                  146
+                ],
+                [
+                  342,
+                  146
+                ],
+                [
+                  342,
+                  332
+                ],
+                [
+                  59,
+                  332
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-10",
+              "label": "Form III-B",
+              "kind": "room",
+              "points": [
+                [
+                  59,
+                  334
+                ],
+                [
+                  342,
+                  334
+                ],
+                [
+                  342,
+                  520
+                ],
+                [
+                  59,
+                  520
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-11",
+              "label": "Form III-C",
+              "kind": "room",
+              "points": [
+                [
+                  59,
+                  522
+                ],
+                [
+                  342,
+                  522
+                ],
+                [
+                  342,
+                  708
+                ],
+                [
+                  59,
+                  708
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-12",
+              "label": "Form III-D",
+              "kind": "room",
+              "points": [
+                [
+                  59,
+                  709
+                ],
+                [
+                  342,
+                  709
+                ],
+                [
+                  342,
+                  896
+                ],
+                [
+                  59,
+                  896
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-13",
+              "label": "6A",
+              "kind": "room",
+              "points": [
+                [
+                  383,
+                  146
+                ],
+                [
+                  666,
+                  146
+                ],
+                [
+                  666,
+                  332
+                ],
+                [
+                  383,
+                  332
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-14",
+              "label": "6B",
+              "kind": "room",
+              "points": [
+                [
+                  383,
+                  334
+                ],
+                [
+                  666,
+                  334
+                ],
+                [
+                  666,
+                  520
+                ],
+                [
+                  383,
+                  520
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-15",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  611,
+                  1082
+                ],
+                [
+                  756,
+                  1082
+                ],
+                [
+                  756,
+                  1214
+                ],
+                [
+                  611,
+                  1214
+                ]
+              ]
+            },
+            {
+              "id": "space-m5-16",
+              "label": "Washroom (Boys)",
+              "kind": "room",
+              "points": [
+                [
+                  383,
+                  805
+                ],
+                [
+                  666,
+                  805
+                ],
+                [
+                  666,
+                  896
+                ],
+                [
+                  383,
+                  896
+                ]
+              ]
+            },
+            {
+              "id": "m5-structure-33",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  383,
+                  522
+                ],
+                [
+                  666,
+                  522
+                ],
+                [
+                  666,
+                  708
+                ],
+                [
+                  383,
+                  708
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m5-entrance",
+              "label": "Entrance",
+              "point": [
+                355,
+                93
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m6",
+          "buildingId": "m",
+          "name": "Level 6",
+          "order": 6,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 6.jpg",
+          "spaces": [
+            {
+              "id": "space-m6-1",
+              "label": "9",
+              "kind": "room",
+              "points": [
+                [
+                  374,
+                  331
+                ],
+                [
+                  655,
+                  331
+                ],
+                [
+                  655,
+                  517
+                ],
+                [
+                  374,
+                  517
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-2",
+              "label": "10A",
+              "kind": "room",
+              "points": [
+                [
+                  49,
+                  519
+                ],
+                [
+                  331,
+                  519
+                ],
+                [
+                  331,
+                  705
+                ],
+                [
+                  49,
+                  705
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-3",
+              "label": "10B",
+              "kind": "room",
+              "points": [
+                [
+                  49,
+                  706
+                ],
+                [
+                  331,
+                  706
+                ],
+                [
+                  331,
+                  893
+                ],
+                [
+                  49,
+                  893
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-4",
+              "label": "11A",
+              "kind": "room",
+              "points": [
+                [
+                  374,
+                  706
+                ],
+                [
+                  655,
+                  706
+                ],
+                [
+                  655,
+                  893
+                ],
+                [
+                  374,
+                  893
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-5",
+              "label": "11B",
+              "kind": "room",
+              "points": [
+                [
+                  374,
+                  143
+                ],
+                [
+                  655,
+                  143
+                ],
+                [
+                  655,
+                  329
+                ],
+                [
+                  374,
+                  329
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-6",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  71,
+                  1115
+                ],
+                [
+                  324,
+                  1115
+                ],
+                [
+                  324,
+                  1262
+                ],
+                [
+                  71,
+                  1262
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-7",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  71,
+                  966
+                ],
+                [
+                  324,
+                  966
+                ],
+                [
+                  324,
+                  1114
+                ],
+                [
+                  71,
+                  1114
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-8",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  326,
+                  967
+                ],
+                [
+                  581,
+                  967
+                ],
+                [
+                  581,
+                  1115
+                ],
+                [
+                  326,
+                  1115
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-9",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  606,
+                  972
+                ],
+                [
+                  751,
+                  972
+                ],
+                [
+                  751,
+                  1097
+                ],
+                [
+                  606,
+                  1097
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-10",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  752,
+                  972
+                ],
+                [
+                  866,
+                  972
+                ],
+                [
+                  866,
+                  1183
+                ],
+                [
+                  752,
+                  1183
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-11",
+              "label": "Class Room - 4",
+              "kind": "room",
+              "points": [
+                [
+                  867,
+                  972
+                ],
+                [
+                  973,
+                  972
+                ],
+                [
+                  973,
+                  1183
+                ],
+                [
+                  867,
+                  1183
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-12",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  326,
+                  1116
+                ],
+                [
+                  581,
+                  1116
+                ],
+                [
+                  581,
+                  1264
+                ],
+                [
+                  326,
+                  1264
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-13",
+              "label": "Library",
+              "kind": "room",
+              "points": [
+                [
+                  49,
+                  143
+                ],
+                [
+                  331,
+                  143
+                ],
+                [
+                  331,
+                  517
+                ],
+                [
+                  49,
+                  517
+                ]
+              ]
+            },
+            {
+              "id": "space-m6-14",
+              "label": "Class Room - 1",
+              "kind": "room",
+              "points": [
+                [
+                  606,
+                  1099
+                ],
+                [
+                  751,
+                  1099
+                ],
+                [
+                  751,
+                  1231
+                ],
+                [
+                  606,
+                  1231
+                ]
+              ]
+            },
+            {
+              "id": "m6-structure-25",
+              "label": "Lift element",
+              "kind": "lift",
+              "points": [
+                [
+                  374,
+                  519
+                ],
+                [
+                  655,
+                  519
+                ],
+                [
+                  655,
+                  705
+                ],
+                [
+                  374,
+                  705
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m6-entrance",
+              "label": "Entrance",
+              "point": [
+                355,
+                93
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m7",
+          "buildingId": "m",
+          "name": "Level 7",
+          "order": 7,
+          "width": 1000,
+          "height": 1415,
+          "sourceImage": "LFP 26-27/Main Building/Unedited/Level 7.jpg",
+          "spaces": [
+            {
+              "id": "space-m7-1",
+              "label": "Grade 12",
+              "kind": "room",
+              "points": [
+                [
+                  523,
+                  659
+                ],
+                [
+                  697,
+                  659
+                ],
+                [
+                  697,
+                  939
+                ],
+                [
+                  523,
+                  939
+                ]
+              ]
+            },
+            {
+              "id": "space-m7-2",
+              "label": "Grade 13",
+              "kind": "room",
+              "points": [
+                [
+                  371,
+                  659
+                ],
+                [
+                  522,
+                  659
+                ],
+                [
+                  522,
+                  939
+                ],
+                [
+                  371,
+                  939
+                ]
+              ]
+            },
+            {
+              "id": "space-m7-3",
+              "label": "Auditorium",
+              "kind": "room",
+              "points": [
+                [
+                  46,
+                  154
+                ],
+                [
+                  697,
+                  154
+                ],
+                [
+                  697,
+                  432
+                ],
+                [
+                  395,
+                  432
+                ],
+                [
+                  395,
+                  622
+                ],
+                [
+                  697,
+                  622
+                ],
+                [
+                  697,
+                  658
+                ],
+                [
+                  370,
+                  658
+                ],
+                [
+                  370,
+                  939
+                ],
+                [
+                  46,
+                  939
+                ]
+              ],
+              "labelPoint": [
+                230,
+                390
+              ]
+            },
+            {
+              "id": "space-m7-4",
+              "label": "Class Room - 2",
+              "kind": "room",
+              "points": [
+                [
+                  322,
+                  1004
+                ],
+                [
+                  597,
+                  1004
+                ],
+                [
+                  597,
+                  1152
+                ],
+                [
+                  322,
+                  1152
+                ]
+              ]
+            },
+            {
+              "id": "space-m7-5",
+              "label": "Class Room - 3",
+              "kind": "room",
+              "points": [
+                [
+                  57,
+                  1005
+                ],
+                [
+                  320,
+                  1005
+                ],
+                [
+                  320,
+                  1152
+                ],
+                [
+                  57,
+                  1152
+                ]
+              ]
+            },
+            {
+              "id": "m7-structure-8",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  396,
+                  434
+                ],
+                [
+                  697,
+                  434
+                ],
+                [
+                  697,
+                  621
+                ],
+                [
+                  396,
+                  621
+                ]
+              ]
+            },
+            {
+              "id": "m7-structure-22",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  614,
+                  1007
+                ],
+                [
+                  980,
+                  1007
+                ],
+                [
+                  980,
+                  1262
+                ],
+                [
+                  614,
+                  1262
+                ]
+              ]
+            },
+            {
+              "id": "m7-structure-47",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  57,
+                  1153
+                ],
+                [
+                  194,
+                  1153
+                ],
+                [
+                  194,
+                  1301
+                ],
+                [
+                  57,
+                  1301
+                ]
+              ]
+            },
+            {
+              "id": "m7-structure-48",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  323,
+                  1153
+                ],
+                [
+                  597,
+                  1153
+                ],
+                [
+                  597,
+                  1300
+                ],
+                [
+                  323,
+                  1300
+                ]
+              ]
+            },
+            {
+              "id": "m7-structure-49",
+              "label": "Unlabelled space",
+              "kind": "unassigned",
+              "points": [
+                [
+                  195,
+                  1154
+                ],
+                [
+                  320,
+                  1154
+                ],
+                [
+                  320,
+                  1302
+                ],
+                [
+                  195,
+                  1302
+                ]
+              ]
+            }
+          ],
+          "markers": [
+            {
+              "id": "m7-entrance",
+              "label": "Entrance",
+              "point": [
+                365,
+                969
+              ]
+            }
+          ]
+        }
+      ],
+      "rooms": [
+        {
+          "id": "p1-1",
+          "name": "1A",
+          "category": "Grade 1",
+          "tags": "g1a grade1a one",
+          "spaceId": "space-p1-1"
+        },
+        {
+          "id": "p1-2",
+          "name": "1B",
+          "category": "Grade 1",
+          "tags": "g1b grade1b one",
+          "spaceId": "space-p1-2"
+        },
+        {
+          "id": "p1-3",
+          "name": "1C",
+          "category": "Grade 1",
+          "tags": "g1c grade1c one",
+          "spaceId": "space-p1-3"
+        },
+        {
+          "id": "p1-4",
+          "name": "1D",
+          "category": "Grade 1",
+          "tags": "g1d grade1d one",
+          "spaceId": "space-p1-4"
+        },
+        {
+          "id": "p1-5",
+          "name": "1E",
+          "category": "Grade 1",
+          "tags": "g1e grade1e one",
+          "spaceId": "space-p1-5"
+        },
+        {
+          "id": "p1-6",
+          "name": "1F",
+          "category": "Grade 1",
+          "tags": "g1f grade1f one",
+          "spaceId": "space-p1-6"
+        },
+        {
+          "id": "p1-7",
+          "name": "1G",
+          "category": "Grade 1",
+          "tags": "g1g grade1g one",
+          "spaceId": "space-p1-7"
+        },
+        {
+          "id": "p1-8",
+          "name": "Dancing Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-p1-8"
+        },
+        {
+          "id": "p1-9",
+          "name": "Sectional Head's Room",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-p1-9"
+        },
+        {
+          "id": "p2-1",
+          "name": "2A",
+          "category": "Grade 2",
+          "tags": "g2a grade2a two",
+          "spaceId": "space-p2-1"
+        },
+        {
+          "id": "p2-2",
+          "name": "2B",
+          "category": "Grade 2",
+          "tags": "g2b grade2b two",
+          "spaceId": "space-p2-2"
+        },
+        {
+          "id": "p2-3",
+          "name": "2C",
+          "category": "Grade 2",
+          "tags": "g2c grade2c two",
+          "spaceId": "space-p2-3"
+        },
+        {
+          "id": "p2-4",
+          "name": "2D",
+          "category": "Grade 2",
+          "tags": "g2d grade2d two",
+          "spaceId": "space-p2-4"
+        },
+        {
+          "id": "p2-5",
+          "name": "2E",
+          "category": "Grade 2",
+          "tags": "g2e grade2e two",
+          "spaceId": "space-p2-5"
+        },
+        {
+          "id": "p2-6",
+          "name": "2F",
+          "category": "Grade 2",
+          "tags": "g2f grade2f two",
+          "spaceId": "space-p2-6"
+        },
+        {
+          "id": "p2-7",
+          "name": "2G",
+          "category": "Grade 2",
+          "tags": "g2g grade2g two",
+          "spaceId": "space-p2-7"
+        },
+        {
+          "id": "p2-8",
+          "name": "Computer Lab (Primary)",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-p2-8"
+        },
+        {
+          "id": "p2-9",
+          "name": "Religion Room / Library",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-p2-9"
+        },
+        {
+          "id": "p3-1",
+          "name": "3A",
+          "category": "Grade 3",
+          "tags": "g3a grade3a three",
+          "spaceId": "space-p3-1"
+        },
+        {
+          "id": "p3-2",
+          "name": "3B",
+          "category": "Grade 3",
+          "tags": "g3b grade3b three",
+          "spaceId": "space-p3-2"
+        },
+        {
+          "id": "p3-3",
+          "name": "3C",
+          "category": "Grade 3",
+          "tags": "g3c grade3c three",
+          "spaceId": "space-p3-3"
+        },
+        {
+          "id": "p3-4",
+          "name": "3D",
+          "category": "Grade 3",
+          "tags": "g3d grade3d three",
+          "spaceId": "space-p3-4"
+        },
+        {
+          "id": "p3-5",
+          "name": "3E",
+          "category": "Grade 3",
+          "tags": "g3e grade3e three",
+          "spaceId": "space-p3-5"
+        },
+        {
+          "id": "p3-6",
+          "name": "3F",
+          "category": "Grade 3",
+          "tags": "g3f grade3f three",
+          "spaceId": "space-p3-6"
+        },
+        {
+          "id": "p3-7",
+          "name": "3G",
+          "category": "Grade 3",
+          "tags": "g3g grade3g three",
+          "spaceId": "space-p3-7"
+        },
+        {
+          "id": "p3-8",
+          "name": "3H",
+          "category": "Grade 3",
+          "tags": "g3h grade3h three",
+          "spaceId": "space-p3-8"
+        },
+        {
+          "id": "p3-9",
+          "name": "Smart Classroom (Primary)",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-p3-9"
+        },
+        {
+          "id": "p4-1",
+          "name": "4A",
+          "category": "Grade 4",
+          "tags": "g4a grade4a four",
+          "spaceId": "space-p4-1"
+        },
+        {
+          "id": "p4-2",
+          "name": "4B",
+          "category": "Grade 4",
+          "tags": "g4b grade4b four",
+          "spaceId": "space-p4-2"
+        },
+        {
+          "id": "p4-3",
+          "name": "4C",
+          "category": "Grade 4",
+          "tags": "g4c grade4c four",
+          "spaceId": "space-p4-3"
+        },
+        {
+          "id": "p4-4",
+          "name": "4D",
+          "category": "Grade 4",
+          "tags": "g4d grade4d four",
+          "spaceId": "space-p4-4"
+        },
+        {
+          "id": "p4-5",
+          "name": "4E",
+          "category": "Grade 4",
+          "tags": "g4e grade4e four",
+          "spaceId": "space-p4-5"
+        },
+        {
+          "id": "p4-6",
+          "name": "4F",
+          "category": "Grade 4",
+          "tags": "g4f grade4f four",
+          "spaceId": "space-p4-6"
+        },
+        {
+          "id": "p4-7",
+          "name": "4G",
+          "category": "Grade 4",
+          "tags": "g4g grade4g four",
+          "spaceId": "space-p4-7"
+        },
+        {
+          "id": "p4-8",
+          "name": "4H",
+          "category": "Grade 4",
+          "tags": "g4h grade4h four",
+          "spaceId": "space-p4-8"
+        },
+        {
+          "id": "p4-9",
+          "name": "Music Room (Primary)",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-p4-9"
+        },
+        {
+          "id": "m1-1",
+          "name": "Art Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m1-1"
+        },
+        {
+          "id": "m1-2",
+          "name": "Book Shop",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m1-2"
+        },
+        {
+          "id": "m1-3",
+          "name": "Dancing Room (Main)",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m1-3"
+        },
+        {
+          "id": "m1-4",
+          "name": "Dancing Room (Pre School)",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m1-4"
+        },
+        {
+          "id": "m1-5",
+          "name": "Eastern Music Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m1-5"
+        },
+        {
+          "id": "m1-6",
+          "name": "Lower Nursery B",
+          "category": "Lower Nursery",
+          "tags": "lnb ln b lower nursery b",
+          "spaceId": "space-m1-6"
+        },
+        {
+          "id": "m1-7",
+          "name": "Store Room",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m1-7"
+        },
+        {
+          "id": "m1-8",
+          "name": "Western Music Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m1-8"
+        },
+        {
+          "id": "m2-1",
+          "name": "5A",
+          "category": "Grade 5",
+          "tags": "g5a grade5a five",
+          "spaceId": "space-m2-1"
+        },
+        {
+          "id": "m2-2",
+          "name": "5B",
+          "category": "Grade 5",
+          "tags": "g5b grade5b five",
+          "spaceId": "space-m2-2"
+        },
+        {
+          "id": "m2-3",
+          "name": "5C",
+          "category": "Grade 5",
+          "tags": "g5c grade5c five",
+          "spaceId": "space-m2-3"
+        },
+        {
+          "id": "m2-4",
+          "name": "5D",
+          "category": "Grade 5",
+          "tags": "g5d grade5d five",
+          "spaceId": "space-m2-4"
+        },
+        {
+          "id": "m2-5",
+          "name": "Lower Nursery A",
+          "category": "Lower Nursery",
+          "tags": "lna ln a lower nursery a",
+          "spaceId": "space-m2-5"
+        },
+        {
+          "id": "m2-6",
+          "name": "Nursery A",
+          "category": "Nursery",
+          "tags": "na n a nursery a",
+          "spaceId": "space-m2-6"
+        },
+        {
+          "id": "m2-7",
+          "name": "Nursery B",
+          "category": "Nursery",
+          "tags": "nb n b nursery b",
+          "spaceId": "space-m2-7"
+        },
+        {
+          "id": "m2-8",
+          "name": "Nursery C",
+          "category": "Nursery",
+          "tags": "nc n c nursery c",
+          "spaceId": "space-m2-8"
+        },
+        {
+          "id": "m2-9",
+          "name": "Nursery D",
+          "category": "Nursery",
+          "tags": "nd n d nursery d",
+          "spaceId": "space-m2-9"
+        },
+        {
+          "id": "m2-10",
+          "name": "Nursery E",
+          "category": "Nursery",
+          "tags": "ne n e nursery e",
+          "spaceId": "space-m2-10"
+        },
+        {
+          "id": "m2-11",
+          "name": "Nursery F",
+          "category": "Nursery",
+          "tags": "nf n f nursery f",
+          "spaceId": "space-m2-11"
+        },
+        {
+          "id": "m2-12",
+          "name": "Pre Grade F",
+          "category": "Pre-Grade",
+          "tags": "pgf pg f pre grade f",
+          "spaceId": "space-m2-12"
+        },
+        {
+          "id": "m2-13",
+          "name": "Religious Activity Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m2-13"
+        },
+        {
+          "id": "m2-14",
+          "name": "Washroom (Level 2)",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m2-14"
+        },
+        {
+          "id": "m3-1",
+          "name": "7A",
+          "category": "Grade 7",
+          "tags": "g7a grade7a seven",
+          "spaceId": "space-m3-1"
+        },
+        {
+          "id": "m3-2",
+          "name": "7B",
+          "category": "Grade 7",
+          "tags": "g7b grade7b seven",
+          "spaceId": "space-m3-2"
+        },
+        {
+          "id": "m3-3",
+          "name": "8A",
+          "category": "Grade 8",
+          "tags": "g8a grade8a eight",
+          "spaceId": "space-m3-3"
+        },
+        {
+          "id": "m3-4",
+          "name": "8B",
+          "category": "Grade 8",
+          "tags": "g8b grade8b eight",
+          "spaceId": "space-m3-4"
+        },
+        {
+          "id": "m3-5",
+          "name": "Accounts Unit",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m3-5"
+        },
+        {
+          "id": "m3-6",
+          "name": "Admissions Office",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m3-6"
+        },
+        {
+          "id": "m3-7",
+          "name": "Biology Lab",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-m3-7"
+        },
+        {
+          "id": "m3-8",
+          "name": "Exam Unit",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m3-8"
+        },
+        {
+          "id": "m3-9",
+          "name": "Headmistress Office",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m3-9"
+        },
+        {
+          "id": "m3-10",
+          "name": "Lobby",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m3-10"
+        },
+        {
+          "id": "m3-11",
+          "name": "Principal's Office",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m3-11"
+        },
+        {
+          "id": "m3-12",
+          "name": "Store Room for Labs",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m3-12"
+        },
+        {
+          "id": "m4-1",
+          "name": "5E",
+          "category": "Grade 5",
+          "tags": "g5e grade5e five",
+          "spaceId": "space-m4-1"
+        },
+        {
+          "id": "m4-2",
+          "name": "5F",
+          "category": "Grade 5",
+          "tags": "g5f grade5f five",
+          "spaceId": "space-m4-2"
+        },
+        {
+          "id": "m4-3",
+          "name": "Chemistry Lab",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-m4-3"
+        },
+        {
+          "id": "m4-4",
+          "name": "Chess Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m4-4"
+        },
+        {
+          "id": "m4-5",
+          "name": "Computer Lab 1",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-m4-5"
+        },
+        {
+          "id": "m4-6",
+          "name": "Physics Lab",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-m4-6"
+        },
+        {
+          "id": "m4-7",
+          "name": "Pre Grade A",
+          "category": "Pre-Grade",
+          "tags": "pga pg a pre grade a",
+          "spaceId": "space-m4-7"
+        },
+        {
+          "id": "m4-8",
+          "name": "Pre Grade B",
+          "category": "Pre-Grade",
+          "tags": "pgb pg b pre grade b",
+          "spaceId": "space-m4-8"
+        },
+        {
+          "id": "m4-9",
+          "name": "Pre Grade C",
+          "category": "Pre-Grade",
+          "tags": "pgc pg c pre grade c",
+          "spaceId": "space-m4-9"
+        },
+        {
+          "id": "m4-10",
+          "name": "Pre Grade D",
+          "category": "Pre-Grade",
+          "tags": "pgd pg d pre grade d",
+          "spaceId": "space-m4-10"
+        },
+        {
+          "id": "m4-11",
+          "name": "Pre Grade E",
+          "category": "Pre-Grade",
+          "tags": "pge pg e pre grade e",
+          "spaceId": "space-m4-11"
+        },
+        {
+          "id": "m4-12",
+          "name": "Staff Room",
+          "category": "Administration",
+          "tags": "",
+          "spaceId": "space-m4-12"
+        },
+        {
+          "id": "m4-13",
+          "name": "Washroom (Girls)",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m4-13"
+        },
+        {
+          "id": "m5-1",
+          "name": "Book Stores",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m5-1"
+        },
+        {
+          "id": "m5-2",
+          "name": "EDX 1",
+          "category": "Edexcel",
+          "tags": "edx edx1 edexcel",
+          "spaceId": "space-m5-2"
+        },
+        {
+          "id": "m5-3",
+          "name": "Form I-A",
+          "category": "Forms (Secondary)",
+          "tags": "f1a form1a fia formia one",
+          "spaceId": "space-m5-3"
+        },
+        {
+          "id": "m5-4",
+          "name": "Form I-B",
+          "category": "Forms (Secondary)",
+          "tags": "f1b form1b fib formib one",
+          "spaceId": "space-m5-4"
+        },
+        {
+          "id": "m5-5",
+          "name": "Form II-A",
+          "category": "Forms (Secondary)",
+          "tags": "f2a form2a fiia formiia two",
+          "spaceId": "space-m5-5"
+        },
+        {
+          "id": "m5-6",
+          "name": "Form II-B",
+          "category": "Forms (Secondary)",
+          "tags": "f2b form2b fiib formiib two",
+          "spaceId": "space-m5-6"
+        },
+        {
+          "id": "m5-7",
+          "name": "Form II-C",
+          "category": "Forms (Secondary)",
+          "tags": "f2c form2c fiic formiic two",
+          "spaceId": "space-m5-7"
+        },
+        {
+          "id": "m5-8",
+          "name": "Form II-D",
+          "category": "Forms (Secondary)",
+          "tags": "f2d form2d fiid formiid two",
+          "spaceId": "space-m5-8"
+        },
+        {
+          "id": "m5-9",
+          "name": "Form III-A",
+          "category": "Forms (Secondary)",
+          "tags": "f3a form3a fiiia formiiia three",
+          "spaceId": "space-m5-9"
+        },
+        {
+          "id": "m5-10",
+          "name": "Form III-B",
+          "category": "Forms (Secondary)",
+          "tags": "f3b form3b fiiib formiiib three",
+          "spaceId": "space-m5-10"
+        },
+        {
+          "id": "m5-11",
+          "name": "Form III-C",
+          "category": "Forms (Secondary)",
+          "tags": "f3c form3c fiiic formiiic three",
+          "spaceId": "space-m5-11"
+        },
+        {
+          "id": "m5-12",
+          "name": "Form III-D",
+          "category": "Forms (Secondary)",
+          "tags": "f3d form3d fiiid formiiid three",
+          "spaceId": "space-m5-12"
+        },
+        {
+          "id": "m5-13",
+          "name": "6A",
+          "category": "Grade 6",
+          "tags": "g6a grade6a six",
+          "spaceId": "space-m5-13"
+        },
+        {
+          "id": "m5-14",
+          "name": "6B",
+          "category": "Grade 6",
+          "tags": "g6b grade6b six",
+          "spaceId": "space-m5-14"
+        },
+        {
+          "id": "m5-15",
+          "name": "Speech and Drama Room",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m5-15"
+        },
+        {
+          "id": "m5-16",
+          "name": "Washroom (Boys)",
+          "category": "Services",
+          "tags": "",
+          "spaceId": "space-m5-16"
+        },
+        {
+          "id": "m6-1",
+          "name": "9",
+          "category": "Grade 9",
+          "tags": "g9 grade9 nine",
+          "spaceId": "space-m6-1"
+        },
+        {
+          "id": "m6-2",
+          "name": "10A",
+          "category": "Grade 10",
+          "tags": "g10a grade10a ten",
+          "spaceId": "space-m6-2"
+        },
+        {
+          "id": "m6-3",
+          "name": "10B",
+          "category": "Grade 10",
+          "tags": "g10b grade10b ten",
+          "spaceId": "space-m6-3"
+        },
+        {
+          "id": "m6-4",
+          "name": "11A",
+          "category": "Grade 11",
+          "tags": "g11a grade11a eleven",
+          "spaceId": "space-m6-4"
+        },
+        {
+          "id": "m6-5",
+          "name": "11B",
+          "category": "Grade 11",
+          "tags": "g11b grade11b eleven",
+          "spaceId": "space-m6-5"
+        },
+        {
+          "id": "m6-6",
+          "name": "Form V-A",
+          "category": "Forms (Secondary)",
+          "tags": "f5a form5a fva formva five",
+          "spaceId": "space-m6-6"
+        },
+        {
+          "id": "m6-7",
+          "name": "Form V-B",
+          "category": "Forms (Secondary)",
+          "tags": "f5b form5b fvb formvb five",
+          "spaceId": "space-m6-7"
+        },
+        {
+          "id": "m6-8",
+          "name": "Form V-C",
+          "category": "Forms (Secondary)",
+          "tags": "f5c form5c fvc formvc five",
+          "spaceId": "space-m6-8"
+        },
+        {
+          "id": "m6-9",
+          "name": "Form IV-A",
+          "category": "Forms (Secondary)",
+          "tags": "f4a form4a fiva formiva four",
+          "spaceId": "space-m6-9"
+        },
+        {
+          "id": "m6-10",
+          "name": "Form IV-B",
+          "category": "Forms (Secondary)",
+          "tags": "f4b form4b fivb formivb four",
+          "spaceId": "space-m6-10"
+        },
+        {
+          "id": "m6-11",
+          "name": "Form IV-C",
+          "category": "Forms (Secondary)",
+          "tags": "f4c form4c fivc formivc four",
+          "spaceId": "space-m6-11"
+        },
+        {
+          "id": "m6-12",
+          "name": "Computer Lab 2",
+          "category": "Labs",
+          "tags": "",
+          "spaceId": "space-m6-12"
+        },
+        {
+          "id": "m6-13",
+          "name": "Library",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m6-13"
+        },
+        {
+          "id": "m6-14",
+          "name": "Smart Classroom (Main)",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m6-14"
+        },
+        {
+          "id": "m7-1",
+          "name": "Grade 12",
+          "category": "Advanced Level",
+          "tags": "g12 12 twelve",
+          "spaceId": "space-m7-1"
+        },
+        {
+          "id": "m7-2",
+          "name": "Grade 13",
+          "category": "Advanced Level",
+          "tags": "g13 13 thirteen",
+          "spaceId": "space-m7-2"
+        },
+        {
+          "id": "m7-3",
+          "name": "Auditorium",
+          "category": "Activities",
+          "tags": "",
+          "spaceId": "space-m7-3"
+        },
+        {
+          "id": "m7-4",
+          "name": "Cambridge AL 1",
+          "category": "Advanced Level",
+          "tags": "al1 a/l1 a/l 1 cambridge al1 cal1 one",
+          "spaceId": "space-m7-4"
+        },
+        {
+          "id": "m7-5",
+          "name": "Cambridge AL 2",
+          "category": "Advanced Level",
+          "tags": "al2 a/l2 a/l 2 cambridge al2 cal2 two",
+          "spaceId": "space-m7-5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+node_modules/
+.openai/
+artifacts/
+*.b64
+__pycache__/
