@@ -1,0 +1,11 @@
+{
+  "name": "school-navigator",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check app.js && node --check lib/model.js && node --check lib/map.js && node --check lib/studio.js && node --check service-worker.js && npm test"
+  }
+}

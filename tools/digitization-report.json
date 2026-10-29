@@ -1,0 +1,1654 @@
+[
+  {
+    "room": "p1-1",
+    "name": "1A",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1A_20260905_172432_0007.jpg",
+    "wallMatch": 0.943,
+    "bounds": [
+      117,
+      1000,
+      494,
+      1239
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p1-2",
+    "name": "1B",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1B_20260905_172432_0008.jpg",
+    "wallMatch": 0.936,
+    "bounds": [
+      494,
+      1003,
+      872,
+      1241
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p1-3",
+    "name": "1C",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1C_20260905_172432_0005.jpg",
+    "wallMatch": 0.945,
+    "bounds": [
+      494,
+      763,
+      872,
+      1002
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p1-4",
+    "name": "1D",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1D_20260905_172432_0004.jpg",
+    "wallMatch": 0.948,
+    "bounds": [
+      494,
+      531,
+      872,
+      762
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p1-5",
+    "name": "1E",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1E_20260905_172432_0002.jpg",
+    "wallMatch": 0.949,
+    "bounds": [
+      494,
+      302,
+      872,
+      532
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p1-6",
+    "name": "1F",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1F_20260905_172432_0003.jpg",
+    "wallMatch": 0.945,
+    "bounds": [
+      125,
+      531,
+      502,
+      762
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p1-7",
+    "name": "1G",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/1G_20260905_172432_0006.jpg",
+    "wallMatch": 0.945,
+    "bounds": [
+      117,
+      762,
+      494,
+      1001
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p1-8",
+    "name": "Dancing Room",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/Dancing Room_20260905_172432_0001.jpg",
+    "wallMatch": 0.955,
+    "bounds": [
+      117,
+      301,
+      494,
+      531
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "p1-9",
+    "name": "Sectional Head's Room",
+    "floor": "p1",
+    "sourceImage": "LFP 26-27/Primary Building/Level 1/Sectional Head's Room_20260905_172432_0000.jpg",
+    "wallMatch": 0.95,
+    "bounds": [
+      119,
+      78,
+      496,
+      296
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p2-1",
+    "name": "2A",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2A_20260905_172432_0017.jpg",
+    "wallMatch": 0.946,
+    "bounds": [
+      123,
+      1000,
+      500,
+      1239
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p2-2",
+    "name": "2B",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2B_20260905_172432_0016.jpg",
+    "wallMatch": 0.941,
+    "bounds": [
+      500,
+      1003,
+      877,
+      1239
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p2-3",
+    "name": "2C",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2C_20260905_172432_0015.jpg",
+    "wallMatch": 0.943,
+    "bounds": [
+      500,
+      761,
+      877,
+      1001
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "p2-4",
+    "name": "2D",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2D_20260905_172432_0012.jpg",
+    "wallMatch": 0.939,
+    "bounds": [
+      500,
+      532,
+      877,
+      763
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p2-5",
+    "name": "2E",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2E_20260905_172432_0011.jpg",
+    "wallMatch": 0.933,
+    "bounds": [
+      500,
+      302,
+      877,
+      535
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p2-6",
+    "name": "2F",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2F_20260905_172432_0013.jpg",
+    "wallMatch": 0.948,
+    "bounds": [
+      123,
+      531,
+      500,
+      762
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p2-7",
+    "name": "2G",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/2G_20260905_172432_0014.jpg",
+    "wallMatch": 0.95,
+    "bounds": [
+      123,
+      763,
+      500,
+      1000
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p2-8",
+    "name": "Computer Lab (Primary)",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/Computer Lab 1_20260905_172432_0010.jpg",
+    "wallMatch": 0.954,
+    "bounds": [
+      122,
+      299,
+      500,
+      529
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "p2-9",
+    "name": "Religion Room / Library",
+    "floor": "p2",
+    "sourceImage": "LFP 26-27/Primary Building/Level 2/Religion Room_Library_20260905_172432_0009.jpg",
+    "wallMatch": 0.948,
+    "bounds": [
+      123,
+      79,
+      500,
+      298
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "p3-1",
+    "name": "3A",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3A_20260905_172432_0025.jpg",
+    "wallMatch": 0.947,
+    "bounds": [
+      500,
+      1046,
+      877,
+      1278
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p3-2",
+    "name": "3B",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3B_20260905_172432_0023.jpg",
+    "wallMatch": 0.946,
+    "bounds": [
+      500,
+      807,
+      877,
+      1039
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p3-3",
+    "name": "3C",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3C_20260905_172432_0021.jpg",
+    "wallMatch": 0.945,
+    "bounds": [
+      500,
+      574,
+      877,
+      805
+    ],
+    "fill": 0.992
+  },
+  {
+    "room": "p3-4",
+    "name": "3D",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3D_20260905_172432_0020.jpg",
+    "wallMatch": 0.918,
+    "bounds": [
+      500,
+      343,
+      877,
+      579
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p3-5",
+    "name": "3E",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3E_20260905_172432_0019.jpg",
+    "wallMatch": 0.935,
+    "bounds": [
+      123,
+      344,
+      500,
+      576
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p3-6",
+    "name": "3F",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3F_20260905_172432_0022.jpg",
+    "wallMatch": 0.946,
+    "bounds": [
+      123,
+      575,
+      500,
+      806
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "p3-7",
+    "name": "3G",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3G_20260905_172432_0024.jpg",
+    "wallMatch": 0.95,
+    "bounds": [
+      123,
+      807,
+      500,
+      1043
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "p3-8",
+    "name": "3H",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/3H_20260905_172432_0026.jpg",
+    "wallMatch": 0.949,
+    "bounds": [
+      123,
+      1045,
+      500,
+      1277
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p3-9",
+    "name": "Smart Classroom (Primary)",
+    "floor": "p3",
+    "sourceImage": "LFP 26-27/Primary Building/Level 3/Smart Classroom_20260905_172432_0018.jpg",
+    "wallMatch": 0.936,
+    "bounds": [
+      122,
+      115,
+      500,
+      343
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "p4-1",
+    "name": "4A",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4A_20260905_172432_0035.jpg",
+    "wallMatch": 0.947,
+    "bounds": [
+      123,
+      999,
+      500,
+      1238
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p4-2",
+    "name": "4B",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4B_20260905_172432_0034.jpg",
+    "wallMatch": 0.941,
+    "bounds": [
+      500,
+      999,
+      877,
+      1238
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p4-3",
+    "name": "4C",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4C_20260905_172432_0033.jpg",
+    "wallMatch": 0.939,
+    "bounds": [
+      500,
+      763,
+      877,
+      1002
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p4-4",
+    "name": "4D",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4D_20260905_172432_0030.jpg",
+    "wallMatch": 0.942,
+    "bounds": [
+      500,
+      537,
+      877,
+      756
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "p4-5",
+    "name": "4E",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4E_20260905_172432_0029.jpg",
+    "wallMatch": 0.912,
+    "bounds": [
+      500,
+      300,
+      877,
+      538
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "p4-6",
+    "name": "4F",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4F_20260905_172432_0028.jpg",
+    "wallMatch": 0.94,
+    "bounds": [
+      122,
+      299,
+      500,
+      527
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "p4-7",
+    "name": "4G",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4G_20260905_172432_0031.jpg",
+    "wallMatch": 0.947,
+    "bounds": [
+      123,
+      538,
+      500,
+      756
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p4-8",
+    "name": "4H",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/4H_20260905_172432_0032.jpg",
+    "wallMatch": 0.95,
+    "bounds": [
+      123,
+      763,
+      500,
+      996
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "p4-9",
+    "name": "Music Room (Primary)",
+    "floor": "p4",
+    "sourceImage": "LFP 26-27/Primary Building/Level 4/Music Room_20260905_172432_0027.jpg",
+    "wallMatch": 0.968,
+    "bounds": [
+      123,
+      79,
+      500,
+      298
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m1-1",
+    "name": "Art Room",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Art Room_20260905_173245_0003.jpg",
+    "wallMatch": 0.935,
+    "bounds": [
+      58,
+      1129,
+      326,
+      1275
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m1-2",
+    "name": "Book Shop",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Book Shop_20260905_173245_0004.jpg",
+    "wallMatch": 0.956,
+    "bounds": [
+      383,
+      100,
+      691,
+      263
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m1-3",
+    "name": "Dancing Room (Main)",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Dancing Room_20260905_173245_0005.jpg",
+    "wallMatch": 0.943,
+    "bounds": [
+      383,
+      257,
+      691,
+      420
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m1-4",
+    "name": "Dancing Room (Pre School)",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Dancing Room_PreSchool_20260905_173245_0002.jpg",
+    "wallMatch": 0.903,
+    "bounds": [
+      325,
+      1129,
+      594,
+      1275
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m1-5",
+    "name": "Eastern Music Room",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Eastern Music Room_20260905_173245_0000.jpg",
+    "wallMatch": 0.909,
+    "bounds": [
+      58,
+      979,
+      326,
+      1126
+    ],
+    "fill": 0.989
+  },
+  {
+    "room": "m1-6",
+    "name": "Lower Nursery B",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Lower Nursery B_20260905_173245_0001.jpg",
+    "wallMatch": 0.918,
+    "bounds": [
+      325,
+      979,
+      594,
+      1126
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m1-7",
+    "name": "Store Room",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Store Room_20260905_173245_0007.jpg",
+    "wallMatch": 0.976,
+    "bounds": [
+      383,
+      726,
+      691,
+      914
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m1-8",
+    "name": "Western Music Room",
+    "floor": "m1",
+    "sourceImage": "LFP 26-27/Main Building/Level 1/Western Music Room_20260905_173245_0006.jpg",
+    "wallMatch": 0.873,
+    "bounds": [
+      383,
+      490,
+      691,
+      585
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m2-1",
+    "name": "5A",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/5A_20260905_173515_0013.jpg",
+    "wallMatch": 0.864,
+    "bounds": [
+      867,
+      950,
+      981,
+      1163
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m2-2",
+    "name": "5B",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/5B_20260905_173515_0012.jpg",
+    "wallMatch": 0.921,
+    "bounds": [
+      758,
+      950,
+      873,
+      1163
+    ],
+    "fill": 0.989
+  },
+  {
+    "room": "m2-3",
+    "name": "5C",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/5C_20260905_173515_0010.jpg",
+    "wallMatch": 0.863,
+    "bounds": [
+      611,
+      948,
+      757,
+      1080
+    ],
+    "fill": 0.991
+  },
+  {
+    "room": "m2-4",
+    "name": "5D",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/5D_20260905_173515_0011.jpg",
+    "wallMatch": 0.893,
+    "bounds": [
+      610,
+      1076,
+      756,
+      1209
+    ],
+    "fill": 0.994
+  },
+  {
+    "room": "m2-5",
+    "name": "Lower Nursery A",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Lower Nursery A_20260905_173514_0000.jpg",
+    "wallMatch": 0.953,
+    "bounds": [
+      51,
+      130,
+      328,
+      311
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m2-6",
+    "name": "Nursery A",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Nursery A_20260905_173515_0001.jpg",
+    "wallMatch": 0.967,
+    "bounds": [
+      51,
+      319,
+      328,
+      499
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m2-7",
+    "name": "Nursery B",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/nursery B_20260905_173515_0004.jpg",
+    "wallMatch": 0.966,
+    "bounds": [
+      51,
+      506,
+      328,
+      686
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m2-8",
+    "name": "Nursery C",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Nursery C_20260905_173515_0005.jpg",
+    "wallMatch": 0.968,
+    "bounds": [
+      51,
+      694,
+      328,
+      873
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m2-9",
+    "name": "Nursery D",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Nursery D_20260905_173515_0003.jpg",
+    "wallMatch": 0.964,
+    "bounds": [
+      375,
+      318,
+      652,
+      498
+    ],
+    "fill": 0.999
+  },
+  {
+    "room": "m2-10",
+    "name": "Nursery E",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Nursery E_20260905_173515_0002.jpg",
+    "wallMatch": 0.967,
+    "bounds": [
+      375,
+      131,
+      652,
+      311
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m2-11",
+    "name": "Nursery F",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Nursery F_20260905_173515_0009.jpg",
+    "wallMatch": 0.903,
+    "bounds": [
+      326,
+      948,
+      603,
+      1103
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m2-12",
+    "name": "Pre Grade F",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Pre Grade F_20260905_173515_0007.jpg",
+    "wallMatch": 0.898,
+    "bounds": [
+      50,
+      948,
+      328,
+      1102
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m2-13",
+    "name": "Religious Activity Room",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Religious Activity room_20260905_173515_0008.jpg",
+    "wallMatch": 0.865,
+    "bounds": [
+      50,
+      1097,
+      328,
+      1251
+    ],
+    "fill": 0.992
+  },
+  {
+    "room": "m2-14",
+    "name": "Washroom (Level 2)",
+    "floor": "m2",
+    "sourceImage": "LFP 26-27/Main Building/Level 2/Wash Room_20260905_173515_0006.jpg",
+    "wallMatch": 0.97,
+    "bounds": [
+      375,
+      694,
+      652,
+      873
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m3-1",
+    "name": "7A",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/7A_20260905_173702_0024.jpg",
+    "wallMatch": 0.825,
+    "bounds": [
+      870,
+      978,
+      993,
+      1189
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m3-2",
+    "name": "7B",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/7B_20260905_173702_0023.jpg",
+    "wallMatch": 0.855,
+    "bounds": [
+      760,
+      978,
+      883,
+      1189
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m3-3",
+    "name": "8A",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/8A_20260905_173702_0021.jpg",
+    "wallMatch": 0.85,
+    "bounds": [
+      616,
+      978,
+      763,
+      1108
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m3-4",
+    "name": "8B",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/8B_20260905_173702_0022.jpg",
+    "wallMatch": 0.887,
+    "bounds": [
+      621,
+      1108,
+      769,
+      1237
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m3-5",
+    "name": "Accounts Unit",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Accounts Unit_20260905_173702_0018.jpg",
+    "wallMatch": 0.926,
+    "bounds": [
+      83,
+      978,
+      346,
+      1068
+    ],
+    "fill": 0.986
+  },
+  {
+    "room": "m3-6",
+    "name": "Admissions Office",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Admissions Office_20260905_173702_0015.jpg",
+    "wallMatch": 0.939,
+    "bounds": [
+      77,
+      477,
+      325,
+      678
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "m3-7",
+    "name": "Biology Lab",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Biology Lab_20260905_173702_0017.jpg",
+    "wallMatch": 0.953,
+    "bounds": [
+      344,
+      977,
+      607,
+      1270
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m3-8",
+    "name": "Exam Unit",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Exam Unit_20260905_173702_0013.jpg",
+    "wallMatch": 0.968,
+    "bounds": [
+      83,
+      134,
+      320,
+      479
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m3-9",
+    "name": "Headmistress Office",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Headmistress Office_20260905_173702_0020.jpg",
+    "wallMatch": 0.857,
+    "bounds": [
+      83,
+      1177,
+      346,
+      1273
+    ],
+    "fill": 0.989
+  },
+  {
+    "room": "m3-10",
+    "name": "Lobby",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Lobby_20260905_173702_0016.jpg",
+    "wallMatch": 0.987,
+    "bounds": [
+      79,
+      678,
+      678,
+      931
+    ],
+    "fill": 0.905
+  },
+  {
+    "room": "m3-11",
+    "name": "Principal's Office",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Principal's Office_20260905_173702_0014.jpg",
+    "wallMatch": 0.984,
+    "bounds": [
+      406,
+      138,
+      677,
+      595
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "m3-12",
+    "name": "Store Room for Labs",
+    "floor": "m3",
+    "sourceImage": "LFP 26-27/Main Building/Level 3/Store Room for Labs_20260905_173702_0019.jpg",
+    "wallMatch": 0.919,
+    "bounds": [
+      83,
+      1068,
+      346,
+      1178
+    ],
+    "fill": 0.983
+  },
+  {
+    "room": "m4-1",
+    "name": "5E",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/5E_20260905_173903_0011.jpg",
+    "wallMatch": 0.894,
+    "bounds": [
+      748,
+      983,
+      866,
+      1197
+    ],
+    "fill": 0.989
+  },
+  {
+    "room": "m4-2",
+    "name": "5F",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/5F_20260905_173903_0012.jpg",
+    "wallMatch": 0.848,
+    "bounds": [
+      857,
+      983,
+      974,
+      1196
+    ],
+    "fill": 0.989
+  },
+  {
+    "room": "m4-3",
+    "name": "Chemistry Lab",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Chemistry Lab_20260905_173903_0008.jpg",
+    "wallMatch": 0.954,
+    "bounds": [
+      321,
+      987,
+      581,
+      1170
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "m4-4",
+    "name": "Chess Room",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Chess Room_20260905_173903_0009.jpg",
+    "wallMatch": 0.833,
+    "bounds": [
+      595,
+      984,
+      752,
+      1136
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m4-5",
+    "name": "Computer Lab 1",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Computer Lab 1_20260905_173903_0004.jpg",
+    "wallMatch": 0.968,
+    "bounds": [
+      366,
+      129,
+      646,
+      430
+    ],
+    "fill": 0.994
+  },
+  {
+    "room": "m4-6",
+    "name": "Physics Lab",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Physics Lab_20260905_173903_0007.jpg",
+    "wallMatch": 0.962,
+    "bounds": [
+      54,
+      984,
+      314,
+      1167
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m4-7",
+    "name": "Pre Grade A",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Pre Grade A_20260905_173903_0006.jpg",
+    "wallMatch": 0.945,
+    "bounds": [
+      358,
+      695,
+      643,
+      878
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m4-8",
+    "name": "Pre Grade B",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Pre Grade B_20260905_173903_0003.jpg",
+    "wallMatch": 0.919,
+    "bounds": [
+      39,
+      695,
+      329,
+      884
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m4-9",
+    "name": "Pre Grade C",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Pre Grade C_20260905_173903_0002.jpg",
+    "wallMatch": 0.924,
+    "bounds": [
+      39,
+      506,
+      329,
+      695
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m4-10",
+    "name": "Pre Grade D",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Pre Grade D_20260905_173903_0001.jpg",
+    "wallMatch": 0.924,
+    "bounds": [
+      39,
+      318,
+      329,
+      506
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m4-11",
+    "name": "Pre Grade E",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Pre Grade E_20260905_173903_0000.jpg",
+    "wallMatch": 0.927,
+    "bounds": [
+      39,
+      129,
+      329,
+      318
+    ],
+    "fill": 0.996
+  },
+  {
+    "room": "m4-12",
+    "name": "Staff Room",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Staff Room_20260905_173903_0005.jpg",
+    "wallMatch": 0.865,
+    "bounds": [
+      360,
+      428,
+      646,
+      509
+    ],
+    "fill": 0.977
+  },
+  {
+    "room": "m4-13",
+    "name": "Washroom (Girls)",
+    "floor": "m4",
+    "sourceImage": "LFP 26-27/Main Building/Level 4/Washroom_20260905_173903_0010.jpg",
+    "wallMatch": 0.922,
+    "bounds": [
+      601,
+      1135,
+      746,
+      1245
+    ],
+    "fill": 0.991
+  },
+  {
+    "room": "m5-1",
+    "name": "Book Stores",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Book Stores_20260905_174001_0006.jpg",
+    "wallMatch": 0.859,
+    "bounds": [
+      384,
+      704,
+      664,
+      808
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-2",
+    "name": "EDX 1",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/EDX 1_20260905_174001_0012.jpg",
+    "wallMatch": 0.802,
+    "bounds": [
+      611,
+      953,
+      762,
+      1088
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "m5-3",
+    "name": "Form I-A",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 1A_20260905_174001_0015.jpg",
+    "wallMatch": 0.801,
+    "bounds": [
+      866,
+      956,
+      986,
+      1170
+    ],
+    "fill": 0.99
+  },
+  {
+    "room": "m5-4",
+    "name": "Form I-B",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 1B_20260905_174001_0014.jpg",
+    "wallMatch": 0.856,
+    "bounds": [
+      752,
+      956,
+      872,
+      1171
+    ],
+    "fill": 0.987
+  },
+  {
+    "room": "m5-5",
+    "name": "Form II-A",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 2A_20260905_174001_0009.jpg",
+    "wallMatch": 0.909,
+    "bounds": [
+      72,
+      1100,
+      330,
+      1248
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-6",
+    "name": "Form II-B",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 2B_20260905_174001_0008.jpg",
+    "wallMatch": 0.911,
+    "bounds": [
+      71,
+      950,
+      327,
+      1099
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m5-7",
+    "name": "Form II-C",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 2C_20260905_174001_0010.jpg",
+    "wallMatch": 0.915,
+    "bounds": [
+      328,
+      950,
+      585,
+      1099
+    ],
+    "fill": 0.994
+  },
+  {
+    "room": "m5-8",
+    "name": "Form II-D",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 2D_20260905_174001_0011.jpg",
+    "wallMatch": 0.913,
+    "bounds": [
+      325,
+      1097,
+      583,
+      1248
+    ],
+    "fill": 0.999
+  },
+  {
+    "room": "m5-9",
+    "name": "Form III-A",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 3A_20260905_174001_0000.jpg",
+    "wallMatch": 0.951,
+    "bounds": [
+      61,
+      145,
+      342,
+      334
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-10",
+    "name": "Form III-B",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 3B_20260905_174001_0001.jpg",
+    "wallMatch": 0.95,
+    "bounds": [
+      61,
+      333,
+      342,
+      522
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-11",
+    "name": "Form III-C",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 3C_20260905_174001_0002.jpg",
+    "wallMatch": 0.949,
+    "bounds": [
+      61,
+      523,
+      342,
+      711
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-12",
+    "name": "Form III-D",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 3D_20260905_174001_0003.jpg",
+    "wallMatch": 0.942,
+    "bounds": [
+      61,
+      711,
+      342,
+      899
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-13",
+    "name": "6A",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 6A_20260905_174001_0004.jpg",
+    "wallMatch": 0.952,
+    "bounds": [
+      385,
+      145,
+      666,
+      334
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "m5-14",
+    "name": "6B",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Form 6B_20260905_174001_0005.jpg",
+    "wallMatch": 0.951,
+    "bounds": [
+      385,
+      333,
+      666,
+      522
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m5-15",
+    "name": "Speech and Drama Room",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Speech and Drama Room_20260905_174001_0013.jpg",
+    "wallMatch": 0.825,
+    "bounds": [
+      610,
+      1078,
+      762,
+      1214
+    ],
+    "fill": 0.982
+  },
+  {
+    "room": "m5-16",
+    "name": "Washroom (Boys)",
+    "floor": "m5",
+    "sourceImage": "LFP 26-27/Main Building/Level 5/Wash Room 2_20260905_174001_0007.jpg",
+    "wallMatch": 0.833,
+    "bounds": [
+      383,
+      798,
+      664,
+      902
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m6-1",
+    "name": "9",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/9_20260905_174109_0004.jpg",
+    "wallMatch": 0.97,
+    "bounds": [
+      373,
+      329,
+      656,
+      519
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "m6-2",
+    "name": "10A",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/10A_20260905_174109_0001.jpg",
+    "wallMatch": 0.964,
+    "bounds": [
+      50,
+      520,
+      333,
+      708
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m6-3",
+    "name": "10B",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/10B_20260905_174109_0002.jpg",
+    "wallMatch": 0.964,
+    "bounds": [
+      50,
+      708,
+      332,
+      895
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m6-4",
+    "name": "11A",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/11A_20260905_174109_0005.jpg",
+    "wallMatch": 0.967,
+    "bounds": [
+      373,
+      708,
+      656,
+      895
+    ],
+    "fill": 1.0
+  },
+  {
+    "room": "m6-5",
+    "name": "11B",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/11B_20260905_174109_0003.jpg",
+    "wallMatch": 0.969,
+    "bounds": [
+      373,
+      142,
+      656,
+      330
+    ],
+    "fill": 0.998
+  },
+  {
+    "room": "m6-6",
+    "name": "Form V-A",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 5A_20260905_174109_0007.jpg",
+    "wallMatch": 0.929,
+    "bounds": [
+      68,
+      1116,
+      326,
+      1266
+    ],
+    "fill": 0.984
+  },
+  {
+    "room": "m6-7",
+    "name": "Form V-B",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 5B_20260905_174109_0006.jpg",
+    "wallMatch": 0.916,
+    "bounds": [
+      70,
+      968,
+      328,
+      1117
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m6-8",
+    "name": "Form V-C",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 5C_20260905_174109_0008.jpg",
+    "wallMatch": 0.923,
+    "bounds": [
+      322,
+      968,
+      579,
+      1117
+    ],
+    "fill": 0.987
+  },
+  {
+    "room": "m6-9",
+    "name": "Form IV-A",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 4A_20260905_174109_0010.jpg",
+    "wallMatch": 0.849,
+    "bounds": [
+      603,
+      972,
+      751,
+      1099
+    ],
+    "fill": 0.994
+  },
+  {
+    "room": "m6-10",
+    "name": "Form IV-B",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 4B_20260905_174109_0012.jpg",
+    "wallMatch": 0.91,
+    "bounds": [
+      752,
+      974,
+      863,
+      1185
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "m6-11",
+    "name": "Form IV-C",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Form 4C_20260905_174109_0013.jpg",
+    "wallMatch": 0.866,
+    "bounds": [
+      862,
+      974,
+      974,
+      1185
+    ],
+    "fill": 0.993
+  },
+  {
+    "room": "m6-12",
+    "name": "Computer Lab 2",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Computer Lab 2_20260905_174109_0009.jpg",
+    "wallMatch": 0.916,
+    "bounds": [
+      322,
+      1115,
+      579,
+      1264
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m6-13",
+    "name": "Library",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Library_20260905_174109_0000.jpg",
+    "wallMatch": 0.981,
+    "bounds": [
+      46,
+      142,
+      329,
+      519
+    ],
+    "fill": 0.999
+  },
+  {
+    "room": "m6-14",
+    "name": "Smart Classroom (Main)",
+    "floor": "m6",
+    "sourceImage": "LFP 26-27/Main Building/Level 6/Smart Classroom_20260905_174109_0011.jpg",
+    "wallMatch": 0.891,
+    "bounds": [
+      603,
+      1101,
+      752,
+      1226
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m7-1",
+    "name": "Grade 12",
+    "floor": "m7",
+    "sourceImage": "LFP 26-27/Main Building/Level 7/12_20260905_174219_0002.jpg",
+    "wallMatch": 0.987,
+    "bounds": [
+      525,
+      663,
+      696,
+      935
+    ],
+    "fill": 0.995
+  },
+  {
+    "room": "m7-2",
+    "name": "Grade 13",
+    "floor": "m7",
+    "sourceImage": "LFP 26-27/Main Building/Level 7/13_20260905_174219_0001.jpg",
+    "wallMatch": 0.967,
+    "bounds": [
+      368,
+      663,
+      521,
+      935
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m7-3",
+    "name": "Auditorium",
+    "floor": "m7",
+    "sourceImage": "LFP 26-27/Main Building/Level 7/Auditorium_20260905_174219_0000.jpg",
+    "wallMatch": 0.987,
+    "bounds": [
+      48,
+      156,
+      697,
+      946
+    ],
+    "fill": 0.704
+  },
+  {
+    "room": "m7-4",
+    "name": "Cambridge AL 1",
+    "floor": "m7",
+    "sourceImage": "LFP 26-27/Main Building/Level 7/Cambridge AL 1_20260905_174219_0003.jpg",
+    "wallMatch": 0.903,
+    "bounds": [
+      318,
+      1000,
+      598,
+      1154
+    ],
+    "fill": 0.997
+  },
+  {
+    "room": "m7-5",
+    "name": "Cambridge AL 2",
+    "floor": "m7",
+    "sourceImage": "LFP 26-27/Main Building/Level 7/Cambridge AL 2_20260905_174219_0004.jpg",
+    "wallMatch": 0.957,
+    "bounds": [
+      61,
+      1008,
+      321,
+      1151
+    ],
+    "fill": 1.0
+  }
+]

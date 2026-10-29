@@ -1,45 +1,69 @@
-# School Navigator Companion
+# Louvre College · Campus Navigator
 
-An interactive, mobile-friendly school room finder for the **2026–2027 academic year**.
+[Open the live map](https://induwaralasindu.github.io/school-map/)
 
-**Live site:** https://induwaralasindu.github.io/school-map/
+An editable school map with **118 digitized rooms on 11 floors**, a responsive liquid glass interface, and a dependency-free runtime.
 
-## Features
+## Find a room
 
-- Search **118 mapped rooms**, including classroom names, grade, category, building, level and room numbers.
-- Browse classrooms by category or see all **11 floor plans** across the Primary and Main buildings.
-- Filter rooms by building, or view only saved rooms.
-- Save favourite rooms and see recently visited rooms (stored locally on your device).
-- Share direct room links, for example: `?room=p1-1`.
-- Open a room's marked floor plan or the full floor overview.
-- Expand room maps and use zoom controls for more detail.
-- Dark and light themes, saved on your device.
-- Keyboard navigation: **/** or **Ctrl/Cmd + K** to search; **Esc** to clear search or close the map.
-- Responsive layouts, reduced-motion support, visible focus rings and accessible labels.
-- On-demand floor-plan image loading; once visited, maps may be available offline via a service worker.
+Search by name, grade, keyword, facility, building or floor. Select a result or tap the map. Save rooms, share direct links, compare with the original plan, and zoom or pan for detail.
 
-## Running locally
+- Phones: Map / Rooms / Saved navigation and a room details sheet.
+- Tablets and computers: directory alongside the interactive map.
+- Large displays: adaptive sizing, plus a TV setting with larger controls and arrow-key navigation.
+- Display settings: light/dark/system, interface size, full or reduced glass effects.
+- Keyboard: `/` or Ctrl/Cmd K to search; arrows between focused map rooms; +/− to zoom; Home to fit; Escape to close details.
+- Offline: after a successful first visit, the app shell and all vector floors are cached. Original JPEGs are fetched only on demand.
 
-This is a dependency-free static site. Serve the repository folder with an HTTP server rather than opening `index.html` directly:
+## Update the next school year — no image editing needed
+
+1. Open **Layout studio**.
+2. Press **+** beside the school year to copy the selected layout. Name the new year.
+3. Select a room. Change its name, category or search keywords.
+4. Pick another location in **Move to a space**. Occupied destinations swap the two rooms.
+5. Use **Draw space**, drag shapes/corners, or enter coordinates to change physical layouts.
+6. Use **Floor and building** to add/copy/rename floors or add buildings. Canvas size changes scale all geometry and markers together.
+7. Choose **Use this year by default** when the new layout should open for visitors.
+8. **Export** `campus.json`. Replace [data/campus.json](data/campus.json) in GitHub with the exported file and commit it to `main`. GitHub Pages publishes the update.
+
+**Studio changes are drafts on the current device.** They do not modify the public site automatically. Publishing needs repository write access. Keep an exported backup. Undo/redo covers the current session; drafts survive reloads when browser storage is available. Import validates before replacing anything. New app versions preserve existing drafts and flag published-data conflicts.
+
+Deleting a space or floor leaves its rooms **unplaced**, so they can be reassigned. Choose them in the editor's room menu. Deleting a room record keeps its physical space. Unlabelled source areas remain explicitly unassigned; the app does not guess their purpose.
+
+## How editable maps work
+
+`Room record → Physical space polygon → Floor → Building`
+
+The data is in a versioned JSON file, separate from the interface. A room keeps its stable ID when renamed or moved. A physical space has its own ID and polygon. Labels, highlighting, floor lists, filters and search are derived from those records. New categories, buildings, floors, sizes, aspect ratios and school-year layouts do not require UI rewrites.
+
+See [the schema and maintenance guide](docs/layout-data.md) for the format and [verification notes](docs/verification.md) for test coverage.
+
+## Development
+
+Use Node.js 22 or newer. No package installation is required.
 
 ```sh
-python -m http.server 8000
+npm run dev
+npm run check
 ```
 
-Then open http://localhost:8000. GitHub Pages can publish this repository's root directly.
+Open the local URL printed by the server. GitHub Pages serves the repository root directly; there is no build step and no runtime CDN dependency. The default development port is 3000; `--port` or `PORT` can override it.
+
+[Screen lab](tests/screen-lab.html) runs the real app inside a resizable iframe. It includes phone, tablet, desktop, ultrawide and 4K presets, and a visible overflow check.
 
 ## Project files
 
-- `index.html` — app markup, original room dataset, navigation logic and image references.
-- `enhancements.css` — responsive redesign and theme styles.
-- `enhancements.js` — search, favourites, share links, zoom and UI enhancements.
-- `service-worker.js` — offline app shell and visited-image caching.
-- `LFP 26-27/` — original classroom and floor-plan JPEGs.
+| File | Purpose |
+| --- | --- |
+| `data/campus.json` | Published layout data; replace this when publishing editor exports |
+| `lib/model.js` | Validation, geometry, search, room assignments and layout copies |
+| `lib/map.js` | Accessible SVG map, label wrapping, selection, zoom, pan and pinch |
+| `lib/studio.js` | Local layout editor |
+| `app.js` / `styles.css` | Navigation, draft handling and adaptive glass interface |
+| `service-worker.js` | Versioned offline cache and app update handling |
+| `tests/` | Automated checks, frozen digitization fixture and screen lab |
+| `LFP 26-27/` | Preserved original floor plans and highlighted room images |
+| `tools/digitization-report.json` | Source-image provenance and wall-match scores for every room |
 
-## Managing room information
+The navigator is a schematic visual reference. It does not provide indoor GPS, verified accessible routes or turn-by-turn directions. Unknown source areas need verification by the school before assigning them.
 
-Edit the `roomData` list in `index.html`. Each entry has a stable `id`, room `name`, `cat`, `bldg`, `floor`, and `img` path. Some also specify `roomNum`, `subCat`, and `tags`.
-
-To avoid broken links or saved-room references, keep existing IDs stable when renaming rooms.
-
-**Note:** This site provides visual floor-plan references, not indoor GPS or automated turn-by-turn directions. Saved rooms and recent history remain in the user's browser (they are not synced across devices). Offline use requires a previous online visit and a supported browser.

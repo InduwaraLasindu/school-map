@@ -1,0 +1,12 @@
+{
+  "id": "./",
+  "name": "Louvre College Campus Navigator",
+  "short_name": "Campus",
+  "description": "Find your classroom. An interactive and editable school map.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eaf1f5",
+  "theme_color": "#126c78",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
