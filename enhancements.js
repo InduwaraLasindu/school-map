@@ -370,7 +370,7 @@
 
   function updateTheme() {
     let theme;
-    try { theme = localStorage.getItem(STORAGE_PREFIX + 'theme'); }
+    try { theme = JSON.parse(localStorage.getItem(STORAGE_PREFIX + 'theme')); }
     catch (_) { theme = null; }
     document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
     $('themeToggle').textContent = theme === 'light' ? '☾' : '☀';
