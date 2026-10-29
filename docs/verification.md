@@ -2,6 +2,8 @@
 
 The release was checked against the original assets, the pure data model, service-worker simulations and the running app in Chrome.
 
+All **43 automated checks** passed locally and in [GitHub CI](https://github.com/InduwaraLasindu/school-map/actions/runs/40862115260). [GitHub Pages deployment](https://github.com/InduwaraLasindu/school-map/actions/runs/40862114422) succeeded. The public URL was opened and verified to show the new interface, 118 rooms and 11 floors; `preview.jpg` captures that deployed page.
+
 ## Automated checks
 
 Run `npm run check` with Node.js 22+. There are no npm runtime or test dependencies.

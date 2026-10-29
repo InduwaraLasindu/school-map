@@ -4,6 +4,8 @@
 
 An editable school map with **118 digitized rooms on 11 floors**, a responsive liquid glass interface, and a dependency-free runtime.
 
+![The deployed campus navigator](docs/preview.jpg)
+
 ## Find a room
 
 Search by name, grade, keyword, facility, building or floor. Select a result or tap the map. Save rooms, share direct links, compare with the original plan, and zoom or pan for detail.
