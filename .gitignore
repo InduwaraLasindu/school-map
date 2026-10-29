@@ -3,3 +3,7 @@ node_modules/
 artifacts/
 *.b64
 __pycache__/
+
+# Private access notes and credentials must never be published.
+*Admin-Access*
+*.private.*

@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const presets=[['Small phone',320,568],['Phone',390,844],['Wide phone',430,932],['Phone landscape',844,390],['Tablet portrait',768,1024],['Tablet landscape',1024,768],['Laptop',1366,768],['Desktop',1440,900],['TV 1080p',1920,1080],['TV 4K',3840,2160],['Ultrawide',2560,1080]];
+const presets=[['Small phone', 320, 568], ['Android 360', 360, 640], ['Android tall', 360, 800], ['iPhone SE', 375, 667], ['iPhone mini', 375, 812], ['iPhone 390', 390, 844], ['iPhone 393', 393, 852], ['iPhone 402', 402, 874], ['Android 412', 412, 915], ['iPhone Plus', 414, 896], ['iPhone Max', 430, 932], ['Large phone', 440, 956], ['Small tablet', 600, 960], ['iPad mini', 744, 1133], ['Tablet 768', 768, 1024], ['iPad Air', 820, 1180], ['iPad Pro', 834, 1194], ['Tablet landscape', 1024, 768], ['Wide tablet', 1180, 820], ['Phone landscape', 844, 390], ['Wide landscape', 932, 430], ['Laptop', 1366, 768], ['TV 1080p', 1920, 1080], ['TV 4K', 3840, 2160], ['Ultrawide', 2560, 1080]];
 for(const [name,w,h] of presets){const button=document.createElement('button');button.textContent=name;button.type='button';button.onclick=()=>{$('width').value=w;$('height').value=h;resize();};$('presets').append(button);}
 function resize(){
   const width=Number($('width').value),height=Number($('height').value),scale=Math.min(1,(innerWidth-40)/width,Math.max(350,innerHeight-290)/height);
@@ -17,3 +17,6 @@ function report(){
   $('results').textContent=JSON.stringify(value,null,2);return value;
 }
 $('sizeForm').onsubmit=e=>{e.preventDefault();resize();};$('report').onclick=report;$('preview').onload=()=>{resize();report();};addEventListener('resize',resize);resize();
+
+import {runBrowserChecks} from './browser-checks.js';
+$('runChecks').onclick=()=>runBrowserChecks({presets,resize,report});
