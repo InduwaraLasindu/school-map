@@ -3294,7 +3294,7 @@
             },
             {
               "id": "m7-structure-8",
-              "label": "Unlabelled space",
+              "label": "Staircase",
               "kind": "unassigned",
               "points": [
                 [
@@ -3415,6 +3415,14 @@
               "point": [
                 365,
                 969
+              ]
+            },
+            {
+              "id": "marker-9d77b8fd-adef-494d-b945-70f76428a6a9",
+              "label": "Entrance to auditorium",
+              "point": [
+                775,
+                525
               ]
             }
           ]
