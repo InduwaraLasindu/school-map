@@ -3317,8 +3317,8 @@
             },
             {
               "id": "m7-structure-22",
-              "label": "Unlabelled space",
-              "kind": "unassigned",
+              "label": "Open Area",
+              "kind": "room",
               "points": [
                 [
                   614,
